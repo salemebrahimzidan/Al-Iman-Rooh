@@ -31,6 +31,7 @@ void i18n.use(initReactI18next).init({
     'hotels',
     'offers',
     'contact',
+    'about',
   ],
   interpolation: { escapeValue: false },
 })

@@ -1,126 +1,115 @@
 {
   "hero": {
-    "eyebrow": "Rouh Al Eman",
-    "title": "Your spiritual journey starts here",
-    "subtitle": "We provide the best Hajj, Umrah, travel, and tourism services\nwith competitive prices, quality standards, and comfort.",
-    "features": {
-      "support": "24/7 support",
-      "trusted": "Trusted service",
-      "premium": "Competitive prices"
-    },
-    "primaryCta": "Explore offers",
+    "eyebrow": "Al Eman Rooh",
+    "titleLead": "Your spiritual journey",
+    "titleAccent": "starts from here",
+    "subtitle": "Premium Hajj, Umrah, and curated travel—crafted with transparent pricing, trusted partners on the ground, and concierge-level support for a calm, elevated pilgrimage experience.",
+    "primaryCta": "Book now",
     "secondaryCta": "Contact us"
   },
-  "servicesRow": {
-    "flights": "Flights",
-    "hajj": "Hajj",
-    "umrah": "Umrah",
-    "tourism": "Tourism",
-    "hotels": "Hotels",
-    "offers": "Offers"
-  },
   "searchCard": {
-    "title": "Search your next trip",
-    "tabs": {
-      "flights": "Flights",
-      "hotels": "Hotels",
-      "packages": "Packages"
-    },
-    "tripType": {
-      "roundTrip": "Round trip",
-      "oneWay": "One way",
-      "multiCity": "Multi-city"
-    },
-    "fields": {
-      "from": "From",
-      "to": "To",
-      "depart": "Departure",
-      "return": "Return",
-      "guests": "Guests",
-      "city": "City"
-    },
-    "placeholder": {
-      "from": "e.g., Jeddah",
-      "to": "e.g., Madinah",
-      "city": "e.g., Makkah"
-    },
-    "action": "Search"
-  },
-  "previews": {
-    "hajj": {
-      "title": "Hajj packages",
-      "subtitle": "Curated packages with trusted support."
-    },
-    "umrah": {
-      "title": "Umrah packages",
-      "subtitle": "Flexible plans for every traveler."
-    }
-  },
-  "tourism": {
-    "title": "Tourism destinations",
-    "subtitle": "Beautiful places, guided experiences."
-  },
-  "offers": {
-    "title": "Featured offers",
-    "subtitle": "Seasonal deals and limited-time specials."
-  },
-  "offersBanner": {
-    "title": "Special offers",
-    "subtitle": "Up to",
-    "discount": "30%",
-    "cta": "Discover offers"
-  },
-  "packagesStrip": {
-    "hajj": {
-      "title": "Premium Hajj programs",
-      "items": {
-        "0": { "badge": "15 days", "title": "Economy program", "price": "8,950 SAR" },
-        "1": { "badge": "14 days", "title": "Egypt program", "price": "12,950 SAR" },
-        "2": { "badge": "10 days", "title": "Premium program", "price": "18,950 SAR" }
-      }
-    },
-    "umrah": {
-      "title": "Premium Umrah programs",
-      "items": {
-        "0": { "badge": "7 days", "title": "Economy Umrah", "price": "1,850 SAR" },
-        "1": { "badge": "10 days", "title": "Premium Umrah", "price": "2,850 SAR" },
-        "2": { "badge": "14 days", "title": "Golden Umrah", "price": "4,250 SAR" }
-      }
+    "title": "Find your perfect program",
+    "programType": "Program type",
+    "departureFrom": "Departure from",
+    "departureDate": "Departure date",
+    "guests": "Travelers",
+    "searchNow": "Search now",
+    "peopleOption": "{{count}} people",
+    "options": {
+      "umrah": "Umrah",
+      "hajj": "Hajj",
+      "cairo": "Cairo",
+      "jeddah": "Jeddah",
+      "riyadh": "Riyadh"
     }
   },
   "valueProps": {
     "items": {
-      "0": { "title": "Multi-destination trips", "subtitle": "Smart planning for your itinerary." },
-      "1": { "title": "Secure bookings", "subtitle": "Trusted partners and clear policies." },
-      "2": { "title": "Best prices", "subtitle": "Great value across seasons." },
-      "3": { "title": "24/7 support", "subtitle": "We are with you all the way." }
+      "0": { "title": "Competitive prices", "subtitle": "Transparent packages built around real value—not hidden fees." },
+      "1": { "title": "Integrated services", "subtitle": "Flights, hotels, transport, and guidance orchestrated in one flow." },
+      "2": { "title": "Specialized guides", "subtitle": "Experienced teams focused on comfort, clarity, and care." },
+      "3": { "title": "24/7 support", "subtitle": "Reachable before travel, in the Haram cities, and after you return." }
     }
   },
-  "cards": {
-    "hajj": {
-      "title": "Premium Hajj programs",
-      "cta": "View packages"
-    },
-    "umrah": {
-      "title": "Premium Umrah programs",
-      "cta": "View packages"
-    },
-    "hotels": {
-      "title": "Featured hotels",
-      "cta": "Explore hotels"
-    },
-    "tourism": {
-      "title": "Tourism highlights",
-      "cta": "Explore destinations"
+  "featuredPrograms": {
+    "title": "Featured programs",
+    "subtitle": "Hand-picked itineraries with premium hotels and direct flights where available.",
+    "viewAll": "View all programs",
+    "viewDetails": "View details",
+    "items": {
+      "0": {
+        "badge": "14 days",
+        "title": "Premium Umrah",
+        "hotel": "5-star hotel",
+        "flight": "Direct flight",
+        "price": "5,850 SAR"
+      },
+      "1": {
+        "badge": "7 days",
+        "title": "Executive Umrah",
+        "hotel": "5-star hotel",
+        "flight": "Direct flight",
+        "price": "3,290 SAR"
+      },
+      "2": {
+        "badge": "10 days",
+        "title": "Family Umrah",
+        "hotel": "4-star hotel",
+        "flight": "Direct flight",
+        "price": "2,190 SAR"
+      },
+      "3": {
+        "badge": "12 days",
+        "title": "Golden Madinah first",
+        "hotel": "5-star hotel",
+        "flight": "Direct flight",
+        "price": "4,450 SAR"
+      }
     }
   },
-  "testimonials": {
-    "title": "Testimonials",
-    "subtitle": "Stories from travelers who trusted us."
+  "stats": {
+    "countries": { "value": "+10", "label": "Countries covered" },
+    "satisfaction": { "value": "98%", "label": "Customer satisfaction" },
+    "experience": { "value": "+15", "label": "Years of experience" },
+    "pilgrims": { "value": "+25,000", "label": "Pilgrims served" }
+  },
+  "whyUs": {
+    "titleGold": "Why choose Al Eman Rooh?",
+    "titleGreen": "We obsess over every detail of your journey.",
+    "intro": "From hotel proximity and transport timing to paperwork and on-site assistance, we design each step so you can focus on worship—with confidence and peace of mind.",
+    "videoCta": "Watch video",
+    "videoAria": "Play introductory video",
+    "items": {
+      "0": { "title": "Premium hotels", "subtitle": "Carefully selected stays near the Haram with comfort-first standards." },
+      "1": { "title": "Diverse programs", "subtitle": "Economy to premium—flexible durations, routes, and add-ons." },
+      "2": { "title": "Modern transport", "subtitle": "Punctual, comfortable vehicles and experienced drivers." },
+      "3": { "title": "Easy procedures", "subtitle": "Clear documentation support and step-by-step guidance." }
+    }
+  },
+  "destinations": {
+    "eyebrow": "Destinations",
+    "title": "Closer to the sacred",
+    "subtitle": "Thoughtfully planned routes across the Kingdom—so your time in worship stays uninterrupted.",
+    "cta": "Explore destinations",
+    "items": {
+      "0": { "name": "Makkah", "desc": "Proximity-led stays and smooth Haram access." },
+      "1": { "name": "Madinah", "desc": "Serene nights near Al-Masjid an-Nabawi." },
+      "2": { "name": "Jeddah", "desc": "Gateway arrivals with streamlined transfers." },
+      "3": { "name": "Islamic sites", "desc": "Curated ziyarat with knowledgeable guides." }
+    }
+  },
+  "promo": {
+    "title": "Plan with advisors who understand pilgrimage travel",
+    "subtitle": "Tell us your dates, city, and preferences—we’ll return tailored options within one business day.",
+    "primary": "Start planning",
+    "secondary": "Call us now"
   },
   "contactCta": {
-    "title": "Ready to plan your journey?",
-    "subtitle": "Send us your preferences and we will prepare options.",
-    "action": "Get in touch"
+    "title": "Ready to begin?",
+    "subtitle": "Share your preferences and receive curated itineraries—no obligation.",
+    "action": "Contact us"
+  },
+  "whatsapp": {
+    "label": "WhatsApp us"
   }
 }
