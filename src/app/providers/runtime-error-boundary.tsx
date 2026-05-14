@@ -24,7 +24,7 @@ export class RuntimeErrorBoundary extends React.Component<Props, State> {
 
   render() {
     if (this.state.error) {
-      const title = this.props.appName ?? 'Rouh Al Eman'
+      const title = this.props.appName ?? 'Al Eman Rooh'
       return (
         <div
           style={{

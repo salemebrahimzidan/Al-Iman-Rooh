@@ -1,22 +1,12 @@
 import { X } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { MAIN_NAV } from '../nav-items'
 
 type Props = {
   open: boolean
   onClose: () => void
 }
-
-const navItems = [
-  { to: '/', key: 'nav.home' },
-  { to: '/flights', key: 'nav.flights' },
-  { to: '/hajj', key: 'nav.hajj' },
-  { to: '/umrah', key: 'nav.umrah' },
-  { to: '/tourism', key: 'nav.tourism' },
-  { to: '/hotels', key: 'nav.hotels' },
-  { to: '/offers', key: 'nav.offers' },
-  { to: '/contact', key: 'nav.contact' },
-]
 
 export function MobileMenu({ open, onClose }: Props) {
   const { t } = useTranslation('shared')
@@ -31,14 +21,12 @@ export function MobileMenu({ open, onClose }: Props) {
         aria-label={t('ui.closeMenu')}
       />
       <div className="absolute inset-x-0 top-0 mx-auto w-full max-w-md rounded-b-3xl bg-white p-4 shadow-(--ra-shadow)">
-        <div className="flex items-center justify-between">
-          <div className="text-sm font-semibold text-(--ra-black)">
-            {t('brand.nameShort')}
-          </div>
+        <div className="flex items-center justify-between gap-3">
+          <div className="min-w-0 text-sm font-bold text-(--ra-green)">{t('brand.nameShort')}</div>
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-(--ra-border) hover:bg-gray-50"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-(--ra-border) hover:bg-gray-50"
             aria-label={t('ui.closeMenu')}
           >
             <X className="h-5 w-5" aria-hidden="true" />
@@ -46,17 +34,18 @@ export function MobileMenu({ open, onClose }: Props) {
         </div>
 
         <nav className="mt-4 grid gap-1">
-          {navItems.map((item) => (
+          {MAIN_NAV.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
+              end={item.to === '/'}
               onClick={onClose}
               className={({ isActive }) =>
                 [
-                  'rounded-2xl px-3 py-3 text-sm font-medium',
+                  'rounded-2xl border-b-2 px-3 py-3 text-sm font-semibold',
                   isActive
-                    ? 'bg-(--ra-green) text-white'
-                    : 'text-(--ra-black) hover:bg-gray-50',
+                    ? 'border-(--ra-gold) bg-(--ra-gold)/10 text-(--ra-green)'
+                    : 'border-transparent text-(--ra-black) hover:bg-gray-50',
                 ].join(' ')
               }
             >
@@ -68,4 +57,3 @@ export function MobileMenu({ open, onClose }: Props) {
     </div>
   )
 }
-

@@ -25,6 +25,9 @@ import offersAr from '../../pages/offers/locales/ar.json'
 import contactEn from '../../pages/contact/locales/en.json'
 import contactAr from '../../pages/contact/locales/ar.json'
 
+import aboutEn from '../../pages/about/locales/en.json'
+import aboutAr from '../../pages/about/locales/ar.json'
+
 export const resources = {
   en: {
     shared: sharedEn,
@@ -36,6 +39,7 @@ export const resources = {
     hotels: hotelsEn,
     offers: offersEn,
     contact: contactEn,
+    about: aboutEn,
   },
   ar: {
     shared: sharedAr,
@@ -47,6 +51,7 @@ export const resources = {
     hotels: hotelsAr,
     offers: offersAr,
     contact: contactAr,
+    about: aboutAr,
   },
 } as const
 

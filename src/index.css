@@ -1,17 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --ra-green: #0b6b3a;
-  --ra-green-2: #0f8550;
-  --ra-gold: #c8a24a;
+  --ra-green: #063327;
+  --ra-green-2: #0b4536;
+  --ra-gold: #c6a04a;
+  --ra-gold-soft: rgba(198, 160, 74, 0.18);
   --ra-black: #0b0f14;
   --ra-sky: #2aa9e0;
-  --ra-bg: #f4f6f8;
+  --ra-bg: #f6f7f9;
   --ra-surface: #ffffff;
-  --ra-muted: #6b7280;
-  --ra-border: #e6e8ee;
-  --ra-ring: rgba(11, 107, 58, 0.32);
-  --ra-shadow: 0 14px 40px rgba(2, 6, 23, 0.10);
+  --ra-muted: #5c6678;
+  --ra-border: #e6e8ef;
+  --ra-ring: rgba(6, 51, 39, 0.28);
+  --ra-shadow: 0 22px 55px rgba(2, 6, 23, 0.1);
+  --ra-glass: rgba(255, 255, 255, 0.78);
+  --ra-glass-border: rgba(255, 255, 255, 0.55);
 }
 
 html,
@@ -24,11 +27,13 @@ body {
   margin: 0;
   background: var(--ra-bg);
   color: var(--ra-black);
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+  font-family: "Noto Sans", "Noto Sans Arabic", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: rgba(201, 162, 39, 0.22);
+  background: rgba(198, 160, 74, 0.25);
 }
 
 @media (prefers-reduced-motion: reduce) {

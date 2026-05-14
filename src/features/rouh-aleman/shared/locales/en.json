@@ -1,7 +1,8 @@
 {
   "brand": {
-    "name": "Rouh Al Eman Travel & Tourism",
-    "nameShort": "Rouh Al Eman",
+    "name": "Al Eman Rooh Travel & Tourism",
+    "nameShort": "Al Eman Rooh",
+    "nameLatinUpper": "AL EMAN ROOH",
     "mark": "RA"
   },
   "company": {
@@ -12,13 +13,17 @@
   },
   "nav": {
     "home": "Home",
-    "flights": "Flights",
-    "hajj": "Hajj",
+    "programs": "Our programs",
+    "services": "Our services",
     "umrah": "Umrah",
+    "hajj": "Hajj",
+    "destinations": "Destinations",
+    "about": "About the company",
+    "contact": "Contact us",
+    "flights": "Flights",
     "tourism": "Tourism",
     "hotels": "Hotels",
-    "offers": "Offers",
-    "contact": "Contact"
+    "offers": "Offers"
   },
   "topBar": {
     "tagline": "Premium Islamic travel services",

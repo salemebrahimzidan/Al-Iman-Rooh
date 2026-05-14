@@ -1,7 +1,8 @@
 {
   "brand": {
     "name": "وكالة الإيمان روح للسفر والسياحة",
-    "nameShort": "روح الإيمان",
+    "nameShort": "الإيمان روح",
+    "nameLatinUpper": "AL EMAN ROOH",
     "mark": "رأ"
   },
   "company": {
@@ -12,13 +13,17 @@
   },
   "nav": {
     "home": "الرئيسية",
-    "flights": "الطيران",
-    "hajj": "الحج",
+    "programs": "برامجنا",
+    "services": "خدماتنا",
     "umrah": "العمرة",
+    "hajj": "الحج",
+    "destinations": "الوجهات",
+    "about": "عن الشركة",
+    "contact": "تواصل معنا",
+    "flights": "الطيران",
     "tourism": "السياحة",
     "hotels": "الفنادق",
-    "offers": "العروض",
-    "contact": "تواصل معنا"
+    "offers": "العروض"
   },
   "topBar": {
     "tagline": "خدمات سفر إسلامية راقية",
