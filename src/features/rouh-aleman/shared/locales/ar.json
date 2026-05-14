@@ -1,0 +1,56 @@
+{
+  "brand": {
+    "name": "وكالة الإيمان روح للسفر والسياحة",
+    "nameShort": "روح الإيمان",
+    "mark": "رأ"
+  },
+  "company": {
+    "phone": "+966 50 123 4567",
+    "email": "info@rouhaleman.com",
+    "address": "—",
+    "hours": "—"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "flights": "الطيران",
+    "hajj": "الحج",
+    "umrah": "العمرة",
+    "tourism": "السياحة",
+    "hotels": "الفنادق",
+    "offers": "العروض",
+    "contact": "تواصل معنا"
+  },
+  "topBar": {
+    "tagline": "خدمات سفر إسلامية راقية",
+    "support": "الدعم",
+    "phoneLabel": "اتصل",
+    "emailLabel": "البريد"
+  },
+  "lang": {
+    "label": "اللغة",
+    "en": "English",
+    "ar": "العربية"
+  },
+  "ui": {
+    "openMenu": "فتح القائمة",
+    "closeMenu": "إغلاق القائمة",
+    "learnMore": "اعرف المزيد",
+    "viewAll": "عرض الكل",
+    "search": "بحث",
+    "submit": "إرسال",
+    "sending": "جارٍ الإرسال",
+    "success": "تم الإرسال بنجاح",
+    "error": "حدث خطأ ما"
+  },
+  "navbar": {
+    "bookNow": "احجز الآن",
+    "account": "الحساب"
+  },
+  "footer": {
+    "headline": "سافر بثقة",
+    "subheadline": "الحج والعمرة والطيران والفنادق والسياحة وعروض مختارة.",
+    "rights": "جميع الحقوق محفوظة.",
+    "quickLinks": "روابط سريعة",
+    "contact": "التواصل"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Contact",
+  "subtitle": "Tell us what you need and we’ll respond.",
+  "form": {
+    "title": "Contact form",
+    "name": "Full name",
+    "phone": "Phone",
+    "email": "Email",
+    "message": "Message",
+    "action": "Send message"
+  },
+  "info": {
+    "title": "Company info",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "hours": "Working hours"
+  },
+  "map": {
+    "title": "Map",
+    "placeholder": "Map placeholder"
+  }
+}

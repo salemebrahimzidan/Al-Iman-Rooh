@@ -1,0 +1,20 @@
+{
+  "title": "Umrah",
+  "subtitle": "Packages, visa services, hotels, and guidance.",
+  "packages": {
+    "title": "Umrah packages",
+    "subtitle": "Flexible plans tailored to you."
+  },
+  "visa": {
+    "title": "Visa services",
+    "subtitle": "Support across the journey steps."
+  },
+  "hotels": {
+    "title": "Hotels",
+    "subtitle": "Handpicked stays for comfort."
+  },
+  "faq": {
+    "title": "FAQ",
+    "subtitle": "Answers to common questions."
+  }
+}

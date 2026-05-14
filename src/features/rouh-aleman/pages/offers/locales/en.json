@@ -1,0 +1,15 @@
+{
+  "title": "Offers",
+  "subtitle": "Seasonal specials and curated deals.",
+  "seasonal": {
+    "title": "Seasonal offers",
+    "subtitle": "Limited-time packages."
+  },
+  "cards": {
+    "title": "All offers",
+    "subtitle": "Discover what suits your trip."
+  },
+  "card": {
+    "cta": "Request offer"
+  }
+}

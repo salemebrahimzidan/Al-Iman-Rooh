@@ -1,0 +1,19 @@
+{
+  "title": "Tourism",
+  "subtitle": "Destinations, filters, and offers.",
+  "filters": {
+    "title": "Filters",
+    "search": "Search destination",
+    "region": "Region",
+    "budget": "Budget",
+    "apply": "Apply filters"
+  },
+  "destinations": {
+    "title": "Destinations",
+    "subtitle": "Explore curated locations."
+  },
+  "offers": {
+    "title": "Tourism offers",
+    "subtitle": "Special deals for selected destinations."
+  }
+}

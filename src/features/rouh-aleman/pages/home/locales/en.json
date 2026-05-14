@@ -1,0 +1,126 @@
+{
+  "hero": {
+    "eyebrow": "Rouh Al Eman",
+    "title": "Your spiritual journey starts here",
+    "subtitle": "We provide the best Hajj, Umrah, travel, and tourism services\nwith competitive prices, quality standards, and comfort.",
+    "features": {
+      "support": "24/7 support",
+      "trusted": "Trusted service",
+      "premium": "Competitive prices"
+    },
+    "primaryCta": "Explore offers",
+    "secondaryCta": "Contact us"
+  },
+  "servicesRow": {
+    "flights": "Flights",
+    "hajj": "Hajj",
+    "umrah": "Umrah",
+    "tourism": "Tourism",
+    "hotels": "Hotels",
+    "offers": "Offers"
+  },
+  "searchCard": {
+    "title": "Search your next trip",
+    "tabs": {
+      "flights": "Flights",
+      "hotels": "Hotels",
+      "packages": "Packages"
+    },
+    "tripType": {
+      "roundTrip": "Round trip",
+      "oneWay": "One way",
+      "multiCity": "Multi-city"
+    },
+    "fields": {
+      "from": "From",
+      "to": "To",
+      "depart": "Departure",
+      "return": "Return",
+      "guests": "Guests",
+      "city": "City"
+    },
+    "placeholder": {
+      "from": "e.g., Jeddah",
+      "to": "e.g., Madinah",
+      "city": "e.g., Makkah"
+    },
+    "action": "Search"
+  },
+  "previews": {
+    "hajj": {
+      "title": "Hajj packages",
+      "subtitle": "Curated packages with trusted support."
+    },
+    "umrah": {
+      "title": "Umrah packages",
+      "subtitle": "Flexible plans for every traveler."
+    }
+  },
+  "tourism": {
+    "title": "Tourism destinations",
+    "subtitle": "Beautiful places, guided experiences."
+  },
+  "offers": {
+    "title": "Featured offers",
+    "subtitle": "Seasonal deals and limited-time specials."
+  },
+  "offersBanner": {
+    "title": "Special offers",
+    "subtitle": "Up to",
+    "discount": "30%",
+    "cta": "Discover offers"
+  },
+  "packagesStrip": {
+    "hajj": {
+      "title": "Premium Hajj programs",
+      "items": {
+        "0": { "badge": "15 days", "title": "Economy program", "price": "8,950 SAR" },
+        "1": { "badge": "14 days", "title": "Egypt program", "price": "12,950 SAR" },
+        "2": { "badge": "10 days", "title": "Premium program", "price": "18,950 SAR" }
+      }
+    },
+    "umrah": {
+      "title": "Premium Umrah programs",
+      "items": {
+        "0": { "badge": "7 days", "title": "Economy Umrah", "price": "1,850 SAR" },
+        "1": { "badge": "10 days", "title": "Premium Umrah", "price": "2,850 SAR" },
+        "2": { "badge": "14 days", "title": "Golden Umrah", "price": "4,250 SAR" }
+      }
+    }
+  },
+  "valueProps": {
+    "items": {
+      "0": { "title": "Multi-destination trips", "subtitle": "Smart planning for your itinerary." },
+      "1": { "title": "Secure bookings", "subtitle": "Trusted partners and clear policies." },
+      "2": { "title": "Best prices", "subtitle": "Great value across seasons." },
+      "3": { "title": "24/7 support", "subtitle": "We are with you all the way." }
+    }
+  },
+  "cards": {
+    "hajj": {
+      "title": "Premium Hajj programs",
+      "cta": "View packages"
+    },
+    "umrah": {
+      "title": "Premium Umrah programs",
+      "cta": "View packages"
+    },
+    "hotels": {
+      "title": "Featured hotels",
+      "cta": "Explore hotels"
+    },
+    "tourism": {
+      "title": "Tourism highlights",
+      "cta": "Explore destinations"
+    }
+  },
+  "testimonials": {
+    "title": "Testimonials",
+    "subtitle": "Stories from travelers who trusted us."
+  },
+  "contactCta": {
+    "title": "Ready to plan your journey?",
+    "subtitle": "Send us your preferences and we will prepare options.",
+    "action": "Get in touch"
+  }
+}

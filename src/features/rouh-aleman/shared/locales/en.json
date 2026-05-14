@@ -1,0 +1,56 @@
+{
+  "brand": {
+    "name": "Rouh Al Eman Travel & Tourism",
+    "nameShort": "Rouh Al Eman",
+    "mark": "RA"
+  },
+  "company": {
+    "phone": "+966 50 123 4567",
+    "email": "info@rouhaleman.com",
+    "address": "—",
+    "hours": "—"
+  },
+  "nav": {
+    "home": "Home",
+    "flights": "Flights",
+    "hajj": "Hajj",
+    "umrah": "Umrah",
+    "tourism": "Tourism",
+    "hotels": "Hotels",
+    "offers": "Offers",
+    "contact": "Contact"
+  },
+  "topBar": {
+    "tagline": "Premium Islamic travel services",
+    "support": "Support",
+    "phoneLabel": "Call",
+    "emailLabel": "Email"
+  },
+  "lang": {
+    "label": "Language",
+    "en": "English",
+    "ar": "Arabic"
+  },
+  "ui": {
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "learnMore": "Learn more",
+    "viewAll": "View all",
+    "search": "Search",
+    "submit": "Submit",
+    "sending": "Sending",
+    "success": "Sent successfully",
+    "error": "Something went wrong"
+  },
+  "navbar": {
+    "bookNow": "Book now",
+    "account": "Account"
+  },
+  "footer": {
+    "headline": "Travel with confidence",
+    "subheadline": "Hajj, Umrah, flights, hotels, tourism, and curated offers.",
+    "rights": "All rights reserved.",
+    "quickLinks": "Quick links",
+    "contact": "Contact"
+  }
+}

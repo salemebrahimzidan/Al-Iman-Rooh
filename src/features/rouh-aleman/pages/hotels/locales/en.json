@@ -1,0 +1,16 @@
+{
+  "title": "Hotels",
+  "subtitle": "Browse stays with premium comfort.",
+  "featured": {
+    "title": "Featured hotels",
+    "subtitle": "Handpicked highlights."
+  },
+  "grid": {
+    "title": "Hotels",
+    "subtitle": "Find the right stay."
+  },
+  "card": {
+    "perNight": "per night",
+    "view": "View details"
+  }
+}

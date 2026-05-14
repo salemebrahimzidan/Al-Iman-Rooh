@@ -1,0 +1,20 @@
+{
+  "title": "Hajj",
+  "subtitle": "Packages, steps, hotels, and guidance.",
+  "packages": {
+    "title": "Hajj packages",
+    "subtitle": "Premium options prepared for your journey."
+  },
+  "steps": {
+    "title": "Hajj steps",
+    "subtitle": "A clear overview for planning."
+  },
+  "hotels": {
+    "title": "Hotels",
+    "subtitle": "Comfortable stays close to key locations."
+  },
+  "faq": {
+    "title": "FAQ",
+    "subtitle": "Common questions answered."
+  }
+}

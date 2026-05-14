@@ -1,0 +1,28 @@
+{
+  "title": "Flights",
+  "subtitle": "Search and compare available flights.",
+  "search": {
+    "title": "Flight search",
+    "from": "From",
+    "to": "To",
+    "depart": "Departure",
+    "return": "Return",
+    "passengers": "Passengers",
+    "class": "Class",
+    "action": "Search flights"
+  },
+  "results": {
+    "title": "Available flights",
+    "empty": "No flights match your search."
+  },
+  "card": {
+    "stops": "Stops",
+    "direct": "Direct",
+    "book": "Request booking",
+    "price": "Price"
+  },
+  "currency": {
+    "code": "USD",
+    "symbol": "$"
+  }
+}
