@@ -1,6 +1,7 @@
 import { X } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { CompanyLogo } from './CompanyLogo'
 import { MAIN_NAV } from '../nav-items'
 
 type Props = {
@@ -20,9 +21,9 @@ export function MobileMenu({ open, onClose }: Props) {
         className="absolute inset-0 bg-black/30"
         aria-label={t('ui.closeMenu')}
       />
-      <div className="absolute inset-x-0 top-0 mx-auto w-full max-w-md rounded-b-3xl bg-white p-4 shadow-(--ra-shadow)">
-        <div className="flex items-center justify-between gap-3">
-          <div className="min-w-0 text-sm font-bold text-(--ra-green)">{t('brand.nameShort')}</div>
+      <div className="absolute inset-x-0 top-0 mx-auto w-full max-w-md rounded-b-3xl bg-white p-5 shadow-(--ra-shadow)">
+        <div className="flex items-start justify-between gap-3">
+          <CompanyLogo />
           <button
             type="button"
             onClick={onClose}
