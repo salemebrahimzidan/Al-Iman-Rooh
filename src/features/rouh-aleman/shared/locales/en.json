@@ -19,11 +19,14 @@
     "hajj": "Hajj",
     "destinations": "Destinations",
     "about": "About the company",
+    "aboutShort": "About",
     "contact": "Contact us",
+    "contactShort": "Contact",
     "flights": "Flights",
     "tourism": "Tourism",
     "hotels": "Hotels",
-    "offers": "Offers"
+    "offers": "Offers",
+    "more": "More"
   },
   "topBar": {
     "tagline": "Premium Islamic travel services",
@@ -38,6 +41,7 @@
   },
   "ui": {
     "openMenu": "Open menu",
+    "menuTitle": "Menu",
     "closeMenu": "Close menu",
     "learnMore": "Learn more",
     "viewAll": "View all",

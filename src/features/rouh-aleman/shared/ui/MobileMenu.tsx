@@ -1,8 +1,8 @@
+import { useEffect } from 'react'
 import { X } from 'lucide-react'
-import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { CompanyLogo } from './CompanyLogo'
-import { MAIN_NAV } from '../nav-items'
+import { MainNavLinks } from './MainNavLinks'
 
 type Props = {
   open: boolean
@@ -11,48 +11,50 @@ type Props = {
 
 export function MobileMenu({ open, onClose }: Props) {
   const { t } = useTranslation('shared')
+
+  useEffect(() => {
+    if (!open) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = prev
+    }
+  }, [open])
+
+  useEffect(() => {
+    if (!open) return
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [open, onClose])
+
   if (!open) return null
 
   return (
-    <div className="fixed inset-0 z-50 md:hidden" role="dialog" aria-modal="true">
+    <div className="fixed inset-0 z-60 md:hidden" role="dialog" aria-modal="true" aria-label={t('ui.menuTitle')}>
       <button
         type="button"
         onClick={onClose}
-        className="absolute inset-0 bg-black/30"
+        className="absolute inset-0 bg-black/35 backdrop-blur-[2px]"
         aria-label={t('ui.closeMenu')}
       />
-      <div className="absolute inset-x-0 top-0 mx-auto w-full max-w-md rounded-b-3xl bg-white p-5 shadow-(--ra-shadow)">
+      <div className="absolute inset-x-0 top-0 mx-auto w-full max-w-md rounded-b-3xl border border-(--ra-border) bg-white p-5 shadow-(--ra-shadow)">
         <div className="flex items-start justify-between gap-3">
           <CompanyLogo />
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-(--ra-border) hover:bg-gray-50"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-(--ra-green) transition hover:bg-(--ra-bg)"
             aria-label={t('ui.closeMenu')}
           >
             <X className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
 
-        <nav className="mt-4 grid gap-1">
-          {MAIN_NAV.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.to === '/'}
-              onClick={onClose}
-              className={({ isActive }) =>
-                [
-                  'rounded-2xl border-b-2 px-3 py-3 text-sm font-semibold',
-                  isActive
-                    ? 'border-(--ra-gold) bg-(--ra-gold)/10 text-(--ra-green)'
-                    : 'border-transparent text-(--ra-black) hover:bg-gray-50',
-                ].join(' ')
-              }
-            >
-              {t(item.key)}
-            </NavLink>
-          ))}
+        <nav className="mt-4 grid max-h-[min(70dvh,28rem)] gap-0.5 overflow-y-auto" aria-label="Main">
+          <MainNavLinks onNavigate={onClose} />
         </nav>
       </div>
     </div>
