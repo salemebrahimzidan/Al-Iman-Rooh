@@ -3,8 +3,7 @@ import { Landmark } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-/** Square crop of the emblem — 720×720 from the 1024×1024 master, stays sharp in the navbar. */
-const LOGO_SRC = '/images/brand/logo-icon.png'
+const LOGO_SRC = '/images/brand/logo.png'
 
 type Props = {
   compact?: boolean
@@ -23,7 +22,10 @@ export function CompanyLogo({ compact, className }: Props) {
   return (
     <Link
       to="/"
-      className={['inline-flex shrink-0 items-center rounded-full outline-none ring-(--ra-ring) transition-transform duration-200 hover:scale-[1.02] focus-visible:ring-2', className]
+      className={[
+        'inline-flex shrink-0 items-center rounded-full outline-none ring-(--ra-ring) transition-transform duration-200 hover:scale-[1.02] focus-visible:ring-2',
+        className,
+      ]
         .filter(Boolean)
         .join(' ')}
       aria-label={t('brand.name')}
@@ -42,16 +44,8 @@ export function CompanyLogo({ compact, className }: Props) {
             height={size}
             fetchPriority="high"
             decoding="async"
-            className="h-full w-full object-contain"
-            onError={(e) => {
-              const img = e.currentTarget
-              if (!img.dataset.fallback) {
-                img.dataset.fallback = '1'
-                img.src = '/images/brand/logo.png'
-                return
-              }
-              setImgFailed(true)
-            }}
+            className="h-full w-full object-cover object-[center_28%]"
+            onError={() => setImgFailed(true)}
           />
         ) : (
           <span className="flex h-full w-full items-center justify-center bg-white">

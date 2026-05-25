@@ -19,11 +19,14 @@
     "hajj": "الحج",
     "destinations": "الوجهات",
     "about": "عن الشركة",
+    "aboutShort": "عنّا",
     "contact": "تواصل معنا",
+    "contactShort": "تواصل",
     "flights": "الطيران",
     "tourism": "السياحة",
     "hotels": "الفنادق",
-    "offers": "العروض"
+    "offers": "العروض",
+    "more": "المزيد"
   },
   "topBar": {
     "tagline": "خدمات سفر إسلامية راقية",
@@ -38,6 +41,7 @@
   },
   "ui": {
     "openMenu": "فتح القائمة",
+    "menuTitle": "القائمة",
     "closeMenu": "إغلاق القائمة",
     "learnMore": "اعرف المزيد",
     "viewAll": "عرض الكل",
