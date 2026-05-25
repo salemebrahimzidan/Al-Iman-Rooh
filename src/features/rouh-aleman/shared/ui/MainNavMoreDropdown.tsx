@@ -1,10 +1,17 @@
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { ChevronDown } from 'lucide-react'
+import {
+  Building2,
+  ChevronDown,
+  Compass,
+  Info,
+  Mail,
+  type LucideIcon,
+} from 'lucide-react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { isMainNavMoreActive, MAIN_NAV_MORE, resolveMainNavLabelKey } from '../nav-items'
-import { mainNavTabLinkClass } from './main-nav-tab-styles'
+import { mainNavDropdownLinkClass, mainNavTabLinkClass } from './main-nav-tab-styles'
 
 type Props = {
   compactLabels?: boolean
@@ -16,9 +23,16 @@ type MenuPosition = {
   right?: number
 }
 
-const MENU_MIN_WIDTH = 176
+const MENU_MIN_WIDTH = 200
 const VIEWPORT_PAD = 8
-const MENU_GAP = 6
+const MENU_GAP = 8
+
+const MORE_NAV_ICONS: Record<string, LucideIcon> = {
+  '/hotels': Building2,
+  '/tourism': Compass,
+  '/about': Info,
+  '/contact': Mail,
+}
 
 function computeMenuPosition(button: HTMLElement, menuWidth: number): MenuPosition {
   const rect = button.getBoundingClientRect()
@@ -26,7 +40,6 @@ function computeMenuPosition(button: HTMLElement, menuWidth: number): MenuPositi
   const isRtl = document.documentElement.dir === 'rtl'
 
   if (isRtl) {
-    // RTL: anchor to button's inline-start (physical right), menu opens toward the right
     let right: number | undefined = window.innerWidth - rect.right
     let left: number | undefined
 
@@ -38,7 +51,6 @@ function computeMenuPosition(button: HTMLElement, menuWidth: number): MenuPositi
     return { top, left, right }
   }
 
-  // LTR: anchor to button's inline-end (physical right), menu opens toward the left
   let right: number | undefined = window.innerWidth - rect.right
   let left: number | undefined
 
@@ -133,27 +145,29 @@ export function MainNavMoreDropdown({ compactLabels }: Props) {
               right: menuPos.right,
               zIndex: 100,
             }}
-            className="min-w-44 overflow-hidden rounded-2xl border border-(--ra-border) bg-white py-1 text-start shadow-[0_16px_40px_rgba(11,15,20,0.12)]"
+            className="min-w-50 overflow-hidden rounded-xl border border-(--ra-border)/80 bg-white/98 py-1.5 text-start shadow-[0_12px_36px_rgba(11,15,20,0.09),0_2px_6px_rgba(11,15,20,0.04)] backdrop-blur-sm"
           >
-            {MAIN_NAV_MORE.map((item) => (
-              <li key={item.to} role="none">
-                <NavLink
-                  to={item.to}
-                  role="menuitem"
-                  onClick={() => setOpen(false)}
-                  className={({ isActive }) =>
-                    [
-                      'block px-3.5 py-2.5 text-sm font-semibold transition-colors',
-                      isActive
-                        ? 'bg-(--ra-gold)/12 text-(--ra-green)'
-                        : 'text-(--ra-black)/90 hover:bg-(--ra-bg)',
-                    ].join(' ')
-                  }
-                >
-                  {t(resolveMainNavLabelKey(item, compactLabels))}
-                </NavLink>
-              </li>
-            ))}
+            {MAIN_NAV_MORE.map((item) => {
+              const Icon = MORE_NAV_ICONS[item.to]
+              return (
+                <li key={item.to} role="none">
+                  <NavLink
+                    to={item.to}
+                    role="menuitem"
+                    onClick={() => setOpen(false)}
+                    className={({ isActive }) => mainNavDropdownLinkClass(isActive)}
+                  >
+                    {Icon ? (
+                      <Icon
+                        className="h-4 w-4 shrink-0 text-(--ra-green)/70"
+                        aria-hidden="true"
+                      />
+                    ) : null}
+                    {t(resolveMainNavLabelKey(item, compactLabels))}
+                  </NavLink>
+                </li>
+              )
+            })}
           </ul>,
           document.body,
         )
@@ -175,9 +189,10 @@ export function MainNavMoreDropdown({ compactLabels }: Props) {
       >
         {t('nav.more')}
         <ChevronDown
-          className={['h-3.5 w-3.5 shrink-0 opacity-80 transition-transform', open ? 'rotate-180' : ''].join(
-            ' ',
-          )}
+          className={[
+            'h-3.5 w-3.5 shrink-0 opacity-75 transition-transform duration-400 ease-[cubic-bezier(0.33,1,0.68,1)]',
+            open ? 'rotate-180' : '',
+          ].join(' ')}
           aria-hidden="true"
         />
       </button>

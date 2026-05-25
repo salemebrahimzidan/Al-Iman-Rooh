@@ -13,15 +13,13 @@ export function LanguageSwitcher() {
   const { language, setLanguage } = useLanguage()
 
   return (
-    <div className="relative inline-flex items-center gap-2">
-      <div className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-2 backdrop-blur">
-        <Languages className="h-4 w-4 text-white/90" aria-hidden="true" />
-        <span className="text-sm font-medium text-white">
-          {t('lang.label')}
-        </span>
-      </div>
+    <div className="inline-flex items-center gap-1.5 rounded-full border border-white/12 bg-white/6 p-0.5 backdrop-blur-sm">
+      <span className="inline-flex items-center gap-1.5 ps-2.5 pe-1 text-white/80">
+        <Languages className="h-3.5 w-3.5" aria-hidden="true" />
+        <span className="hidden text-xs font-medium sm:inline">{t('lang.label')}</span>
+      </span>
 
-      <div className="inline-flex overflow-hidden rounded-full border border-white/20 bg-white/10">
+      <div className="inline-flex overflow-hidden rounded-full">
         {OPTIONS.map((opt) => {
           const active = opt.id === language
           return (
@@ -30,14 +28,14 @@ export function LanguageSwitcher() {
               type="button"
               onClick={() => void setLanguage(opt.id)}
               className={[
-                'inline-flex items-center gap-2 px-3 py-2 text-sm transition',
+                'inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium transition-all duration-200',
                 active
-                  ? 'bg-white text-(--ra-green)'
-                  : 'bg-transparent text-white/90 hover:bg-white/10',
+                  ? 'rounded-full bg-white text-(--ra-green) shadow-sm'
+                  : 'text-white/85 hover:bg-white/10 hover:text-white',
               ].join(' ')}
               aria-pressed={active}
             >
-              {active ? <Check className="h-4 w-4" aria-hidden="true" /> : null}
+              {active ? <Check className="h-3 w-3" aria-hidden="true" /> : null}
               {t(opt.labelKey)}
             </button>
           )
@@ -46,4 +44,3 @@ export function LanguageSwitcher() {
     </div>
   )
 }
-

@@ -36,6 +36,11 @@ body {
   background: rgba(198, 160, 74, 0.25);
 }
 
+/* Header nav: no default link underline on active/focus */
+header nav a {
+  text-decoration: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     scroll-behavior: auto !important;

@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { LtrText } from './LtrText'
 
 const links = [
   { to: '/', key: 'nav.home' },
@@ -50,8 +51,8 @@ export function Footer() {
           <div className="md:col-span-3">
             <div className="text-xs font-bold uppercase tracking-[0.16em] text-(--ra-gold)">{t('footer.contact')}</div>
             <div className="mt-4 grid gap-2 text-sm text-white/80">
-              <div className="tabular-nums">{t('company.phone')}</div>
-              <div>{t('company.email')}</div>
+              <LtrText>{t('company.phone')}</LtrText>
+              <LtrText>{t('company.email')}</LtrText>
               <div className="text-white/60">{t('footer.headline')}</div>
             </div>
           </div>
