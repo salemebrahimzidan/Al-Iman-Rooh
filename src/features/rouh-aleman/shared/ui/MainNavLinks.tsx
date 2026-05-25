@@ -36,7 +36,7 @@ export function MainNavLinks({ onNavigate }: Props) {
       {MAIN_NAV_PRIMARY.map((item) => (
         <NavDrawerLink key={item.to} item={item} onNavigate={onNavigate} />
       ))}
-      <p className="px-3 pt-4 pb-0.5 text-[11px] font-bold tracking-wide text-(--ra-muted) uppercase">
+      <p className="px-3.5 pt-3 pb-1 text-[10px] font-semibold tracking-[0.14em] text-(--ra-muted) uppercase">
         {t('nav.more')}
       </p>
       {MAIN_NAV_MORE.map((item) => (
