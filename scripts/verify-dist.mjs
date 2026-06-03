@@ -4,6 +4,7 @@ import { join } from 'node:path'
 const distDir = 'dist'
 const indexPath = join(distDir, 'index.html')
 const htaccessPath = join(distDir, '.htaccess')
+const fallback404Path = join(distDir, '404.html')
 
 function fail(message) {
   console.error(`verify-dist: ${message}`)
@@ -16,6 +17,10 @@ if (!existsSync(indexPath)) {
 
 if (!existsSync(htaccessPath)) {
   fail('dist/.htaccess is missing — ensure public/.htaccess exists and rebuild.')
+}
+
+if (!existsSync(fallback404Path)) {
+  fail('dist/404.html is missing — run npm run build (copy-spa-fallback step).')
 }
 
 const indexHtml = readFileSync(indexPath, 'utf8')
