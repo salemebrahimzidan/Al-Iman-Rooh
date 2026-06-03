@@ -30,7 +30,12 @@
       "name": "Please enter your full name (at least 2 characters).",
       "phone": "Please enter a valid phone number with country code.",
       "email": "Please enter a valid email address.",
-      "message": "Please write a message (at least 10 characters)."
+      "message": "Please write a message (at least 10 characters).",
+      "submitFailed": "We couldn’t send your message. Please try again in a moment.",
+      "network": "Connection problem. Check your internet and try again.",
+      "notConfigured": "The contact form isn’t set up on this site yet. Please call or email us directly.",
+      "domain": "This website isn’t approved for form delivery yet. Please contact us by phone or email, or ask the site owner to enable the domain in Web3Forms.",
+      "rateLimit": "Too many attempts. Please wait a few minutes and try again."
     }
   },
   "info": {
