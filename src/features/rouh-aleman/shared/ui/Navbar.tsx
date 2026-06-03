@@ -108,22 +108,21 @@ export function Navbar({ scrolled: scrolledProp }: NavbarProps = {}) {
 
         {/* Mobile */}
         <div className="relative flex min-h-16 items-center justify-between gap-2 px-4 py-2.5 md:hidden">
-          <button
-            type="button"
-            onClick={() => setOpen(true)}
-            className={[navPhoneButtonClass, 'h-10 w-10'].join(' ')}
-            aria-label={t('ui.openMenu')}
-          >
-            <Menu className="h-5 w-5" aria-hidden="true" />
-          </button>
-
-          <div className="pointer-events-none absolute inset-x-0 top-1/2 flex -translate-y-1/2 justify-center px-16 sm:px-18">
-            <div className="pointer-events-auto min-w-0">
-              <CompanyLogo compact />
+          <div className="flex min-w-0 items-center gap-2.5">
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              className={[navPhoneButtonClass, 'h-10 w-10'].join(' ')}
+              aria-label={t('ui.openMenu')}
+            >
+              <Menu className="h-5 w-5" aria-hidden="true" />
+            </button>
+            <div className="min-w-0">
+              <CompanyLogo mobileHeader />
             </div>
           </div>
 
-          <div className="flex shrink-0 items-center gap-1.5">
+          <div className="flex shrink-0 items-center gap-2.5">
             <a
               href={telHref(phone)}
               className={[navPhoneButtonClass, 'h-9 w-9'].join(' ')}
@@ -133,7 +132,7 @@ export function Navbar({ scrolled: scrolledProp }: NavbarProps = {}) {
             </a>
             <Link
               to="/contact"
-              className={[bookNowButtonClass, 'h-9 max-w-30 gap-1.5 px-2.5 text-xs sm:max-w-none'].join(
+              className={[bookNowButtonClass, 'h-9 max-w-32 gap-1.5 px-3 text-xs sm:max-w-none'].join(
                 ' ',
               )}
             >

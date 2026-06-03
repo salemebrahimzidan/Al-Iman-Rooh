@@ -1,13 +1,37 @@
 {
   "title": "Contact",
   "subtitle": "Tell us what you need and we’ll respond.",
+  "hero": {
+    "support": "Dedicated travel support",
+    "secure": "Private & secure submission"
+  },
   "form": {
     "title": "Contact form",
+    "hint": "Fill in your details and we’ll get back to you shortly.",
+    "sections": {
+      "details": "Your details",
+      "detailsHint": "How we can reach you about your inquiry.",
+      "message": "Your message",
+      "messageHint": "Share trip plans, dates, or any questions."
+    },
     "name": "Full name",
     "phone": "Phone",
     "email": "Email",
     "message": "Message",
-    "action": "Send message"
+    "action": "Send message",
+    "success": "Thank you — your message was sent. We’ll reply as soon as we can.",
+    "placeholders": {
+      "name": "Your name",
+      "phone": "Enter your mobile number",
+      "email": "you@example.com",
+      "message": "Tell us about your trip, dates, or questions…"
+    },
+    "errors": {
+      "name": "Please enter your full name (at least 2 characters).",
+      "phone": "Please enter a valid phone number with country code.",
+      "email": "Please enter a valid email address.",
+      "message": "Please write a message (at least 10 characters)."
+    }
   },
   "info": {
     "title": "Company info",
