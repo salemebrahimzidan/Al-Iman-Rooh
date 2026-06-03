@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import { useId, useState, type FormEvent, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+import type { Country } from 'react-phone-number-input'
 import { useLanguage } from '../../shared/hooks/useLanguage'
 import { InternationalPhoneInput } from '../../shared/ui/InternationalPhoneInput'
 import { useToast } from '../../shared/ui/Toast'
@@ -114,6 +115,7 @@ export function ContactPage() {
   const formId = useId()
 
   const [fields, setFields] = useState<ContactFields>(EMPTY_FIELDS)
+  const [phoneCountry, setPhoneCountry] = useState<Country>('SA')
   const [errors, setErrors] = useState<Partial<Record<FieldKey, string>>>({})
   const [sending, setSending] = useState(false)
 
@@ -132,7 +134,7 @@ export function ContactPage() {
     const message = fields.message.trim()
 
     if (name.length < 2) next.name = t('form.errors.name')
-    if (!isValidInternationalPhone(phone)) next.phone = t('form.errors.phone')
+    if (!isValidInternationalPhone(phone, phoneCountry)) next.phone = t('form.errors.phone')
     if (!isValidEmail(email)) next.email = t('form.errors.email')
     if (message.length < 10) next.message = t('form.errors.message')
 
@@ -150,11 +152,31 @@ export function ContactPage() {
     }
   }
 
+  function scrollToFirstError(nextErrors: Partial<Record<FieldKey, string>>) {
+    const firstKey = (['name', 'phone', 'email', 'message'] as const).find((key) => nextErrors[key])
+    if (!firstKey) return
+    document.getElementById(fieldIds[firstKey])?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }
+
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    console.log('[ContactForm] Form submit triggered')
+    console.log('[ContactForm] VITE_WEB3FORMS_ACCESS_KEY', import.meta.env.VITE_WEB3FORMS_ACCESS_KEY)
+
     const nextErrors = validate()
     if (Object.keys(nextErrors).length > 0) {
+      console.log('[ContactForm] Validation failed', nextErrors)
       setErrors(nextErrors)
+      scrollToFirstError(nextErrors)
+      return
+    }
+
+    console.log('[ContactForm] Validation passed')
+
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY?.trim()
+    if (!accessKey) {
+      console.error('[ContactForm] Missing VITE_WEB3FORMS_ACCESS_KEY — rebuild with env set on host')
+      showToast('error', ts('ui.error'))
       return
     }
 
@@ -165,7 +187,8 @@ export function ContactPage() {
       await submitContactForm(fields)
       setFields(EMPTY_FIELDS)
       showToast('success', t('form.success'))
-    } catch {
+    } catch (err) {
+      console.error('[ContactForm] Submit failed', err)
       showToast('error', ts('ui.error'))
     } finally {
       setSending(false)
@@ -340,6 +363,8 @@ export function ContactPage() {
                         id={fieldIds.phone}
                         value={fields.phone}
                         onChange={(value) => updateField('phone', value)}
+                        onCountryChange={setPhoneCountry}
+                        country={phoneCountry}
                         disabled={disabled}
                         hasError={Boolean(errors.phone)}
                         defaultCountry="SA"

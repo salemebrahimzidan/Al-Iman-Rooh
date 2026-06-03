@@ -1,7 +1,11 @@
-import { isValidPhoneNumber } from 'react-phone-number-input'
+import { isValidPhoneNumber, type Country } from 'react-phone-number-input'
 
-export function isValidInternationalPhone(value: string): boolean {
+export function isValidInternationalPhone(value: string, country?: Country): boolean {
   const trimmed = value.trim()
   if (!trimmed) return false
-  return isValidPhoneNumber(trimmed)
+  try {
+    return isValidPhoneNumber(trimmed, country)
+  } catch {
+    return false
+  }
 }

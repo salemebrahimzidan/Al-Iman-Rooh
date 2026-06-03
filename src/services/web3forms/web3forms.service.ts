@@ -49,6 +49,9 @@ function getAccessKey(): string {
  */
 export async function submitToWeb3Forms(payload: Web3FormsPayload): Promise<Web3FormsResponse> {
   const { subject, ...fields } = payload
+  const accessKey = getAccessKey()
+
+  console.log('[ContactForm] Sending Web3Forms request')
 
   let res: Response
   try {
@@ -59,7 +62,7 @@ export async function submitToWeb3Forms(payload: Web3FormsPayload): Promise<Web3
         Accept: 'application/json',
       },
       body: JSON.stringify({
-        access_key: getAccessKey(),
+        access_key: accessKey,
         subject,
         ...fields,
       }),
