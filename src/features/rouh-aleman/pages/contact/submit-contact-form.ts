@@ -15,6 +15,14 @@ function buildSubject(name: string): string {
     : 'Contact inquiry | Al Eman Rooh'
 }
 
+function contactPageUrl(): string {
+  if (typeof window !== 'undefined') {
+    return `${window.location.origin}/contact`
+  }
+  const site = import.meta.env.VITE_SITE_URL?.trim().replace(/\/$/, '')
+  return site ? `${site}/contact` : 'https://alimanrouh.com/contact'
+}
+
 export async function submitContactForm(payload: ContactFormPayload): Promise<void> {
   await submitToWeb3Forms(
     buildInquiryEmailPayload(
@@ -23,7 +31,7 @@ export async function submitContactForm(payload: ContactFormPayload): Promise<vo
         email: payload.email,
         phone: payload.phone,
         message: payload.message,
-        page: '/contact',
+        page: contactPageUrl(),
       },
       buildSubject(payload.name),
     ),
