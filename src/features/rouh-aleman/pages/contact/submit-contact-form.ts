@@ -1,4 +1,4 @@
-import { submitToWeb3Forms } from '../../../../services/web3forms'
+import { submitContactInquiry, type Web3FormsContactFields } from '../../../../services/web3forms'
 
 export type ContactFormPayload = {
   name: string
@@ -7,16 +7,12 @@ export type ContactFormPayload = {
   message: string
 }
 
-const CONTACT_SUBJECT = 'New inquiry from Al Iman Rouh website'
-const CONTACT_SERVICE = 'General inquiry'
-
 export async function submitContactForm(payload: ContactFormPayload): Promise<void> {
-  await submitToWeb3Forms({
-    subject: CONTACT_SUBJECT,
-    name: payload.name.trim(),
-    email: payload.email.trim(),
-    phone: payload.phone.trim(),
-    service: CONTACT_SERVICE,
-    message: payload.message.trim(),
-  })
+  const fields: Web3FormsContactFields = {
+    name: payload.name,
+    email: payload.email,
+    phone: payload.phone,
+    message: payload.message,
+  }
+  await submitContactInquiry(fields)
 }

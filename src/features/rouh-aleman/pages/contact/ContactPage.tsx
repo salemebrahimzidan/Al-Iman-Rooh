@@ -17,6 +17,7 @@ import { useLanguage } from '../../shared/hooks/useLanguage'
 import { InternationalPhoneInput } from '../../shared/ui/InternationalPhoneInput'
 import { useToast } from '../../shared/ui/Toast'
 import { isValidInternationalPhone } from '../../shared/utils/phone'
+import { getContactSubmitErrorMessage } from './get-contact-submit-error'
 import { submitContactForm } from './submit-contact-form'
 
 type ContactFields = {
@@ -175,8 +176,8 @@ export function ContactPage() {
       await submitContactForm(fields)
       setFields(EMPTY_FIELDS)
       showToast('success', t('form.success'))
-    } catch {
-      showToast('error', ts('ui.error'))
+    } catch (err) {
+      showToast('error', getContactSubmitErrorMessage(err, t))
     } finally {
       setSending(false)
     }
