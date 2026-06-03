@@ -1,4 +1,4 @@
-import type { Web3FormsPayload } from './web3forms.service'
+import type { Web3FormsPayload } from './web3forms.service.ts'
 
 export const WEB3FORMS_FROM_NAME = 'Al Eman Rooh Website'
 
@@ -45,11 +45,16 @@ export function buildInquiryEmailPayload(
   input: InquiryEmailInput,
   subject: string,
 ): Web3FormsPayload {
+  const service = input.service?.trim() || 'General inquiry'
+
   return {
     subject,
+    name: input.name.trim(),
     from_name: WEB3FORMS_FROM_NAME,
     email: input.email.trim(),
     replyto: input.email.trim(),
+    phone: input.phone.trim(),
+    service,
     botcheck: '',
     message: formatInquiryMessage(input),
   }
