@@ -1,15 +1,29 @@
+# SPA fallback for React Router (Hostinger / Apache / LiteSpeed)
+# Upload this file to public_html together with index.html (Vite copies it into dist/ on build).
+
+<IfModule mod_negotiation.c>
+  Options -MultiViews
+</IfModule>
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
-  RewriteRule ^index\.html$ - [L]
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /index.html [L]
+
+  # Serve existing files and directories as-is (assets, images, favicon, etc.)
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # All other URLs → index.html (e.g. /contact, /about, /umrah)
+  RewriteRule ^ index.html [L]
 </IfModule>
 
-# Prevent browsers/CDNs from serving a stale index.html that references old hashed assets.
+# Fallback when mod_rewrite is off or a route still returns 404
+ErrorDocument 404 /index.html
+
+# Keep index.html fresh so it does not reference deleted hashed assets after deploy
 <IfModule mod_headers.c>
-  <FilesMatch "^(index\.html)?$">
+  <FilesMatch "^(index\.html|404\.html)?$">
     Header set Cache-Control "no-cache, no-store, must-revalidate"
     Header set Pragma "no-cache"
     Header set Expires "0"
