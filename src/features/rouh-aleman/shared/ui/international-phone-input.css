@@ -1,0 +1,107 @@
+/* SaaS-styled overrides for react-phone-number-input */
+.PhoneInputField {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  height: 3rem;
+  align-items: stretch;
+  gap: 0.375rem;
+}
+
+.PhoneInputField .PhoneInputCountry {
+  margin: 0;
+  align-self: stretch;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  background: #fff;
+  padding-inline: 0.5rem;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.PhoneInputField .PhoneInputCountry:hover {
+  border-color: #cbd5e1;
+}
+
+.PhoneInputField:focus-within .PhoneInputCountry {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.PhoneInputField .PhoneInputCountrySelect {
+  cursor: pointer;
+  max-width: 3.25rem;
+  font-size: 0.8125rem;
+}
+
+.PhoneInputField .PhoneInputCountryIcon {
+  width: 1.25rem;
+  height: auto;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.08);
+}
+
+.PhoneInputField .PhoneInputCountrySelectArrow {
+  opacity: 0.45;
+  margin-inline-start: 0.25rem;
+}
+
+.PhoneInputField .PhoneInputInput {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  height: 3rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  background: #fff;
+  padding-inline: 0.75rem;
+  font-size: 0.9375rem;
+  line-height: normal;
+  color: #0f172a;
+  font-variant-numeric: tabular-nums;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.PhoneInputField .PhoneInputInput::placeholder {
+  color: #94a3b8;
+}
+
+.PhoneInputField .PhoneInputInput:hover {
+  border-color: #cbd5e1;
+}
+
+.PhoneInputField .PhoneInputInput:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.PhoneInputField--error .PhoneInputCountry,
+.PhoneInputField--error .PhoneInputInput {
+  border-color: #f87171;
+}
+
+.PhoneInputField--error:focus-within .PhoneInputCountry,
+.PhoneInputField--error .PhoneInputInput:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+.PhoneInputField--disabled {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.PhoneInputField--disabled .PhoneInputInput,
+.PhoneInputField--disabled .PhoneInputCountry {
+  background: #f8fafc;
+  cursor: not-allowed;
+}
