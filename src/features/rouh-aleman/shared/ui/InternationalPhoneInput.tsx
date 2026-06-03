@@ -7,9 +7,11 @@ type InternationalPhoneInputProps = {
   id: string
   value: string
   onChange: (value: string) => void
+  onCountryChange?: (country: Country) => void
   disabled?: boolean
   hasError?: boolean
   defaultCountry?: Country
+  country?: Country
   labelsLocale?: 'en' | 'ar'
   placeholder?: string
   'aria-invalid'?: boolean
@@ -20,9 +22,11 @@ export function InternationalPhoneInput({
   id,
   value,
   onChange,
+  onCountryChange,
   disabled = false,
   hasError = false,
   defaultCountry = 'SA',
+  country,
   labelsLocale = 'en',
   placeholder,
   'aria-invalid': ariaInvalid,
@@ -35,13 +39,14 @@ export function InternationalPhoneInput({
       international
       countryCallingCodeEditable={false}
       defaultCountry={defaultCountry}
+      country={country}
+      onCountryChange={onCountryChange}
       labels={labelsLocale === 'ar' ? arLabels : undefined}
       value={(value || undefined) as Value}
       onChange={(next) => onChange(next ?? '')}
       disabled={disabled}
       numberInputProps={{
         id,
-        required: true,
         autoComplete: 'tel',
         'aria-invalid': ariaInvalid,
         'aria-describedby': ariaDescribedBy,

@@ -24,6 +24,7 @@ function contactPageUrl(): string {
 }
 
 export async function submitContactForm(payload: ContactFormPayload): Promise<void> {
+  console.log('[ContactForm] submitContactForm called')
   await submitToWeb3Forms(
     buildInquiryEmailPayload(
       {
