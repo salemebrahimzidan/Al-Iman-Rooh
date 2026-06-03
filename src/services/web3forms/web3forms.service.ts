@@ -2,18 +2,14 @@ export const WEB3FORMS_SUBMIT_URL = 'https://api.web3forms.com/submit'
 
 export type Web3FormsPayload = {
   subject: string
-  /** Shown as sender name in the inbox (default Web3Forms value is "Notifications"). */
-  from_name?: string
-  /** Used for Reply-To when set; otherwise Web3Forms uses `email`. */
-  replyto?: string
-  email?: string
-  message?: string
-  /** Honeypot — leave empty; hidden fields should stay blank for real users. */
-  botcheck?: string
   name?: string
+  email?: string
   phone?: string
   service?: string
-  /** Additional Web3Forms fields (custom keys, webhooks, etc.). */
+  message?: string
+  from_name?: string
+  replyto?: string
+  botcheck?: string
   [key: string]: string | undefined
 }
 
@@ -49,9 +45,6 @@ function getAccessKey(): string {
  */
 export async function submitToWeb3Forms(payload: Web3FormsPayload): Promise<Web3FormsResponse> {
   const { subject, ...fields } = payload
-  const accessKey = getAccessKey()
-
-  console.log('[ContactForm] Sending Web3Forms request')
 
   let res: Response
   try {
@@ -62,8 +55,9 @@ export async function submitToWeb3Forms(payload: Web3FormsPayload): Promise<Web3
         Accept: 'application/json',
       },
       body: JSON.stringify({
-        access_key: accessKey,
+        access_key: getAccessKey(),
         subject,
+        botcheck: '',
         ...fields,
       }),
     })

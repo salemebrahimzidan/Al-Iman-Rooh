@@ -160,23 +160,11 @@ export function ContactPage() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    console.log('[ContactForm] Form submit triggered')
-    console.log('[ContactForm] VITE_WEB3FORMS_ACCESS_KEY', import.meta.env.VITE_WEB3FORMS_ACCESS_KEY)
 
     const nextErrors = validate()
     if (Object.keys(nextErrors).length > 0) {
-      console.log('[ContactForm] Validation failed', nextErrors)
       setErrors(nextErrors)
       scrollToFirstError(nextErrors)
-      return
-    }
-
-    console.log('[ContactForm] Validation passed')
-
-    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY?.trim()
-    if (!accessKey) {
-      console.error('[ContactForm] Missing VITE_WEB3FORMS_ACCESS_KEY — rebuild with env set on host')
-      showToast('error', ts('ui.error'))
       return
     }
 
@@ -187,8 +175,7 @@ export function ContactPage() {
       await submitContactForm(fields)
       setFields(EMPTY_FIELDS)
       showToast('success', t('form.success'))
-    } catch (err) {
-      console.error('[ContactForm] Submit failed', err)
+    } catch {
       showToast('error', ts('ui.error'))
     } finally {
       setSending(false)
