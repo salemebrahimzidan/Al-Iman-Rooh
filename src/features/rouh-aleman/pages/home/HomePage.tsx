@@ -26,25 +26,26 @@ import {
   Users,
 } from 'lucide-react'
 
-const HERO_FALLBACK =
-  'https://images.unsplash.com/photo-1635789978029-edbf6bfc0992?auto=format&fit=crop&w=2400&q=85'
+const HERO_IMAGE = '/images/home/hero-kaaba.png'
+const HERO_FALLBACK = '/images/home/hero.jpg'
 
 const PROGRAM_IMAGES = [
-  'https://images.unsplash.com/photo-1591601239659-1d8fd9a24aae?auto=format&fit=crop&w=900&q=80',
-  'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=900&q=80',
-  'https://images.unsplash.com/photo-1585043148262-8dca31bdcac4?auto=format&fit=crop&w=900&q=80',
-  'https://images.unsplash.com/photo-1591608975111-ebb0e5ae0c9a?auto=format&fit=crop&w=900&q=80',
+  '/images/home/umrah-package-1.png',
+  '/images/home/hajj-package-1.png',
+  '/images/home/hotel-room.png',
+  '/images/home/tourism.png',
 ] as const
 
-const WHY_VIDEO_THUMB =
-  'https://images.unsplash.com/photo-1591601239659-1d8fd9a24aae?auto=format&fit=crop&w=1600&q=82'
+const WHY_VIDEO_THUMB = '/images/home/umrah-package-1.png'
 
 const DESTINATION_IMAGES = [
-  'https://images.unsplash.com/photo-1635789978029-edbf6bfc0992?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1591601239659-1d8fd9a24aae?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1578895101408-1f36a038cb64?auto=format&fit=crop&w=800&q=80',
-  'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=800&q=80',
+  '/images/home/destination-1.jpg',
+  '/images/home/destination-2.jpg',
+  '/images/home/tourism.png',
+  '/images/home/offer-bag.png',
 ] as const
+
+const IMAGE_FALLBACK = PROGRAM_IMAGES[0]
 
 function digitsOnly(phone: string) {
   return phone.replace(/\D/g, '')
@@ -94,7 +95,7 @@ export function HomePage() {
     [],
   )
 
-  const heroSrc = heroFailed ? HERO_FALLBACK : '/images/home/hero-kaaba.png'
+  const heroSrc = heroFailed ? HERO_FALLBACK : HERO_IMAGE
 
   return (
     <div className="w-full space-y-16 pb-28 sm:space-y-20 sm:pb-32 lg:space-y-24">
@@ -309,10 +310,13 @@ export function HomePage() {
                     alt=""
                     loading="lazy"
                     decoding="async"
-                    className="h-full w-full object-cover motion-safe:transition-transform motion-safe:duration-500 group-hover:scale-[1.05]"
+                    className="relative z-0 h-full w-full bg-(--ra-bg) object-cover motion-safe:transition-transform motion-safe:duration-500 group-hover:scale-[1.05]"
+                    onError={(e) => {
+                      if (e.currentTarget.src !== IMAGE_FALLBACK) e.currentTarget.src = IMAGE_FALLBACK
+                    }}
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/35 via-transparent to-transparent opacity-80 transition group-hover:opacity-100" aria-hidden="true" />
-                  <div className="absolute top-3 inset-e-3 rounded-full bg-(--ra-gold) px-3 py-1 text-[11px] font-bold text-(--ra-green) shadow-md ring-1 ring-white/30">
+                  <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-black/35 via-transparent to-transparent opacity-80 transition group-hover:opacity-100" aria-hidden="true" />
+                  <div className="absolute top-3 inset-e-3 z-20 rounded-full bg-(--ra-gold) px-3 py-1 text-[11px] font-bold text-(--ra-green) shadow-md ring-1 ring-white/30">
                     {t(card.badgeKey)}
                   </div>
                 </Link>
@@ -381,7 +385,16 @@ export function HomePage() {
       {/* Why choose us + video */}
       <section className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
         <div className="relative order-1 overflow-hidden rounded-[22px] shadow-[0_28px_80px_rgba(2,6,23,0.14)] ring-1 ring-black/5 lg:order-2 rtl:lg:order-1">
-          <img src={WHY_VIDEO_THUMB} alt="" loading="lazy" decoding="async" className="aspect-16/11 w-full object-cover" />
+          <img
+            src={WHY_VIDEO_THUMB}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="aspect-16/11 w-full bg-(--ra-bg) object-cover"
+            onError={(e) => {
+              if (e.currentTarget.src !== IMAGE_FALLBACK) e.currentTarget.src = IMAGE_FALLBACK
+            }}
+          />
           <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/15 to-transparent" aria-hidden="true" />
           <button
             type="button"
@@ -442,7 +455,10 @@ export function HomePage() {
                 <img
                   src={d.img}
                   alt=""
-                  className="h-full w-full object-cover motion-safe:transition-transform motion-safe:duration-500 group-hover:scale-[1.06]"
+                  className="h-full w-full bg-(--ra-bg) object-cover motion-safe:transition-transform motion-safe:duration-500 group-hover:scale-[1.06]"
+                  onError={(e) => {
+                    if (e.currentTarget.src !== IMAGE_FALLBACK) e.currentTarget.src = IMAGE_FALLBACK
+                  }}
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" aria-hidden="true" />
                 <div className="absolute bottom-3 inset-s-3 inset-e-3">
