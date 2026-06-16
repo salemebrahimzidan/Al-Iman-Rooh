@@ -46,7 +46,9 @@
     "hours": "Working hours"
   },
   "map": {
-    "title": "Map",
-    "placeholder": "Map placeholder"
+    "eyebrow": "Location",
+    "title": "Find us",
+    "subtitle": "Visit our office or get turn-by-turn directions in Google Maps.",
+    "openInMaps": "Get directions"
   }
 }
