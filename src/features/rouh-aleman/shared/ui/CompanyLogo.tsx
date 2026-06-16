@@ -3,8 +3,8 @@ import { Landmark } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-/** Primary brand mark (update `LOGO_VERSION` when the asset file changes). */
-const LOGO_VERSION = '3'
+/** Navbar mark (update `LOGO_VERSION` when the asset file changes). */
+const LOGO_VERSION = '4'
 const LOGO_SRC = `/images/brand/logo-primary.png?v=${LOGO_VERSION}`
 
 type Props = {
@@ -23,15 +23,12 @@ const FRAME_ELEVATED =
 
 function frameFor({ compact, mobileHeader }: Pick<Props, 'compact' | 'mobileHeader'>) {
   if (mobileHeader) {
-    // Mobile navbar center — slightly larger for legibility, still compact.
-    // Keep the mark elegant on mobile (avoid looking like a big card).
-    return 'h-13 w-[3.75rem] p-0 sm:h-14 sm:w-[4rem]'
+    return 'h-12 w-12 p-0 sm:h-14 sm:w-14'
   }
   if (compact) {
-    // Remove internal padding so the mark fills the frame better.
-    return 'h-16 w-14 p-0 sm:h-18 sm:w-16'
+    return 'h-16 w-16 p-0 sm:h-[4.5rem] sm:w-[4.5rem]'
   }
-  return 'h-20 w-[4.5rem] p-1 sm:h-[5.25rem] sm:w-20 lg:h-24 lg:w-[5.75rem] lg:p-1.5'
+  return 'h-20 w-20 p-1 sm:h-[5.25rem] sm:w-[5.25rem] lg:h-24 lg:w-24 lg:p-1.5'
 }
 
 function frameStyle({ mobileHeader }: Pick<Props, 'mobileHeader'>) {
@@ -41,20 +38,16 @@ function frameStyle({ mobileHeader }: Pick<Props, 'mobileHeader'>) {
 }
 
 function intrinsicFor({ compact, mobileHeader }: Pick<Props, 'compact' | 'mobileHeader'>) {
-  if (mobileHeader) return { width: 56, height: 68 }
-  if (compact) return { width: 56, height: 72 }
-  return { width: 80, height: 100 }
+  if (mobileHeader) return { width: 56, height: 56 }
+  if (compact) return { width: 64, height: 64 }
+  return { width: 96, height: 96 }
 }
 
 export function CompanyLogo({ compact, mobileHeader, className }: Props) {
   const { t } = useTranslation('shared')
   const [imgFailed, setImgFailed] = useState(false)
   const { width, height } = intrinsicFor({ compact, mobileHeader })
-  // The provided logo files include extra canvas padding. On desktop/stacked headers we prefer a
-  // tighter, “badge-like” crop to avoid visible empty space inside the frame.
-  const imgClass = mobileHeader
-    ? 'max-h-full max-w-full object-contain object-center'
-    : 'h-full w-full object-cover object-center'
+  const imgClass = 'max-h-full max-w-full object-contain object-center'
 
   return (
     <Link

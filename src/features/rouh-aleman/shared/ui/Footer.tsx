@@ -26,16 +26,16 @@ export function Footer() {
       />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-(--ra-gold)/55 to-transparent" aria-hidden="true" />
 
-      <div className="relative mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
-        <div className="grid gap-10 md:grid-cols-12">
+      <div className="relative mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
+        <div className="grid gap-8 md:grid-cols-12">
           <div className="md:col-span-5">
             <div className="text-xl font-bold tracking-tight text-white">{t('brand.name')}</div>
-            <p className="mt-3 max-w-md text-sm leading-relaxed text-white/75">{t('footer.subheadline')}</p>
+            <p className="mt-2 max-w-md text-sm leading-relaxed text-white/75">{t('footer.subheadline')}</p>
           </div>
 
           <div className="md:col-span-4">
             <div className="text-xs font-bold uppercase tracking-[0.16em] text-(--ra-gold)">{t('footer.quickLinks')}</div>
-            <div className="mt-4 grid gap-2.5">
+            <div className="mt-3 grid gap-2">
               {links.map((l) => (
                 <NavLink
                   key={l.to}
@@ -50,7 +50,7 @@ export function Footer() {
 
           <div className="md:col-span-3">
             <div className="text-xs font-bold uppercase tracking-[0.16em] text-(--ra-gold)">{t('footer.contact')}</div>
-            <div className="mt-4 grid gap-2 text-sm text-white/80">
+            <div className="mt-3 grid gap-2 text-sm text-white/80">
               <LtrText>{t('company.phone')}</LtrText>
               <LtrText>{t('company.email')}</LtrText>
               <div className="text-white/60">{t('footer.headline')}</div>
@@ -58,7 +58,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-8 text-xs text-white/55">
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-white/55">
           <span>
             © {year} {t('brand.nameShort')} — {t('footer.rights')}
           </span>

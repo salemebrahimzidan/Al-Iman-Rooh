@@ -25,7 +25,7 @@ export function RouhAlemanLayout() {
           <TopBar />
           <Navbar scrolled={headerScrolled} />
         </header>
-        <main className="relative w-full px-4 pb-16 pt-0 sm:px-6 lg:px-8">
+        <main className="relative w-full px-4 pt-0 sm:px-6 lg:px-8">
           <Outlet />
         </main>
         <Footer />
