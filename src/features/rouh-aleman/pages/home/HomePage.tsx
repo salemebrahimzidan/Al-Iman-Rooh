@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import { getPackages, type PackageItem } from '../../../../services/packages'
 import {
   ArrowLeft,
   ArrowRight,
@@ -46,6 +47,13 @@ const DESTINATION_IMAGES = [
 ] as const
 
 const IMAGE_FALLBACK = PROGRAM_IMAGES[0]
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://alimanrouh-api-production.up.railway.app'
+
+function getPackageImageUrl(path?: string | null) {
+  if (!path) return IMAGE_FALLBACK
+  if (path.startsWith('http')) return path
+  return `${API_BASE_URL}${path}`
+}
 
 function digitsOnly(phone: string) {
   return phone.replace(/\D/g, '')
@@ -70,20 +78,19 @@ export function HomePage() {
   }, [ts])
 
   const phone = ts('company.phone')
+  const [packages, setPackages] = useState<PackageItem[]>([])
+  const [loadingPackages, setLoadingPackages] = useState(true)
 
-  const featured = useMemo(
-    () =>
-      [0, 1, 2, 3].map((i) => ({
-        img: PROGRAM_IMAGES[i] ?? PROGRAM_IMAGES[0],
-        badgeKey: `featuredPrograms.items.${i}.badge` as const,
-        titleKey: `featuredPrograms.items.${i}.title` as const,
-        hotelKey: `featuredPrograms.items.${i}.hotel` as const,
-        flightKey: `featuredPrograms.items.${i}.flight` as const,
-        priceKey: `featuredPrograms.items.${i}.price` as const,
-        to: i % 2 === 0 ? '/umrah' : '/hajj',
-      })),
-    [],
-  )
+  useEffect(() => {
+    getPackages()
+      .then((data) => {
+        setPackages(data.filter((item) => item.isActive).slice(0, 4))
+      })
+      .catch((error) => {
+        console.error('Failed to load packages', error)
+      })
+      .finally(() => setLoadingPackages(false))
+  }, [])
 
   const destinations = useMemo(
     () =>
@@ -138,7 +145,7 @@ export function HomePage() {
                 </p>
                 <div className="mt-8 flex flex-wrap items-center gap-3">
                   <Link
-                    to="/contact"
+                    to="/booking"
                     className="inline-flex items-center gap-2 rounded-2xl bg-(--ra-green) px-7 py-3.5 text-sm font-semibold text-white shadow-[0_18px_44px_rgba(6,51,39,0.38)] transition motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-[0_22px_50px_rgba(6,51,39,0.42)] hover:bg-(--ra-green-2)"
                   >
                     <CalendarDays className="h-4 w-4 opacity-95" aria-hidden="true" />
@@ -147,7 +154,7 @@ export function HomePage() {
                     <ArrowLeft className="hidden h-4 w-4 rtl:inline" aria-hidden="true" />
                   </Link>
                   <Link
-                    to="/contact"
+                    to="/booking"
                     className="inline-flex items-center gap-2 rounded-2xl border border-(--ra-green)/25 bg-white/70 px-7 py-3.5 text-sm font-semibold text-(--ra-green) shadow-sm backdrop-blur-md transition motion-safe:hover:-translate-y-0.5 motion-safe:hover:border-(--ra-gold)/40 motion-safe:hover:bg-white"
                   >
                     <Headphones className="h-4 w-4" aria-hidden="true" />
@@ -299,55 +306,68 @@ export function HomePage() {
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {featured.map((card) => (
-              <article
-                key={card.titleKey}
-                className="group flex flex-col overflow-hidden rounded-[20px] border border-(--ra-border) bg-white shadow-[0_18px_50px_rgba(2,6,23,0.08)] transition motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_26px_70px_rgba(2,6,23,0.12)]"
-              >
-                <Link to={card.to} className="relative block aspect-4/3 overflow-hidden">
-                  <img
-                    src={card.img}
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                    className="relative z-0 h-full w-full bg-(--ra-bg) object-cover motion-safe:transition-transform motion-safe:duration-500 group-hover:scale-[1.05]"
-                    onError={(e) => {
-                      if (e.currentTarget.src !== IMAGE_FALLBACK) e.currentTarget.src = IMAGE_FALLBACK
-                    }}
-                  />
-                  <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-black/35 via-transparent to-transparent opacity-80 transition group-hover:opacity-100" aria-hidden="true" />
-                  <div className="absolute top-3 inset-e-3 z-20 rounded-full bg-(--ra-gold) px-3 py-1 text-[11px] font-bold text-(--ra-green) shadow-md ring-1 ring-white/30">
-                    {t(card.badgeKey)}
-                  </div>
-                </Link>
-                <div className="flex flex-1 flex-col gap-3 p-5">
-                  <h3 className="text-start text-base font-bold text-(--ra-green)">{t(card.titleKey)}</h3>
-                  <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-(--ra-muted)">
-                    <span className="inline-flex items-center gap-1">
-                      <span className="text-(--ra-gold)" aria-hidden="true">
-                        ★
+            {loadingPackages ? (
+              <div className="col-span-full rounded-[20px] border border-(--ra-border) bg-white p-10 text-center text-sm font-semibold text-(--ra-muted) shadow-[0_18px_50px_rgba(2,6,23,0.08)]">
+                Loading packages...
+              </div>
+            ) : packages.length === 0 ? (
+              <div className="col-span-full rounded-[20px] border border-(--ra-border) bg-white p-10 text-center text-sm font-semibold text-(--ra-muted) shadow-[0_18px_50px_rgba(2,6,23,0.08)]">
+                No packages available now.
+              </div>
+            ) : (
+              packages.map((pkg) => (
+                <article
+                  key={pkg.id}
+                  className="group flex flex-col overflow-hidden rounded-[20px] border border-(--ra-border) bg-white shadow-[0_18px_50px_rgba(2,6,23,0.08)] transition motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_26px_70px_rgba(2,6,23,0.12)]"
+                >
+                  <Link to="/contact" className="relative block aspect-4/3 overflow-hidden">
+                    <img
+                      src={getPackageImageUrl(pkg.imageUrl)}
+                      alt={pkg.title}
+                      loading="lazy"
+                      decoding="async"
+                      className="relative z-0 h-full w-full bg-(--ra-bg) object-cover motion-safe:transition-transform motion-safe:duration-500 group-hover:scale-[1.05]"
+                      onError={(e) => {
+                        if (e.currentTarget.src !== IMAGE_FALLBACK) e.currentTarget.src = IMAGE_FALLBACK
+                      }}
+                    />
+                    <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-black/35 via-transparent to-transparent opacity-80 transition group-hover:opacity-100" aria-hidden="true" />
+                    <div className="absolute top-3 inset-e-3 z-20 rounded-full bg-(--ra-gold) px-3 py-1 text-[11px] font-bold text-(--ra-green) shadow-md ring-1 ring-white/30">
+                      {pkg.duration ? `${pkg.duration} Days` : 'Package'}
+                    </div>
+                  </Link>
+                  <div className="flex flex-1 flex-col gap-3 p-5">
+                    <h3 className="text-start text-base font-bold text-(--ra-green)">{pkg.title}</h3>
+                    <p className="line-clamp-2 text-start text-xs leading-relaxed text-(--ra-muted)">
+                      {pkg.description}
+                    </p>
+                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-(--ra-muted)">
+                      <span className="inline-flex items-center gap-1">
+                        <span className="text-(--ra-gold)" aria-hidden="true">
+                          ★
+                        </span>
+                        {pkg.duration ? `${pkg.duration} Days` : 'Flexible duration'}
                       </span>
-                      {t(card.hotelKey)}
-                    </span>
-                    <span className="inline-flex items-center gap-1">
-                      <Plane className="h-3.5 w-3.5 text-(--ra-green)" aria-hidden="true" />
-                      {t(card.flightKey)}
-                    </span>
+                      <span className="inline-flex items-center gap-1">
+                        <Plane className="h-3.5 w-3.5 text-(--ra-green)" aria-hidden="true" />
+                        Umrah Package
+                      </span>
+                    </div>
+                    <div className="mt-auto flex items-end justify-between gap-3 border-t border-(--ra-border)/80 pt-4">
+                      <div className="text-lg font-bold tabular-nums text-(--ra-gold)">SAR {pkg.price}</div>
+                      <Link
+                        to="/booking"
+                        className="inline-flex shrink-0 items-center gap-1 rounded-xl border border-(--ra-green)/25 bg-(--ra-green)/5 px-3 py-2 text-xs font-semibold text-(--ra-green) transition hover:border-(--ra-green) hover:bg-(--ra-green) hover:text-white"
+                      >
+                        {t('featuredPrograms.viewDetails')}
+                        <ArrowRight className="h-3.5 w-3.5 rtl:hidden" aria-hidden="true" />
+                        <ArrowLeft className="hidden h-3.5 w-3.5 rtl:inline" aria-hidden="true" />
+                      </Link>
+                    </div>
                   </div>
-                  <div className="mt-auto flex items-end justify-between gap-3 border-t border-(--ra-border)/80 pt-4">
-                    <div className="text-lg font-bold tabular-nums text-(--ra-gold)">{t(card.priceKey)}</div>
-                    <Link
-                      to={card.to}
-                      className="inline-flex shrink-0 items-center gap-1 rounded-xl border border-(--ra-green)/25 bg-(--ra-green)/5 px-3 py-2 text-xs font-semibold text-(--ra-green) transition hover:border-(--ra-green) hover:bg-(--ra-green) hover:text-white"
-                    >
-                      {t('featuredPrograms.viewDetails')}
-                      <ArrowRight className="h-3.5 w-3.5 rtl:hidden" aria-hidden="true" />
-                      <ArrowLeft className="hidden h-3.5 w-3.5 rtl:inline" aria-hidden="true" />
-                    </Link>
-                  </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              ))
+            )}
           </div>
         </div>
       </section>
@@ -497,7 +517,7 @@ export function HomePage() {
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center lg:shrink-0">
             <Link
-              to="/contact"
+              to="/booking"
               className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-7 py-3.5 text-sm font-semibold text-(--ra-green) shadow-lg transition motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-xl"
             >
               {t('promo.primary')}
@@ -523,7 +543,7 @@ export function HomePage() {
             <p className="mt-2 max-w-xl text-sm leading-relaxed text-(--ra-muted) sm:text-base">{t('contactCta.subtitle')}</p>
           </div>
           <Link
-            to="/contact"
+            to="/booking"
             className="inline-flex justify-center rounded-2xl bg-(--ra-green) px-8 py-3.5 text-sm font-semibold text-white shadow-[0_16px_40px_rgba(6,51,39,0.28)] transition motion-safe:hover:-translate-y-0.5 hover:bg-(--ra-green-2) md:min-w-[200px] md:justify-center"
           >
             {t('contactCta.action')}

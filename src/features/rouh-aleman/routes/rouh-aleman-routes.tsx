@@ -10,12 +10,14 @@ import { HotelsPage } from '../pages/hotels/HotelsPage'
 import { OffersPage } from '../pages/offers/OffersPage'
 import { ContactPage } from '../pages/contact/ContactPage'
 import { AboutPage } from '../pages/about/AboutPage'
+import { BookingPage } from '../pages/booking/BookingPage'
 
 export function RouhAlemanRoutes() {
   return (
     <Routes>
       <Route element={<RouhAlemanLayout />}>
         <Route index element={<HomePage />} />
+        <Route path="booking" element={<BookingPage />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="flights" element={<FlightsPage />} />
         <Route path="hajj" element={<HajjPage />} />
@@ -24,6 +26,7 @@ export function RouhAlemanRoutes() {
         <Route path="hotels" element={<HotelsPage />} />
         <Route path="offers" element={<OffersPage />} />
         <Route path="contact" element={<ContactPage />} />
+        
       </Route>
     </Routes>
   )

@@ -57,7 +57,7 @@ function NavbarActions({ showPhoneNumber }: { showPhoneNumber?: boolean }) {
         ) : null}
       </a>
       <Link
-        to="/contact"
+        to="/booking"
         className={[bookNowButtonClass, 'group h-9 px-3.5 text-sm sm:px-4'].join(' ')}
       >
         <CalendarDays
@@ -131,7 +131,7 @@ export function Navbar({ scrolled: scrolledProp }: NavbarProps = {}) {
               <Phone className="h-4 w-4" aria-hidden="true" />
             </a>
             <Link
-              to="/contact"
+              to="/booking"
               className={[bookNowButtonClass, 'h-9 max-w-32 gap-1.5 px-3 text-xs sm:max-w-none'].join(
                 ' ',
               )}
