@@ -1,0 +1,79 @@
+{
+  "header": {
+    "title": "احجز رحلتك",
+    "subtitle": "أدخل بياناتك وسيتواصل فريقنا معك قريباً لإتمام الحجز."
+  },
+  "success": {
+    "title": "تم استلام طلب الحجز",
+    "message": "شكراً لك. سيتواصل فريقنا معك قريباً لتأكيد تفاصيل رحلتك.",
+    "action": "إنشاء حجز آخر"
+  },
+  "form": {
+    "title": "نموذج الحجز",
+    "requiredHint": "الحقول المميزة بـ * مطلوبة.",
+    "sections": {
+      "details": {
+        "title": "بياناتك",
+        "description": "كيف يمكننا التواصل معك لتأكيد الحجز؟"
+      },
+      "trip": {
+        "title": "تفاصيل الرحلة",
+        "description": "أخبرنا متى تخطط للسفر وعدد المسافرين."
+      },
+      "notes": {
+        "title": "ملاحظات إضافية",
+        "description": "شاركنا أي طلبات أو تفضيلات خاصة."
+      }
+    },
+    "fields": {
+      "fullName": "الاسم الكامل",
+      "phone": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "travelDate": "تاريخ السفر",
+      "adults": "البالغون",
+      "children": "الأطفال",
+      "package": "الباقة",
+      "notes": "ملاحظات إضافية",
+      "optionalMessage": "رسالة اختيارية"
+    },
+    "placeholders": {
+      "fullName": "اسمك الكامل",
+      "phone": "أدخل رقم جوالك",
+      "email": "email@example.com",
+      "notes": "أي طلب خاص؟"
+    },
+    "package": {
+      "loading": "جارٍ تحميل الباقات...",
+      "noPackagesOption": "لا توجد باقات متاحة"
+    },
+    "counter": {
+      "decrease": "تقليل {{label}}",
+      "increase": "زيادة {{label}}"
+    },
+    "action": "احجز الآن",
+    "errors": {
+      "fullName": "الاسم الكامل مطلوب",
+      "phone": "يرجى إدخال رقم هاتف صالح مع رمز الدولة.",
+      "travelDate": "تاريخ السفر مطلوب",
+      "package": "يرجى اختيار باقة",
+      "loadPackages": "تعذّر تحميل الباقات",
+      "submitFailed": "تعذّر إرسال الحجز. يرجى المحاولة مرة أخرى."
+    }
+  },
+  "summary": {
+    "title": "الباقة المختارة",
+    "noDescription": "لا يوجد وصف متاح.",
+    "estimatedPrice": "السعر التقديري",
+    "durationNotSpecified": "المدة غير محددة",
+    "days_zero": "{{count}} يوم",
+    "days_one": "يوم واحد",
+    "days_two": "يومان",
+    "days_few": "{{count}} أيام",
+    "days_many": "{{count}} يوماً",
+    "days_other": "{{count}} يوم",
+    "empty": "اختر باقة لعرض تفاصيلها."
+  },
+  "currency": {
+    "sar": "ر.س"
+  }
+}
