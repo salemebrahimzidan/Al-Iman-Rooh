@@ -8,6 +8,7 @@ export const namespaces = [
   'hotels',
   'offers',
   'contact',
+  'booking',
 ] as const
 
 export type AppNamespace = (typeof namespaces)[number]
