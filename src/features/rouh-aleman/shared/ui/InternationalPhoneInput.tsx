@@ -5,6 +5,7 @@ import './international-phone-input.css'
 
 type InternationalPhoneInputProps = {
   id: string
+  name?: string
   value: string
   onChange: (value: string) => void
   onCountryChange?: (country: Country) => void
@@ -20,6 +21,7 @@ type InternationalPhoneInputProps = {
 
 export function InternationalPhoneInput({
   id,
+  name,
   value,
   onChange,
   onCountryChange,
@@ -47,6 +49,7 @@ export function InternationalPhoneInput({
       disabled={disabled}
       numberInputProps={{
         id,
+        name,
         autoComplete: 'tel',
         'aria-invalid': ariaInvalid,
         'aria-describedby': ariaDescribedBy,
