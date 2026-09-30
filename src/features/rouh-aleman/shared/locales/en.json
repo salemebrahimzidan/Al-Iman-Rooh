@@ -6,10 +6,12 @@
     "mark": "RA"
   },
   "company": {
-    "phone": "+966 50 123 4567",
-    "email": "info@rouhaleman.com",
+    "phone": "+966 50 707 5933",
+    "phone2": "+249 90 241 3559",
+    "email": "alimanrouh@gmail.com",
     "address": "Riyadh, Saudi Arabia",
-    "hours": "Sun–Thu, 9:00 AM – 6:00 PM"
+    "address2": "Al Bawadi, Jeddah, Saudi Arabia",
+    "hours": "Sun–Thu, 9:00 AM – 11:00 PM"
   },
   "nav": {
     "home": "Home",

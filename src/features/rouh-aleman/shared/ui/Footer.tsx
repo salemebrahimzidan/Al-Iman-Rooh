@@ -52,6 +52,7 @@ export function Footer() {
             <div className="text-xs font-bold uppercase tracking-[0.16em] text-(--ra-gold)">{t('footer.contact')}</div>
             <div className="mt-3 grid gap-2 text-sm text-white/80">
               <LtrText>{t('company.phone')}</LtrText>
+              <LtrText>{t('company.phone2')}</LtrText>
               <LtrText>{t('company.email')}</LtrText>
               <div className="text-white/60">{t('footer.headline')}</div>
             </div>
