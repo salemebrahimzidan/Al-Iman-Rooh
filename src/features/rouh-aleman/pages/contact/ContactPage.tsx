@@ -16,7 +16,6 @@ import { InternationalPhoneInput } from '../../shared/ui/InternationalPhoneInput
 import { useToast } from '../../shared/ui/Toast'
 import { isValidInternationalPhone } from '../../shared/utils/phone'
 import { getMapsEmbedUrl, getMapsSearchUrl } from '../../shared/utils/maps'
-import { getContactSubmitErrorMessage } from './get-contact-submit-error'
 import { submitContactForm } from './submit-contact-form'
 
 type ContactFields = {
@@ -34,6 +33,8 @@ const EMPTY_FIELDS: ContactFields = {
   email: '',
   message: '',
 }
+
+const DEFAULT_SERVICE = 'General inquiry'
 
 const inputBase =
   'w-full rounded-xl border bg-white px-4 text-[15px] leading-normal text-[#0F172A] outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-[#94A3B8] disabled:cursor-not-allowed disabled:bg-[#F8FAFC] disabled:opacity-70'
@@ -200,6 +201,8 @@ export function ContactPage() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    if (sending) return
+    const form = e.currentTarget
 
     const nextErrors = validate()
     if (Object.keys(nextErrors).length > 0) {
@@ -212,11 +215,13 @@ export function ContactPage() {
     setSending(true)
 
     try {
-      await submitContactForm(fields)
+      await submitContactForm(form)
+      form.reset()
       setFields(EMPTY_FIELDS)
       showToast('success', t('form.success'))
     } catch (err) {
-      showToast('error', getContactSubmitErrorMessage(err, t))
+      console.error('Contact form submission failed:', err)
+      showToast('error', t('form.errors.submitFailed'))
     } finally {
       setSending(false)
     }
@@ -254,6 +259,9 @@ export function ContactPage() {
               </div>
 
               <ErrorSummary errors={errors} fieldIds={fieldIds} title={t('form.hint')} />
+
+              <input type="hidden" name="phone" value={fields.phone} />
+              <input type="hidden" name="service" value={DEFAULT_SERVICE} />
 
               <fieldset disabled={disabled} className="flex flex-1 flex-col gap-10">
                 {/* Details */}
@@ -382,7 +390,7 @@ export function ContactPage() {
                   {sending ? (
                     <>
                       <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
-                      {ts('ui.sending')}
+                      {t('form.sending')}
                     </>
                   ) : (
                     <>

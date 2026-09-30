@@ -19,7 +19,7 @@ function fromDotEnvFile() {
   }
 
   const env = readFileSync(envPath, 'utf8')
-  const match = env.match(new RegExp(`^\\s*${ENV_KEY}\\s*=\\s*(\\S+)\\s*$`, 'm'))
+  const match = env.match(new RegExp(`^\\s*${ENV_KEY}\\s*=\\s*["']?([^"'\\s]+)["']?\\s*$`, 'm'))
   return match?.[1]?.trim() || undefined
 }
 
