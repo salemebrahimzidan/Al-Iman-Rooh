@@ -224,11 +224,12 @@ export function ContactPage() {
 
   const disabled = sending
   const phoneHref = `tel:${ts('company.phone').replace(/\s/g, '')}`
+  const phone2Href = `tel:${ts('company.phone2').replace(/\s/g, '')}`
   const mailHref = `mailto:${ts('company.email')}`
   const companyName = ts('brand.name')
-  const companyAddress = ts('company.address')
-  const mapsEmbedUrl = getMapsEmbedUrl({ address: companyAddress, companyName })
-  const mapsSearchUrl = getMapsSearchUrl({ address: companyAddress, companyName })
+  const mapAddress = ts('company.address2')
+  const mapsEmbedUrl = getMapsEmbedUrl({ address: mapAddress, companyName })
+  const mapsSearchUrl = getMapsSearchUrl({ address: mapAddress, companyName })
 
   return (
     <div
@@ -406,6 +407,12 @@ export function ContactPage() {
                 >
                   {ts('company.phone')}
                 </a>
+                <a
+                  href={phone2Href}
+                  className="block tabular-nums transition-colors duration-200 hover:text-[#2563EB]"
+                >
+                  {ts('company.phone2')}
+                </a>
               </ContactChannel>
               <ContactChannel icon={<Mail className="h-4 w-4" />} label={t('info.email')}>
                 <a href={mailHref} className="break-all transition-colors duration-200 hover:text-[#2563EB]">
@@ -413,7 +420,7 @@ export function ContactPage() {
                 </a>
               </ContactChannel>
               <ContactChannel icon={<MapPin className="h-4 w-4" />} label={t('info.address')}>
-                <span>{ts('company.address')}</span>
+                <span>{ts('company.address2')}</span>
               </ContactChannel>
               <ContactChannel icon={<Clock className="h-4 w-4" />} label={t('info.hours')}>
                 <span>{ts('company.hours')}</span>
@@ -439,7 +446,7 @@ export function ContactPage() {
                   </span>
                   <div className="min-w-0 pt-0.5">
                     <p className="text-[11px] font-semibold tracking-[0.08em] text-(--ra-muted) uppercase">{t('info.address')}</p>
-                    <p className="mt-1.5 text-sm font-medium leading-snug text-(--ra-black)">{companyAddress}</p>
+                    <p className="mt-1.5 text-sm font-medium leading-snug text-(--ra-black)">{mapAddress}</p>
                   </div>
                 </li>
                 <li className="flex gap-3.5 rounded-2xl border border-(--ra-border)/80 bg-(--ra-bg) p-4">

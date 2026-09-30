@@ -6,6 +6,7 @@ import { LtrText } from './LtrText'
 export function TopBar() {
   const { t } = useTranslation('shared')
   const phone = t('company.phone')
+  const phone2 = t('company.phone2')
   const email = t('company.email')
 
   return (
@@ -29,6 +30,14 @@ export function TopBar() {
             />
             <span className="hidden font-medium text-white/90 sm:inline">{t('topBar.phoneLabel')}</span>
             <LtrText className="hidden tracking-tight whitespace-nowrap sm:inline">{phone}</LtrText>
+          </a>
+
+          <a
+            href={`tel:${phone2.replace(/\s/g, '')}`}
+            className="group hidden shrink-0 items-center text-xs text-white/85 transition-colors duration-200 hover:text-white lg:inline-flex"
+            aria-label={`${t('topBar.phoneLabel')}: ${phone2}`}
+          >
+            <LtrText className="tracking-tight whitespace-nowrap">{phone2}</LtrText>
           </a>
 
           <span className="hidden h-3 w-px shrink-0 bg-white/15 md:block" aria-hidden="true" />
