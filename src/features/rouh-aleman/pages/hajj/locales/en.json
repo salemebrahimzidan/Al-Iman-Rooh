@@ -1,20 +1,82 @@
 {
-  "title": "Hajj",
-  "subtitle": "Packages, steps, hotels, and guidance.",
+  "hero": {
+    "eyebrow": "Hajj programs",
+    "title": "Answer the call of Hajj with confidence",
+    "subtitle": "A carefully organised Hajj journey — from paperwork to Mina, Arafat and Muzdalifah — with an experienced team beside you at every step.",
+    "primaryCta": "Book your Hajj",
+    "whatsappCta": "Ask on WhatsApp"
+  },
+  "highlights": {
+    "0": "Experienced Hajj team",
+    "1": "Hotels close to the Haram",
+    "2": "Support around the clock"
+  },
+  "included": {
+    "eyebrow": "What's included",
+    "title": "A complete Hajj program",
+    "subtitle": "Everything is arranged so you can devote yourself fully to the rites of Hajj.",
+    "items": {
+      "0": { "title": "Hajj permit & paperwork", "subtitle": "We guide you through the official requirements and follow up your documents." },
+      "1": { "title": "Flights", "subtitle": "Flights arranged around the Hajj dates, direct where available." },
+      "2": { "title": "Makkah & Madinah hotels", "subtitle": "Comfortable stays close to the Grand Mosque and the Prophet's Mosque." },
+      "3": { "title": "Mina & Arafat camps", "subtitle": "Prepared camps with meals and essential services during the days of Hajj." },
+      "4": { "title": "Transport between the holy sites", "subtitle": "Organised transport between Makkah, Mina, Arafat and Muzdalifah." },
+      "5": { "title": "Religious guidance", "subtitle": "Scholars and guides explain each rite so you perform Hajj with ease." }
+    }
+  },
   "packages": {
-    "title": "Hajj packages",
-    "subtitle": "Premium options prepared for your journey."
+    "eyebrow": "Our packages",
+    "title": "Choose your Hajj package",
+    "subtitle": "Places are limited each season. Reserve early or ask us to prepare a program for your group.",
+    "loading": "Loading packages...",
+    "empty": "Hajj packages for this season will be announced soon. Contact us to register your interest.",
+    "days": "{{count}} days",
+    "flexible": "Flexible duration",
+    "badge": "Hajj",
+    "currency": "SAR",
+    "book": "Book now"
   },
-  "steps": {
-    "title": "Hajj steps",
-    "subtitle": "A clear overview for planning."
-  },
-  "hotels": {
-    "title": "Hotels",
-    "subtitle": "Comfortable stays close to key locations."
+  "journey": {
+    "eyebrow": "The Hajj journey",
+    "title": "The days of Hajj, step by step",
+    "subtitle": "Our team accompanies you through each day of the rites.",
+    "items": {
+      "0": { "day": "8 Dhul Hijjah", "title": "Day of Tarwiyah — Mina", "subtitle": "Enter ihram and travel to Mina, where pilgrims spend the day and night." },
+      "1": { "day": "9 Dhul Hijjah", "title": "Day of Arafah", "subtitle": "Stand at Arafat in prayer and supplication, then move to Muzdalifah after sunset." },
+      "2": { "day": "10 Dhul Hijjah", "title": "Day of Sacrifice", "subtitle": "Stone Jamarat al-Aqabah, offer the sacrifice, shave or trim, and perform Tawaf al-Ifadah." },
+      "3": { "day": "11–13 Dhul Hijjah", "title": "Days of Tashreeq", "subtitle": "Stay in Mina and stone the three Jamarat, then perform the farewell Tawaf." }
+    }
   },
   "faq": {
-    "title": "FAQ",
-    "subtitle": "Common questions answered."
+    "eyebrow": "FAQ",
+    "title": "Frequently asked questions",
+    "items": {
+      "0": {
+        "q": "When should I book my Hajj?",
+        "a": "As early as possible. Hajj places are limited each season, so registering early gives you the best chance and more choice of packages."
+      },
+      "1": {
+        "q": "What documents are required?",
+        "a": "Requirements depend on your nationality and country of residence and are set by the official authorities. Our team will tell you exactly what you need and help you prepare it."
+      },
+      "2": {
+        "q": "What is included in the price?",
+        "a": "Each package lists its inclusions, typically accommodation, camps in Mina and Arafat, transport between the holy sites and guidance. We confirm every detail before you book."
+      },
+      "3": {
+        "q": "Is there support during the days of Hajj?",
+        "a": "Yes. Our team and guides are with you throughout the rites and reachable around the clock."
+      },
+      "4": {
+        "q": "Can I book for my family or a group?",
+        "a": "Yes. We arrange programs for families and groups and can help with room and camp arrangements."
+      }
+    }
+  },
+  "cta": {
+    "title": "Begin preparing for your Hajj",
+    "subtitle": "Register your interest today and our team will contact you with the available options for this season.",
+    "primary": "Book now",
+    "call": "Call us"
   }
 }

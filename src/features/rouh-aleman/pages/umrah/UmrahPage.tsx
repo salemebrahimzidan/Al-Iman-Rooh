@@ -17,26 +17,14 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { getPackages, type PackageItem } from '../../../../services/packages'
+import { getPackageImageUrl, isHajjPackage } from '../../shared/utils/packages'
 
 const HERO_IMAGE = '/images/home/umrah-package-1.png'
 const IMAGE_FALLBACK = '/images/home/umrah-package-1.png'
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://alimanrouh-api-production.up.railway.app'
 
 const INCLUDED_ICONS = [FileCheck, Plane, Hotel, Bus, Landmark, Headphones] as const
 const STEP_COUNT = 4
 const FAQ_COUNT = 5
-
-// Packages from the API carry no program type, so Hajj programs are recognised by title.
-// Arabic uses whitespace boundaries because `\b` does not work for Arabic letters (and "الحجز" contains "حج").
-function isHajjPackage(pkg: PackageItem) {
-  return /\bhajj\b/i.test(pkg.title) || /(^|\s)(ال)?حج(\s|$)/.test(pkg.title)
-}
-
-function getPackageImageUrl(path?: string | null) {
-  if (!path) return IMAGE_FALLBACK
-  if (path.startsWith('http')) return path
-  return `${API_BASE_URL}${path}`
-}
 
 export function UmrahPage() {
   const { t } = useTranslation('umrah')
@@ -157,7 +145,7 @@ export function UmrahPage() {
                 >
                   <div className="relative aspect-4/3 overflow-hidden">
                     <img
-                      src={getPackageImageUrl(pkg.imageUrl)}
+                      src={getPackageImageUrl(pkg.imageUrl, IMAGE_FALLBACK)}
                       alt={pkg.title}
                       loading="lazy"
                       decoding="async"
