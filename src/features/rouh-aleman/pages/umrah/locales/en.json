@@ -1,20 +1,76 @@
 {
-  "title": "Umrah",
-  "subtitle": "Packages, visa services, hotels, and guidance.",
+  "hero": {
+    "eyebrow": "Umrah programs",
+    "title": "Perform Umrah with peace of mind",
+    "subtitle": "Visa, flights, hotels near the Haram, transport and guidance — we arrange every detail so you can focus on worship.",
+    "primaryCta": "Book your Umrah",
+    "whatsappCta": "Ask on WhatsApp"
+  },
+  "included": {
+    "eyebrow": "What's included",
+    "title": "Everything your Umrah needs",
+    "subtitle": "One team handles the whole journey, from your visa to your return home.",
+    "items": {
+      "0": { "title": "Umrah visa", "subtitle": "We prepare and follow up your visa application from start to finish." },
+      "1": { "title": "Flights", "subtitle": "Direct flights where available, timed to suit your program." },
+      "2": { "title": "Hotels near the Haram", "subtitle": "Carefully chosen stays in Makkah and Madinah, close to the mosques." },
+      "3": { "title": "Transport", "subtitle": "Airport transfers and travel between Makkah and Madinah in comfortable vehicles." },
+      "4": { "title": "Ziyarat tours", "subtitle": "Guided visits to the historic and religious sites of Makkah and Madinah." },
+      "5": { "title": "Guidance & support", "subtitle": "Clear guidance on the Umrah rites and a team available around the clock." }
+    }
+  },
   "packages": {
-    "title": "Umrah packages",
-    "subtitle": "Flexible plans tailored to you."
+    "eyebrow": "Our packages",
+    "title": "Choose your Umrah package",
+    "subtitle": "Pick the package that suits your dates and budget, or ask us to tailor one for you.",
+    "loading": "Loading packages...",
+    "empty": "No packages are available right now. Contact us and we'll prepare a program for you.",
+    "days": "{{count}} days",
+    "flexible": "Flexible duration",
+    "badge": "Umrah",
+    "currency": "SAR",
+    "book": "Book now"
   },
-  "visa": {
-    "title": "Visa services",
-    "subtitle": "Support across the journey steps."
-  },
-  "hotels": {
-    "title": "Hotels",
-    "subtitle": "Handpicked stays for comfort."
+  "steps": {
+    "eyebrow": "How it works",
+    "title": "Your Umrah in four simple steps",
+    "items": {
+      "0": { "title": "Choose a package", "subtitle": "Browse our packages or tell us your dates and preferences." },
+      "1": { "title": "Send your documents", "subtitle": "Share your passport and details so we can start the visa." },
+      "2": { "title": "We arrange everything", "subtitle": "Visa, flights, hotels and transport are confirmed for you." },
+      "3": { "title": "Travel and perform Umrah", "subtitle": "Travel with confidence, with our team supporting you throughout." }
+    }
   },
   "faq": {
-    "title": "FAQ",
-    "subtitle": "Answers to common questions."
+    "eyebrow": "FAQ",
+    "title": "Frequently asked questions",
+    "items": {
+      "0": {
+        "q": "What documents do I need for an Umrah visa?",
+        "a": "Usually a passport valid for at least six months and a recent personal photo. Requirements can differ by nationality, so our team will confirm exactly what you need."
+      },
+      "1": {
+        "q": "How long does the visa take?",
+        "a": "In most cases the visa is issued within a few working days once your documents are complete. We recommend booking early, especially in Ramadan and peak seasons."
+      },
+      "2": {
+        "q": "Can you customise a package for my family or group?",
+        "a": "Yes. We can adjust the dates, hotels, room types and duration to suit families and groups of any size."
+      },
+      "3": {
+        "q": "Is transport between Makkah and Madinah included?",
+        "a": "Our packages include transport between the cities and airport transfers. Details for each package are confirmed when you book."
+      },
+      "4": {
+        "q": "How do I pay and confirm my booking?",
+        "a": "Send a booking request or contact us by phone or WhatsApp. We'll confirm availability, the final price and the payment options with you."
+      }
+    }
+  },
+  "cta": {
+    "title": "Ready to start your Umrah journey?",
+    "subtitle": "Tell us your dates and preferences and we'll get back to you with the best options.",
+    "primary": "Book now",
+    "call": "Call us"
   }
 }

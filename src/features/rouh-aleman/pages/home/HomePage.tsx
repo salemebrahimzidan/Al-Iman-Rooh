@@ -9,18 +9,15 @@ import {
   Bus,
   CalendarDays,
   Car,
-  ChevronDown,
   FileText,
   Globe,
   Headphones,
-  Landmark,
   MapPin,
   MessageCircle,
   Package,
   Phone,
   Plane,
   Play,
-  Search,
   Smile,
   Sparkles,
   Tag,
@@ -66,10 +63,6 @@ function telHref(phone: string) {
 export function HomePage() {
   const { t } = useTranslation('home')
   const { t: ts } = useTranslation('shared')
-  const [programType, setProgramType] = useState('umrah')
-  const [fromCity, setFromCity] = useState('cairo')
-  const [depart, setDepart] = useState('')
-  const [guests, setGuests] = useState(2)
   const [heroFailed, setHeroFailed] = useState(false)
 
   const waHref = useMemo(() => {
@@ -162,93 +155,6 @@ export function HomePage() {
                   </Link>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Search / booking */}
-        <div className="relative z-10 -mt-32 px-4 sm:-mt-36 sm:px-6 lg:-mt-40 lg:px-10">
-          <div className="mx-auto max-w-6xl rounded-[22px] border border-white/60 bg-white/75 p-5 shadow-[0_28px_90px_rgba(2,6,23,0.14)] ring-1 ring-(--ra-border)/80 backdrop-blur-2xl sm:p-7 lg:p-8">
-            <div className="flex flex-col gap-1 text-start sm:flex-row sm:items-end sm:justify-between sm:gap-4">
-              <div>
-                <h2 className="text-lg font-bold text-(--ra-green) sm:text-xl">{t('searchCard.title')}</h2>
-                <p className="mt-1 max-w-xl text-xs text-(--ra-muted) sm:text-sm">
-                  {t('featuredPrograms.subtitle')}
-                </p>
-              </div>
-              <span className="hidden h-10 w-px shrink-0 bg-(--ra-border) sm:block" aria-hidden="true" />
-            </div>
-            <div className="mt-6 flex flex-col gap-4 lg:flex-row lg:items-stretch lg:gap-3">
-              <div className="grid flex-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                <label className="grid gap-1.5 text-start">
-                  <span className="text-xs font-semibold text-(--ra-muted)">{t('searchCard.programType')}</span>
-                  <span className="relative">
-                    <Landmark className="pointer-events-none absolute inset-s-3 top-1/2 h-4 w-4 -translate-y-1/2 text-(--ra-green)" aria-hidden="true" />
-                    <select
-                      value={programType}
-                      onChange={(e) => setProgramType(e.target.value)}
-                      className="w-full cursor-pointer appearance-none rounded-xl border border-(--ra-border) bg-white/90 py-3 ps-10 pe-10 text-sm font-medium text-(--ra-black) shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] outline-none ring-(--ra-ring) transition focus:border-(--ra-green)/35 focus:ring-2"
-                    >
-                      <option value="umrah">{t('searchCard.options.umrah')}</option>
-                      <option value="hajj">{t('searchCard.options.hajj')}</option>
-                    </select>
-                    <ChevronDown className="pointer-events-none absolute inset-e-3 top-1/2 h-4 w-4 -translate-y-1/2 text-(--ra-muted)" aria-hidden="true" />
-                  </span>
-                </label>
-                <label className="grid gap-1.5 text-start">
-                  <span className="text-xs font-semibold text-(--ra-muted)">{t('searchCard.departureFrom')}</span>
-                  <span className="relative">
-                    <Plane className="pointer-events-none absolute inset-s-3 top-1/2 h-4 w-4 -translate-y-1/2 text-(--ra-green)" aria-hidden="true" />
-                    <select
-                      value={fromCity}
-                      onChange={(e) => setFromCity(e.target.value)}
-                      className="w-full cursor-pointer appearance-none rounded-xl border border-(--ra-border) bg-white/90 py-3 ps-10 pe-10 text-sm font-medium text-(--ra-black) shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] outline-none ring-(--ra-ring) transition focus:border-(--ra-green)/35 focus:ring-2"
-                    >
-                      <option value="cairo">{t('searchCard.options.cairo')}</option>
-                      <option value="jeddah">{t('searchCard.options.jeddah')}</option>
-                      <option value="riyadh">{t('searchCard.options.riyadh')}</option>
-                    </select>
-                    <ChevronDown className="pointer-events-none absolute inset-e-3 top-1/2 h-4 w-4 -translate-y-1/2 text-(--ra-muted)" aria-hidden="true" />
-                  </span>
-                </label>
-                <label className="grid gap-1.5 text-start">
-                  <span className="text-xs font-semibold text-(--ra-muted)">{t('searchCard.departureDate')}</span>
-                  <span className="relative">
-                    <CalendarDays className="pointer-events-none absolute inset-s-3 top-1/2 h-4 w-4 -translate-y-1/2 text-(--ra-green)" aria-hidden="true" />
-                    <input
-                      type="date"
-                      value={depart}
-                      onChange={(e) => setDepart(e.target.value)}
-                      className="w-full rounded-xl border border-(--ra-border) bg-white/90 py-3 ps-10 pe-3 text-sm font-medium text-(--ra-black) shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] outline-none ring-(--ra-ring) transition focus:border-(--ra-green)/35 focus:ring-2"
-                    />
-                  </span>
-                </label>
-                <label className="grid gap-1.5 text-start">
-                  <span className="text-xs font-semibold text-(--ra-muted)">{t('searchCard.guests')}</span>
-                  <span className="relative">
-                    <Users className="pointer-events-none absolute inset-s-3 top-1/2 h-4 w-4 -translate-y-1/2 text-(--ra-green)" aria-hidden="true" />
-                    <select
-                      value={String(guests)}
-                      onChange={(e) => setGuests(Number(e.target.value))}
-                      className="w-full cursor-pointer appearance-none rounded-xl border border-(--ra-border) bg-white/90 py-3 ps-10 pe-10 text-sm font-medium text-(--ra-black) shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] outline-none ring-(--ra-ring) transition focus:border-(--ra-green)/35 focus:ring-2"
-                    >
-                      {[1, 2, 3, 4, 5, 6].map((n) => (
-                        <option key={n} value={n}>
-                          {t('searchCard.peopleOption', { count: n })}
-                        </option>
-                      ))}
-                    </select>
-                    <ChevronDown className="pointer-events-none absolute inset-e-3 top-1/2 h-4 w-4 -translate-y-1/2 text-(--ra-muted)" aria-hidden="true" />
-                  </span>
-                </label>
-              </div>
-              <button
-                type="button"
-                className="inline-flex h-[52px] shrink-0 items-center justify-center gap-2 self-stretch rounded-2xl bg-(--ra-green) px-8 text-sm font-semibold text-white shadow-[0_18px_44px_rgba(6,51,39,0.32)] transition motion-safe:hover:-translate-y-0.5 hover:bg-(--ra-green-2) lg:h-auto lg:min-h-[52px] lg:self-auto"
-              >
-                <Search className="h-5 w-5" aria-hidden="true" />
-                {t('searchCard.searchNow')}
-              </button>
             </div>
           </div>
         </div>
