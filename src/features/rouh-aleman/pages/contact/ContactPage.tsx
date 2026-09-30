@@ -16,7 +16,6 @@ import { InternationalPhoneInput } from '../../shared/ui/InternationalPhoneInput
 import { useToast } from '../../shared/ui/Toast'
 import { isValidInternationalPhone } from '../../shared/utils/phone'
 import { getMapsEmbedUrl, getMapsSearchUrl } from '../../shared/utils/maps'
-import { getContactSubmitErrorMessage } from './get-contact-submit-error'
 import { submitContactForm } from './submit-contact-form'
 
 type ContactFields = {
@@ -27,6 +26,8 @@ type ContactFields = {
 }
 
 type FieldKey = keyof ContactFields
+
+const CONTACT_SERVICE = 'General inquiry'
 
 const EMPTY_FIELDS: ContactFields = {
   name: '',
@@ -198,8 +199,9 @@ export function ContactPage() {
     document.getElementById(fieldIds[firstKey])?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (sending) return
 
     const nextErrors = validate()
     if (Object.keys(nextErrors).length > 0) {
@@ -208,15 +210,25 @@ export function ContactPage() {
       return
     }
 
+    // Must be read before `sending` disables the fieldset: disabled controls are omitted from FormData.
+    const form = event.currentTarget
+    const formData = new FormData(form)
+    formData.set('name', fields.name.trim())
+    formData.set('email', fields.email.trim())
+    formData.set('phone', fields.phone.trim())
+    formData.set('message', fields.message.trim())
+
     setErrors({})
     setSending(true)
 
     try {
-      await submitContactForm(fields)
+      await submitContactForm(formData)
+      form.reset()
       setFields(EMPTY_FIELDS)
       showToast('success', t('form.success'))
     } catch (err) {
-      showToast('error', getContactSubmitErrorMessage(err, t))
+      console.error('Contact form submission failed:', err)
+      showToast('error', t('form.errors.submitFailed'))
     } finally {
       setSending(false)
     }
@@ -254,6 +266,8 @@ export function ContactPage() {
               </div>
 
               <ErrorSummary errors={errors} fieldIds={fieldIds} title={t('form.hint')} />
+
+              <input type="hidden" name="service" value={CONTACT_SERVICE} />
 
               <fieldset disabled={disabled} className="flex flex-1 flex-col gap-10">
                 {/* Details */}
@@ -293,6 +307,7 @@ export function ContactPage() {
                     >
                       <InternationalPhoneInput
                         id={fieldIds.phone}
+                        name="phone"
                         value={fields.phone}
                         onChange={(value) => updateField('phone', value)}
                         onCountryChange={setPhoneCountry}
@@ -382,7 +397,7 @@ export function ContactPage() {
                   {sending ? (
                     <>
                       <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
-                      {ts('ui.sending')}
+                      {t('form.sending')}
                     </>
                   ) : (
                     <>
