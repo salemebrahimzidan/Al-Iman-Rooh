@@ -6,7 +6,7 @@ import { RuntimeErrorBoundary } from './app/providers/runtime-error-boundary'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RuntimeErrorBoundary appName="Al Eman Rooh">
+    <RuntimeErrorBoundary appName="Al Iman Rouh">
       <App />
     </RuntimeErrorBoundary>
   </StrictMode>,
