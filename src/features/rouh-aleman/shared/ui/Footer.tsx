@@ -1,7 +1,33 @@
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { CalendarDays, ChevronLeft, ChevronRight, Clock, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Clock, Mail, MapPin, Phone } from 'lucide-react'
+import { siFacebook, siInstagram, siSnapchat, siTiktok, siWhatsapp, siX, siYoutube, type SimpleIcon } from 'simple-icons'
 import { LtrText } from './LtrText'
+
+/** Icons without an href render as non-clickable placeholders until the account URL is set. */
+const SOCIAL_LINKS: Array<{ icon: SimpleIcon; href: string; tone: string }> = [
+  {
+    icon: siInstagram,
+    href: '',
+    tone: 'bg-[radial-gradient(circle_at_30%_107%,#fdf497_0%,#fdf497_5%,#fd5949_45%,#d6249f_60%,#285aeb_90%)] text-white',
+  },
+  { icon: siFacebook, href: '', tone: 'bg-[#0866ff] text-white' },
+  { icon: siX, href: '', tone: 'bg-black text-white' },
+  { icon: siTiktok, href: '', tone: 'bg-black text-white' },
+  { icon: siSnapchat, href: '', tone: 'bg-[#fffc00] text-black ring-1 ring-black/10' },
+  { icon: siYoutube, href: '', tone: 'bg-[#ff0000] text-white' },
+]
+
+const socialBaseClass =
+  'grid h-10 w-10 place-items-center rounded-full shadow-[0_6px_16px_-8px_rgba(2,6,23,0.45)] transition duration-300 motion-safe:hover:-translate-y-0.5 hover:shadow-[0_10px_22px_-8px_rgba(2,6,23,0.5)]'
+
+function BrandIcon({ icon }: { icon: SimpleIcon }) {
+  return (
+    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
+      <path d={icon.path} />
+    </svg>
+  )
+}
 
 const quickLinks = [
   { to: '/', key: 'nav.home' },
@@ -61,10 +87,6 @@ export function Footer() {
   const phone = t('company.phone')
   const phone2 = t('company.phone2')
   const email = t('company.email')
-  const waHref = `https://wa.me/${phone.replace(/\D/g, '')}`
-
-  const socialClass =
-    'grid h-10 w-10 place-items-center rounded-full bg-white text-(--ra-green) shadow-sm ring-1 ring-(--ra-border) transition hover:bg-(--ra-green) hover:text-white hover:ring-(--ra-green)'
 
   return (
     <footer className="relative overflow-hidden border-t border-(--ra-border) bg-white text-(--ra-black)">
@@ -75,14 +97,14 @@ export function Footer() {
             <FooterLinks links={quickLinks} />
           </div>
 
-          <div className="text-start lg:col-span-3">
+          <div className="text-start lg:col-span-2">
             <FooterHeading>{t('footer.more')}</FooterHeading>
             <FooterLinks links={moreLinks} />
           </div>
 
-          <div className="text-start sm:col-span-2 lg:col-span-6">
+          <div className="text-start lg:col-span-4">
             <FooterHeading>{t('footer.contact')}</FooterHeading>
-            <ul className="mt-5 grid gap-x-6 gap-y-3.5 text-sm text-(--ra-black)/80 sm:grid-cols-2">
+            <ul className="mt-5 grid gap-3.5 text-sm text-(--ra-black)/80">
               <li className="flex items-start gap-3">
                 <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-white text-(--ra-gold) shadow-sm ring-1 ring-(--ra-border)">
                   <Phone className="h-4 w-4" aria-hidden="true" />
@@ -118,25 +140,39 @@ export function Footer() {
               </li>
             </ul>
           </div>
-        </div>
 
-        <div className="mt-10 flex flex-wrap items-center gap-2.5 border-t border-(--ra-border) pt-6">
-          <a href={telHref(phone)} className={socialClass} aria-label={`${t('topBar.phoneLabel')}: ${phone}`}>
-            <Phone className="h-4 w-4" aria-hidden="true" />
-          </a>
-          <a href={waHref} target="_blank" rel="noopener noreferrer" className={socialClass} aria-label="WhatsApp">
-            <MessageCircle className="h-4 w-4" aria-hidden="true" />
-          </a>
-          <a href={`mailto:${email}`} className={socialClass} aria-label={`${t('topBar.emailLabel')}: ${email}`}>
-            <Mail className="h-4 w-4" aria-hidden="true" />
-          </a>
-          <Link
-            to="/booking"
-            className="ms-auto inline-flex h-10 items-center gap-2 rounded-full bg-(--ra-green) px-5 text-sm font-semibold text-white shadow-[0_10px_24px_-10px_rgba(6,51,39,0.7)] transition hover:bg-(--ra-green-2)"
-          >
-            <CalendarDays className="h-4 w-4" aria-hidden="true" />
-            {t('navbar.bookNow')}
-          </Link>
+          <div className="text-start lg:col-span-3">
+            <FooterHeading>{t('footer.follow')}</FooterHeading>
+            <div className="mt-5 flex flex-wrap items-center gap-2.5">
+              <a
+                href={`https://wa.me/${phone.replace(/\D/g, '')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${socialBaseClass} bg-[#25d366] text-white`}
+                aria-label={siWhatsapp.title}
+              >
+                <BrandIcon icon={siWhatsapp} />
+              </a>
+              {SOCIAL_LINKS.map(({ icon, href, tone }) =>
+                href ? (
+                  <a
+                    key={icon.slug}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${socialBaseClass} ${tone}`}
+                    aria-label={icon.title}
+                  >
+                    <BrandIcon icon={icon} />
+                  </a>
+                ) : (
+                  <span key={icon.slug} className={`${socialBaseClass} ${tone}`} title={icon.title}>
+                    <BrandIcon icon={icon} />
+                  </span>
+                ),
+              )}
+            </div>
+          </div>
         </div>
       </div>
 
