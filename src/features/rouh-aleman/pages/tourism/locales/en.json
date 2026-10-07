@@ -1,19 +1,77 @@
 {
-  "title": "Tourism",
-  "subtitle": "Destinations, filters, and offers.",
-  "filters": {
-    "title": "Filters",
-    "search": "Search destination",
-    "region": "Region",
-    "budget": "Budget",
-    "apply": "Apply filters"
+  "hero": {
+    "eyebrow": "Visits & visas",
+    "title": "Family visit and tourist visas",
+    "subtitle": "We handle Saudi family visit and tourist visa procedures for you—from preparing documents to receiving the visa, quickly, clearly, and with constant follow-up.",
+    "primaryCta": "Apply now",
+    "whatsappCta": "Ask on WhatsApp"
   },
-  "destinations": {
-    "title": "Destinations",
-    "subtitle": "Explore curated locations."
+  "services": {
+    "eyebrow": "Our services",
+    "title": "Choose the right visa for you",
+    "subtitle": "Two core services we deliver professionally to make it easy for your family and guests to come to Saudi Arabia.",
+    "cta": "Request this service",
+    "family": {
+      "badge": "Family visit",
+      "title": "Family visit visa",
+      "subtitle": "Bring your parents, spouse, children, and relatives to visit you in the Kingdom.",
+      "points": {
+        "0": "Visit request preparation and data review",
+        "1": "Follow-up until the visa is issued",
+        "2": "Single or multiple entry",
+        "3": "Umrah can be performed during the visit"
+      }
+    },
+    "tourist": {
+      "badge": "Tourism",
+      "title": "Tourist visa",
+      "subtitle": "Visit Saudi Arabia for tourism, Umrah, and exploring its landmarks.",
+      "points": {
+        "0": "Multiple-entry electronic visa",
+        "1": "Umrah is permitted on a tourist visa",
+        "2": "Help with the required health insurance",
+        "3": "Add flights, hotel, and transport if needed"
+      }
+    }
   },
-  "offers": {
-    "title": "Tourism offers",
-    "subtitle": "Special deals for selected destinations."
+  "documents": {
+    "eyebrow": "Documents",
+    "title": "Documents usually required",
+    "subtitle": "Requirements can vary by visa type and nationality—our team reviews them with you before applying.",
+    "items": {
+      "0": "Passport copy valid for at least 6 months",
+      "1": "Recent personal photo with a white background",
+      "2": "Host's ID or Iqama copy (for family visits)",
+      "3": "Proof of relationship (for family visits)",
+      "4": "Valid health insurance for the stay",
+      "5": "Flight booking or itinerary when needed"
+    }
+  },
+  "steps": {
+    "eyebrow": "How it works",
+    "title": "Four steps to your visa",
+    "items": {
+      "0": { "title": "Contact us", "subtitle": "Tell us the visa type, number of travellers, and nationality." },
+      "1": { "title": "Send documents", "subtitle": "We review the paperwork and make sure it is complete." },
+      "2": { "title": "We apply", "subtitle": "We submit the application and keep you updated on its status." },
+      "3": { "title": "Receive your visa", "subtitle": "We send you the visa and can help arrange your trip." }
+    }
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Quick answers",
+    "items": {
+      "0": { "q": "How long does the visa process take?", "a": "It depends on the visa type and nationality; tourist visas are often issued within a few days. We share the expected timeline when you apply." },
+      "1": { "q": "Can I perform Umrah on a visit or tourist visa?", "a": "Yes, Umrah can be performed on a tourist visa or family visit visa outside the Hajj season, following official guidelines." },
+      "2": { "q": "Who can I bring on a family visit visa?", "a": "Usually parents, spouse, children, and some relatives, according to current regulations. We review your case and explain the options." },
+      "3": { "q": "Is health insurance mandatory?", "a": "Yes, health insurance is required for most visas for the whole stay, and we can help you arrange it." },
+      "4": { "q": "Can you also arrange flights and hotels?", "a": "Absolutely—we can prepare a full package including the visa, flights, hotel, and transport." }
+    }
+  },
+  "cta": {
+    "title": "Ready to welcome your family and guests?",
+    "subtitle": "Send us the details and we will get back to you within one business day with the steps and expected cost.",
+    "primary": "Start your request",
+    "call": "Call us"
   }
 }

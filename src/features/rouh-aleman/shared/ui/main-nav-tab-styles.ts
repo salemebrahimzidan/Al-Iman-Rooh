@@ -9,26 +9,25 @@ const navLinkReset =
 export function mainNavTabLinkClass(isActive: boolean) {
   return [
     navLinkReset,
-    'relative shrink-0 whitespace-nowrap rounded-full px-3.5 py-1.5 text-[13px] font-medium tracking-tight lg:px-4 lg:py-2 lg:text-sm',
-    `transition-[color,background-color,box-shadow,ring-color,transform] ${navEase}`,
+    'relative inline-flex flex-auto items-center justify-center gap-2 whitespace-nowrap rounded-full px-3 py-2 text-[13px] tracking-tight lg:px-5 lg:text-sm',
+    `transition-[color,background-color,box-shadow,ring-color] ${navEase}`,
     'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--ra-green)',
     isActive
       ? [
-          'bg-linear-to-b from-(--ra-green) to-(--ra-green-2) text-white',
-          'shadow-[0_3px_12px_rgba(6,51,39,0.18)]',
-          'ring-1 ring-(--ra-gold)/22',
+          'bg-linear-to-b from-(--ra-green) to-(--ra-green-2) font-semibold text-white',
+          'shadow-[0_4px_14px_-2px_rgba(6,51,39,0.35)]',
+          'ring-1 ring-(--ra-gold)/30',
         ].join(' ')
       : [
-          'text-(--ra-muted)',
-          'hover:bg-(--ra-green)/[0.06] hover:text-(--ra-green)',
-          'motion-safe:hover:scale-[1.01]',
+          'font-medium text-(--ra-black)/70',
+          'hover:bg-white hover:text-(--ra-green) hover:shadow-[0_1px_3px_rgba(2,6,23,0.08)]',
         ].join(' '),
   ].join(' ')
 }
 
-/** Desktop tab row — layout only. */
+/** Desktop tab row — segmented bar. */
 export const mainNavTabListClass =
-  'relative flex min-w-0 flex-wrap items-center justify-center gap-1 overflow-visible'
+  'relative flex w-full min-w-0 items-stretch gap-1 overflow-visible rounded-full bg-(--ra-bg)/80 p-1'
 
 /** Premium CTA — Book now (desktop + mobile). */
 export const bookNowButtonClass = [

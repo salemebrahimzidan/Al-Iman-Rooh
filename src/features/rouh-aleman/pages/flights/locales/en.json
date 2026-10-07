@@ -1,28 +1,74 @@
 {
-  "title": "Flights",
-  "subtitle": "Search and compare available flights.",
-  "search": {
-    "title": "Flight search",
-    "from": "From",
-    "to": "To",
-    "depart": "Departure",
-    "return": "Return",
-    "passengers": "Passengers",
-    "class": "Class",
-    "action": "Search flights"
+  "hero": {
+    "eyebrow": "Travel bookings",
+    "title": "Flight and ferry tickets",
+    "subtitle": "We book flight tickets across airlines and passenger ferry tickets on the Red Sea at the best available prices, with full support from booking to departure.",
+    "primaryCta": "Book your ticket",
+    "whatsappCta": "Ask for prices"
   },
-  "results": {
-    "title": "Available flights",
-    "empty": "No flights match your search."
+  "services": {
+    "eyebrow": "Our services",
+    "title": "Travel by air or by sea",
+    "subtitle": "Choose how you want to travel and we will handle the booking and confirmation for you.",
+    "cta": "Request a booking",
+    "flight": {
+      "badge": "Flights",
+      "title": "Flight tickets",
+      "subtitle": "Domestic and international flights on a range of airlines to and from Saudi Arabia.",
+      "points": {
+        "0": "Price comparison across airlines",
+        "1": "One-way or round trip",
+        "2": "Individual, family, and group bookings",
+        "3": "Help with changes and rescheduling"
+      }
+    },
+    "ferry": {
+      "badge": "Ferry",
+      "title": "Ferry tickets",
+      "subtitle": "Passenger sea journeys across the Red Sea to and from Jeddah port.",
+      "points": {
+        "0": "Seats or cabins as you prefer",
+        "1": "Clear baggage allowance details",
+        "2": "Sailing times confirmed before travel",
+        "3": "Ideal for families and heavy luggage"
+      }
+    }
   },
-  "card": {
-    "stops": "Stops",
-    "direct": "Direct",
-    "book": "Request booking",
-    "price": "Price"
+  "features": {
+    "eyebrow": "Why book with us",
+    "title": "Easier booking, calmer travel",
+    "items": {
+      "0": { "title": "Competitive prices", "subtitle": "We look for the best available fare for your trip." },
+      "1": { "title": "Fast booking", "subtitle": "Quick confirmation and ticket delivery." },
+      "2": { "title": "Support before and after", "subtitle": "Our team is with you for any change or question." },
+      "3": { "title": "Complete packages", "subtitle": "Add visa, hotel, and transport in one request." }
+    }
   },
-  "currency": {
-    "code": "USD",
-    "symbol": "$"
+  "steps": {
+    "eyebrow": "How it works",
+    "title": "Four steps to your ticket",
+    "items": {
+      "0": { "title": "Send your trip details", "subtitle": "From, to, date, and number of travellers." },
+      "1": { "title": "We send options", "subtitle": "We share the best available times and prices." },
+      "2": { "title": "Confirm the booking", "subtitle": "Pick an option and send the passenger details." },
+      "3": { "title": "Receive your ticket", "subtitle": "We send your ticket with full travel details." }
+    }
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Quick answers",
+    "items": {
+      "0": { "q": "What details do you need to book?", "a": "Full name as in the passport, passport number and expiry, travel date and destination, and a way to contact you." },
+      "1": { "q": "Can I change or cancel my booking?", "a": "It depends on the airline or ferry operator and the ticket type. We explain the conditions before booking and help with any change." },
+      "2": { "q": "What is the baggage allowance?", "a": "It varies by carrier and class; we send the baggage details with every option." },
+      "3": { "q": "Do you book for groups and families?", "a": "Yes, we book for individuals, families, and groups, and try to seat you together whenever possible." },
+      "4": { "q": "Can I pay after the booking is confirmed?", "a": "We confirm the price and time with you first, then explain the available payment methods before issuing the ticket." }
+    }
+  },
+  "cta": {
+    "title": "Ready to book your next trip?",
+    "subtitle": "Send us your trip details and we will come back with the best options and prices.",
+    "primary": "Start booking",
+    "call": "Call us"
   }
 }

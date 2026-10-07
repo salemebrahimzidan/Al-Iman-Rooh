@@ -1,148 +1,240 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
+import {
+  ArrowLeft,
+  ArrowRight,
+  BadgePercent,
+  CheckCircle2,
+  ChevronDown,
+  Headphones,
+  Layers,
+  MessageCircle,
+  Phone,
+  Plane,
+  Ship,
+  Sparkles,
+  Ticket,
+  Zap,
+  type LucideIcon,
+} from 'lucide-react'
 
-type Flight = {
-  id: string
-  from: string
-  to: string
-  departTime: string
-  arriveTime: string
-  stops: number
-  price: number
-}
+const HERO_IMAGE = '/images/tickets/tickets-hero.jpg'
 
-const MOCK_FLIGHTS: Flight[] = [
-  { id: 'F1', from: 'JED', to: 'MED', departTime: '08:20', arriveTime: '10:05', stops: 0, price: 140 },
-  { id: 'F2', from: 'DXB', to: 'JED', departTime: '13:10', arriveTime: '15:45', stops: 1, price: 320 },
-  { id: 'F3', from: 'CAI', to: 'MED', departTime: '19:30', arriveTime: '22:10', stops: 0, price: 210 },
+const SERVICES: Array<{ key: 'flight' | 'ferry'; Icon: LucideIcon }> = [
+  { key: 'flight', Icon: Plane },
+  { key: 'ferry', Icon: Ship },
 ]
+const FEATURE_ICONS: LucideIcon[] = [BadgePercent, Zap, Headphones, Layers]
+const POINT_COUNT = 4
+const STEP_COUNT = 4
+const FAQ_COUNT = 5
+
+function SectionHeader({ eyebrow, title, subtitle }: { eyebrow: string; title: string; subtitle?: string }) {
+  return (
+    <div className="text-start">
+      <span className="inline-flex items-center gap-2 rounded-full border border-(--ra-gold)/30 bg-[#fbf3df] px-3.5 py-1 text-xs font-semibold text-(--ra-green)">
+        <span className="h-1.5 w-1.5 rounded-full bg-(--ra-gold)" aria-hidden="true" />
+        {eyebrow}
+      </span>
+      <h2 className="mt-4 text-3xl font-bold tracking-tight text-(--ra-green) sm:text-4xl">{title}</h2>
+      {subtitle ? <p className="mt-2 max-w-2xl text-sm leading-relaxed text-(--ra-muted) sm:text-base">{subtitle}</p> : null}
+    </div>
+  )
+}
 
 export function FlightsPage() {
   const { t } = useTranslation('flights')
   const { t: ts } = useTranslation('shared')
 
-  const [from, setFrom] = useState('')
-  const [to, setTo] = useState('')
-
-  const flights = useMemo(() => {
-    const f = from.trim().toLowerCase()
-    const tt = to.trim().toLowerCase()
-    return MOCK_FLIGHTS.filter((x) => {
-      const okFrom = f ? x.from.toLowerCase().includes(f) : true
-      const okTo = tt ? x.to.toLowerCase().includes(tt) : true
-      return okFrom && okTo
-    })
-  }, [from, to])
-
-  const priceFormatter = useMemo(() => {
-    const currency = t('currency.code')
-    const locale = document.documentElement.lang || 'en'
-    try {
-      return new Intl.NumberFormat(locale, {
-        style: 'currency',
-        currency,
-        maximumFractionDigits: 0,
-      })
-    } catch {
-      const symbol = t('currency.symbol')
-      return { format: (n: number) => `${symbol}${n}` }
-    }
-  }, [t])
+  const phone = ts('company.phone')
+  const waHref = useMemo(() => `https://wa.me/${phone.replace(/\D/g, '')}`, [phone])
+  const telHref = `tel:${phone.replace(/\s/g, '')}`
 
   return (
-    <div className="space-y-8">
-      <header className="rounded-3xl border border-(--ra-border) bg-white p-6 shadow-(--ra-shadow)">
-        <h1 className="text-2xl font-semibold text-(--ra-black)">{t('title')}</h1>
-        <p className="mt-1 text-sm text-(--ra-muted)">{t('subtitle')}</p>
-      </header>
-
-      <section className="rounded-3xl border border-(--ra-border) bg-white p-6 shadow-(--ra-shadow)">
-        <div className="text-sm font-semibold text-(--ra-black)">{t('search.title')}</div>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <label className="grid gap-1 text-xs font-medium text-(--ra-muted)">
-            {t('search.from')}
-            <input
-              value={from}
-              onChange={(e) => setFrom(e.target.value)}
-              className="h-11 rounded-2xl border border-(--ra-border) px-3 text-sm outline-none focus:ring-4 focus:ring-(--ra-ring)"
-            />
-          </label>
-          <label className="grid gap-1 text-xs font-medium text-(--ra-muted)">
-            {t('search.to')}
-            <input
-              value={to}
-              onChange={(e) => setTo(e.target.value)}
-              className="h-11 rounded-2xl border border-(--ra-border) px-3 text-sm outline-none focus:ring-4 focus:ring-(--ra-ring)"
-            />
-          </label>
-          <label className="grid gap-1 text-xs font-medium text-(--ra-muted)">
-            {t('search.depart')}
-            <input className="h-11 rounded-2xl border border-(--ra-border) px-3 text-sm outline-none focus:ring-4 focus:ring-(--ra-ring)" />
-          </label>
-          <label className="grid gap-1 text-xs font-medium text-(--ra-muted)">
-            {t('search.return')}
-            <input className="h-11 rounded-2xl border border-(--ra-border) px-3 text-sm outline-none focus:ring-4 focus:ring-(--ra-ring)" />
-          </label>
-        </div>
-        <div className="mt-4 flex justify-end">
-          <button
-            type="button"
-            className="rounded-full bg-(--ra-black) px-5 py-3 text-sm font-semibold text-white hover:bg-black/90"
-          >
-            {t('search.action')}
-          </button>
+    <div className="w-full space-y-16 pb-20 sm:space-y-20 sm:pb-24">
+      {/* Hero */}
+      <section className="relative -mx-4 overflow-hidden sm:-mx-6 lg:-mx-8">
+        <div className="relative min-h-[520px] w-full sm:min-h-[580px]">
+          {/* The photo contains no text, so mirroring in RTL keeps the ship clear of the heading. */}
+          <img
+            src={HERO_IMAGE}
+            alt=""
+            fetchPriority="high"
+            decoding="async"
+            className="absolute inset-0 h-full w-full object-cover object-center rtl:-scale-x-100"
+          />
+          <div
+            className="absolute inset-0 bg-[linear-gradient(100deg,rgba(6,51,39,0.92)_0%,rgba(6,51,39,0.7)_38%,rgba(6,51,39,0.05)_75%)] rtl:bg-[linear-gradient(-100deg,rgba(6,51,39,0.92)_0%,rgba(6,51,39,0.7)_38%,rgba(6,51,39,0.05)_75%)]"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-(--ra-green)/45 lg:hidden" aria-hidden="true" />
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-(--ra-bg) to-transparent" aria-hidden="true" />
+          <div className="relative mx-auto flex min-h-[520px] max-w-6xl items-center px-4 py-20 sm:min-h-[580px] sm:px-6 lg:px-8">
+            <div className="max-w-2xl text-start text-white">
+              <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-(--ra-gold) sm:text-sm">
+                <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+                {t('hero.eyebrow')}
+              </p>
+              <h1 className="mt-4 text-balance text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl lg:text-5xl">
+                {t('hero.title')}
+              </h1>
+              <p className="mt-5 max-w-xl text-pretty text-sm leading-relaxed text-white/85 sm:text-base">{t('hero.subtitle')}</p>
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <Link
+                  to="/booking"
+                  className="inline-flex items-center gap-2 rounded-2xl bg-(--ra-gold) px-7 py-3.5 text-sm font-semibold text-(--ra-green) shadow-[0_18px_44px_rgba(198,160,74,0.35)] transition motion-safe:hover:-translate-y-0.5"
+                >
+                  <Ticket className="h-4 w-4" aria-hidden="true" />
+                  {t('hero.primaryCta')}
+                  <ArrowRight className="h-4 w-4 rtl:hidden" aria-hidden="true" />
+                  <ArrowLeft className="hidden h-4 w-4 rtl:inline" aria-hidden="true" />
+                </Link>
+                <a
+                  href={waHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-2xl border border-white/30 bg-white/10 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition motion-safe:hover:-translate-y-0.5 hover:bg-white/15"
+                >
+                  <MessageCircle className="h-4 w-4" aria-hidden="true" />
+                  {t('hero.whatsappCta')}
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="space-y-3">
-        <div className="text-sm font-semibold text-(--ra-black)">{t('results.title')}</div>
-        {flights.length === 0 ? (
-          <div className="rounded-3xl border border-(--ra-border) bg-white p-6 text-sm text-(--ra-muted) shadow-(--ra-shadow)">
-            {t('results.empty')}
-          </div>
-        ) : (
-          <div className="grid gap-4 md:grid-cols-2">
-            {flights.map((f) => (
-              <article
-                key={f.id}
-                className="overflow-hidden rounded-3xl border border-(--ra-border) bg-white shadow-(--ra-shadow)"
+      {/* Services */}
+      <section className="mx-auto max-w-6xl space-y-8">
+        <SectionHeader eyebrow={t('services.eyebrow')} title={t('services.title')} subtitle={t('services.subtitle')} />
+        <div className="grid gap-5 lg:grid-cols-2">
+          {SERVICES.map(({ key, Icon }) => (
+            <article
+              key={key}
+              className="group relative flex flex-col overflow-hidden rounded-3xl border border-(--ra-border) bg-white p-7 text-start shadow-[0_1px_2px_rgba(2,6,23,0.04),0_18px_44px_-18px_rgba(6,51,39,0.2)] transition duration-300 hover:border-(--ra-gold)/40 motion-safe:hover:-translate-y-1 sm:p-8"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <span className="grid h-14 w-14 place-items-center rounded-2xl bg-(--ra-green) text-(--ra-gold) shadow-[0_10px_24px_-10px_rgba(6,51,39,0.7)]">
+                  <Icon className="h-6 w-6" aria-hidden="true" />
+                </span>
+                <span className="rounded-full bg-[#fbf3df] px-3 py-1 text-xs font-semibold text-(--ra-green) ring-1 ring-(--ra-gold)/30">
+                  {t(`services.${key}.badge`)}
+                </span>
+              </div>
+              <h3 className="mt-6 text-xl font-bold text-(--ra-black) sm:text-2xl">{t(`services.${key}.title`)}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-(--ra-muted)">{t(`services.${key}.subtitle`)}</p>
+              <ul className="mt-6 grid gap-3 border-t border-(--ra-border)/70 pt-6">
+                {Array.from({ length: POINT_COUNT }, (_, i) => (
+                  <li key={i} className="flex items-start gap-2.5 text-sm text-(--ra-black)/85">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-(--ra-gold)" aria-hidden="true" />
+                    {t(`services.${key}.points.${i}`)}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                to="/booking"
+                className="mt-7 inline-flex items-center justify-center gap-2 self-start rounded-xl bg-(--ra-green) px-5 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_-10px_rgba(6,51,39,0.7)] transition hover:bg-(--ra-green-2)"
               >
-                <div className="flex items-center justify-between gap-4 border-b border-(--ra-border) bg-gray-50 px-6 py-4">
-                  <div>
-                    <div className="text-sm font-semibold text-(--ra-black)">
-                      {f.from} → {f.to}
-                    </div>
-                    <div className="mt-1 text-xs text-(--ra-muted)">
-                      {f.departTime} — {f.arriveTime}
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-[10px] font-semibold uppercase tracking-wide text-(--ra-muted)">
-                      {t('card.price')}
-                    </div>
-                    <div className="text-sm font-semibold text-(--ra-green)">
-                      {priceFormatter.format(f.price)}
-                    </div>
-                  </div>
-                </div>
-                <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-5">
-                  <div className="text-xs text-(--ra-muted)">
-                    {t('card.stops')}: {f.stops === 0 ? t('card.direct') : String(f.stops)}
-                  </div>
-                  <button
-                    type="button"
-                    className="rounded-full bg-(--ra-green) px-4 py-2 text-sm font-semibold text-white hover:bg-(--ra-green-2)"
-                  >
-                    {t('card.book')}
-                  </button>
-                </div>
-                <div className="px-6 pb-5 text-[10px] text-(--ra-muted)">{ts('footer.headline')}</div>
-              </article>
-            ))}
+                {t('services.cta')}
+                <ArrowRight className="h-4 w-4 rtl:hidden" aria-hidden="true" />
+                <ArrowLeft className="hidden h-4 w-4 rtl:inline" aria-hidden="true" />
+              </Link>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="mx-auto max-w-6xl space-y-8">
+        <SectionHeader eyebrow={t('features.eyebrow')} title={t('features.title')} />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {FEATURE_ICONS.map((Icon, i) => (
+            <div
+              key={i}
+              className="rounded-2xl border border-(--ra-border) bg-white p-6 text-start shadow-[0_12px_34px_-16px_rgba(6,51,39,0.2)]"
+            >
+              <span className="grid h-11 w-11 place-items-center rounded-full bg-[#eef3ef] text-(--ra-green) ring-1 ring-(--ra-green)/10">
+                <Icon className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <h3 className="mt-4 text-base font-bold text-(--ra-black)">{t(`features.items.${i}.title`)}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-(--ra-muted)">{t(`features.items.${i}.subtitle`)}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Steps */}
+      <section className="mx-auto max-w-6xl space-y-8">
+        <SectionHeader eyebrow={t('steps.eyebrow')} title={t('steps.title')} />
+        <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {Array.from({ length: STEP_COUNT }, (_, i) => (
+            <li
+              key={i}
+              className="relative rounded-2xl border border-(--ra-border) bg-white p-6 text-start shadow-[0_12px_34px_-16px_rgba(6,51,39,0.2)]"
+            >
+              <span className="grid h-10 w-10 place-items-center rounded-full bg-(--ra-green) text-sm font-bold text-(--ra-gold) tabular-nums">
+                {i + 1}
+              </span>
+              <h3 className="mt-4 text-base font-bold text-(--ra-black)">{t(`steps.items.${i}.title`)}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-(--ra-muted)">{t(`steps.items.${i}.subtitle`)}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* FAQ */}
+      <section className="mx-auto max-w-4xl space-y-8">
+        <div className="text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-(--ra-gold)">{t('faq.eyebrow')}</p>
+          <h2 className="mt-2 text-3xl font-bold tracking-tight text-(--ra-green) sm:text-4xl">{t('faq.title')}</h2>
+        </div>
+        <div className="grid gap-3">
+          {Array.from({ length: FAQ_COUNT }, (_, i) => (
+            <details
+              key={i}
+              className="group rounded-2xl border border-(--ra-border) bg-white px-5 py-4 shadow-[0_8px_24px_rgba(2,6,23,0.04)] open:shadow-[0_14px_40px_rgba(2,6,23,0.08)]"
+            >
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-start text-sm font-semibold text-(--ra-green) sm:text-base [&::-webkit-details-marker]:hidden">
+                {t(`faq.items.${i}.q`)}
+                <ChevronDown className="h-5 w-5 shrink-0 text-(--ra-gold) transition-transform group-open:rotate-180" aria-hidden="true" />
+              </summary>
+              <p className="mt-3 text-start text-sm leading-relaxed text-(--ra-muted)">{t(`faq.items.${i}.a`)}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="relative -mx-4 overflow-hidden bg-(--ra-green) px-4 py-12 text-white sm:-mx-6 sm:rounded-[24px] sm:px-8 lg:mx-0 lg:px-12 lg:py-14">
+        <div
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_120%_at_0%_0%,rgba(198,160,74,0.18),transparent_55%),radial-gradient(70%_100%_at_100%_100%,rgba(255,255,255,0.08),transparent_50%)]"
+          aria-hidden="true"
+        />
+        <div className="relative mx-auto flex max-w-6xl flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+          <div className="max-w-2xl text-start">
+            <h2 className="text-2xl font-bold leading-snug sm:text-3xl">{t('cta.title')}</h2>
+            <p className="mt-3 text-sm leading-relaxed text-white/85 sm:text-base">{t('cta.subtitle')}</p>
           </div>
-        )}
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center lg:shrink-0">
+            <Link
+              to="/booking"
+              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-7 py-3.5 text-sm font-semibold text-(--ra-green) shadow-lg transition motion-safe:hover:-translate-y-0.5"
+            >
+              {t('cta.primary')}
+              <ArrowRight className="h-4 w-4 rtl:hidden" aria-hidden="true" />
+              <ArrowLeft className="hidden h-4 w-4 rtl:inline" aria-hidden="true" />
+            </Link>
+            <a
+              href={telHref}
+              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/25 bg-white/10 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-md transition motion-safe:hover:-translate-y-0.5 hover:bg-white/15"
+            >
+              <Phone className="h-4 w-4" aria-hidden="true" />
+              {t('cta.call')}
+            </a>
+          </div>
+        </div>
       </section>
     </div>
   )
 }
-

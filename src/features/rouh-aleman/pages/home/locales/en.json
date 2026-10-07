@@ -36,6 +36,14 @@
     "subtitle": "Hand-picked itineraries with premium hotels and direct flights where available.",
     "viewAll": "View all programs",
     "viewDetails": "View details",
+    "bookNow": "Book now",
+    "days": "{{count}} days",
+    "flexible": "Flexible dates",
+    "hajj": "Hajj",
+    "umrah": "Umrah",
+    "from": "Starting from",
+    "currency": "SAR",
+    "empty": "No programs available right now. Please check back soon.",
     "items": {
       "0": {
         "badge": "14 days",
@@ -68,10 +76,16 @@
     }
   },
   "stats": {
-    "countries": { "value": "+10", "label": "Countries covered" },
-    "satisfaction": { "value": "98%", "label": "Customer satisfaction" },
-    "experience": { "value": "+15", "label": "Years of experience" },
-    "pilgrims": { "value": "+25,000", "label": "Pilgrims served" }
+    "eyebrow": "By the numbers",
+    "title": "Trusted by pilgrims year after year",
+    "subtitle": "Years of experience organising Hajj and Umrah journeys with care and attention to detail.",
+    "titleLead": "Trusted by pilgrims",
+    "titleAccent": "year after year",
+    "cta": "Plan your journey",
+    "countries": { "value": "+10", "label": "Countries covered", "caption": "Travellers join us from across the region." },
+    "satisfaction": { "value": "98%", "label": "Customer satisfaction", "caption": "Based on feedback from our travellers." },
+    "experience": { "value": "+15", "label": "Years of experience", "caption": "Organising Hajj and Umrah journeys." },
+    "pilgrims": { "value": "+25,000", "label": "Pilgrims served", "caption": "Who trusted us with their journey." }
   },
   "whyUs": {
     "titleGold": "Why choose Al Iman Rouh?",

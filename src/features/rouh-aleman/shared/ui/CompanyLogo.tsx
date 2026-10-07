@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 /** Navbar mark (update `LOGO_VERSION` when the asset file changes). */
-const LOGO_VERSION = '4'
-const LOGO_SRC = `/images/brand/logo-primary.png?v=${LOGO_VERSION}`
+const LOGO_VERSION = '6'
+const LOGO_SRC = `/images/brand/logo-full.jpg?v=${LOGO_VERSION}`
 
 type Props = {
   /** Beside brand name in desktop / stacked navbar */

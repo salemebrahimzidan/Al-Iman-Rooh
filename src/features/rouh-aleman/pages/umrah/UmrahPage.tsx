@@ -17,9 +17,11 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { getPackages, type PackageItem } from '../../../../services/packages'
+import { useLanguage } from '../../shared/hooks/useLanguage'
 import { getPackageImageUrl, isHajjPackage } from '../../shared/utils/packages'
 
-const HERO_IMAGE = '/images/home/umrah-package-1.png'
+// Separate RTL photo instead of mirroring: a flipped Kaaba would reverse its calligraphy and door.
+const HERO_IMAGE = { en: '/images/umrah/umrah-hero.jpg', ar: '/images/umrah/umrah-hero-rtl.jpg' } as const
 const IMAGE_FALLBACK = '/images/home/umrah-package-1.png'
 
 const INCLUDED_ICONS = [FileCheck, Plane, Hotel, Bus, Landmark, Headphones] as const
@@ -29,6 +31,7 @@ const FAQ_COUNT = 5
 export function UmrahPage() {
   const { t } = useTranslation('umrah')
   const { t: ts } = useTranslation('shared')
+  const { language } = useLanguage()
   const [packages, setPackages] = useState<PackageItem[]>([])
   const [loadingPackages, setLoadingPackages] = useState(true)
 
@@ -49,16 +52,20 @@ export function UmrahPage() {
       <section className="relative -mx-4 overflow-hidden sm:-mx-6 lg:-mx-8">
         <div className="relative min-h-[520px] w-full sm:min-h-[580px]">
           <img
-            src={HERO_IMAGE}
+            src={HERO_IMAGE[language]}
             alt=""
             fetchPriority="high"
             decoding="async"
             className="absolute inset-0 h-full w-full object-cover object-center"
+            onError={(e) => {
+              if (!e.currentTarget.src.endsWith(IMAGE_FALLBACK)) e.currentTarget.src = IMAGE_FALLBACK
+            }}
           />
           <div
-            className="absolute inset-0 bg-[linear-gradient(115deg,rgba(6,51,39,0.92)_0%,rgba(6,51,39,0.75)_45%,rgba(6,51,39,0.25)_100%)] rtl:bg-[linear-gradient(-115deg,rgba(6,51,39,0.92)_0%,rgba(6,51,39,0.75)_45%,rgba(6,51,39,0.25)_100%)]"
+            className="absolute inset-0 bg-[linear-gradient(100deg,rgba(6,51,39,0.9)_0%,rgba(6,51,39,0.65)_38%,rgba(6,51,39,0.05)_75%)] rtl:bg-[linear-gradient(-100deg,rgba(6,51,39,0.9)_0%,rgba(6,51,39,0.65)_38%,rgba(6,51,39,0.05)_75%)]"
             aria-hidden="true"
           />
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-(--ra-bg) to-transparent" aria-hidden="true" />
           <div className="relative mx-auto flex min-h-[520px] max-w-6xl items-center px-4 py-20 sm:min-h-[580px] sm:px-6 lg:px-8">
             <div className="max-w-2xl text-start text-white">
               <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-(--ra-gold) sm:text-sm">
