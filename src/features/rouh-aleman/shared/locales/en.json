@@ -8,7 +8,7 @@
   "company": {
     "phone": "+966 50 707 5933",
     "phone2": "+249 90 241 3559",
-    "email": "alimanrouh@gmail.com",
+    "email": "info@alimanrouh.com",
     "address": "Riyadh, Saudi Arabia",
     "address2": "Al Bawadi, Jeddah, Saudi Arabia",
     "hours": "Sun–Thu, 9:00 AM – 11:00 PM"
@@ -19,13 +19,13 @@
     "services": "Our services",
     "umrah": "Umrah",
     "hajj": "Hajj",
-    "destinations": "Destinations",
+    "destinations": "Family visits & tourist visas",
     "about": "About the company",
     "aboutShort": "About",
     "contact": "Contact us",
     "contactShort": "Contact",
-    "flights": "Flights",
-    "tourism": "Tourism",
+    "flights": "Flight & Ferry Tickets",
+    "tourism": "Visits & Visas",
     "hotels": "Hotels",
     "offers": "Offers",
     "more": "More"
@@ -61,6 +61,7 @@
     "subheadline": "Hajj, Umrah, flights, hotels, tourism, and curated offers.",
     "rights": "All rights reserved.",
     "quickLinks": "Quick links",
+    "more": "More",
     "contact": "Contact"
   }
 }

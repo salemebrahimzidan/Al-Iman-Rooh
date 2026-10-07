@@ -1,67 +1,153 @@
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { CalendarDays, ChevronLeft, ChevronRight, Clock, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
 import { LtrText } from './LtrText'
 
-const links = [
+const quickLinks = [
   { to: '/', key: 'nav.home' },
-  { to: '/offers', key: 'nav.programs' },
   { to: '/umrah', key: 'nav.umrah' },
   { to: '/hajj', key: 'nav.hajj' },
-  { to: '/tourism', key: 'nav.destinations' },
+  { to: '/tourism', key: 'nav.tourism' },
+  { to: '/flights', key: 'nav.flights' },
+]
+
+const moreLinks = [
+  { to: '/about', key: 'nav.about' },
   { to: '/contact', key: 'nav.contact' },
 ]
+
+function telHref(phone: string) {
+  return `tel:${phone.replace(/\s/g, '')}`
+}
+
+function FooterHeading({ children }: { children: string }) {
+  return (
+    <div className="flex items-center gap-2 text-sm font-bold text-(--ra-green)">
+      <span className="h-4 w-1 rounded-full bg-(--ra-gold)" aria-hidden="true" />
+      {children}
+    </div>
+  )
+}
+
+function FooterLinks({ links }: { links: Array<{ to: string; key: string }> }) {
+  const { t } = useTranslation('shared')
+  return (
+    <ul className="mt-5 grid gap-3">
+      {links.map((l) => (
+        <li key={l.to}>
+          <NavLink
+            to={l.to}
+            end={l.to === '/'}
+            className={({ isActive }) =>
+              [
+                'group inline-flex items-center gap-1.5 text-sm transition-colors',
+                isActive ? 'font-semibold text-(--ra-gold)' : 'text-(--ra-muted) hover:text-(--ra-green)',
+              ].join(' ')
+            }
+          >
+            <ChevronRight className="h-3.5 w-3.5 text-(--ra-gold)/70 transition-transform group-hover:translate-x-0.5 rtl:hidden" aria-hidden="true" />
+            <ChevronLeft className="hidden h-3.5 w-3.5 text-(--ra-gold)/70 transition-transform group-hover:-translate-x-0.5 rtl:inline" aria-hidden="true" />
+            {t(l.key)}
+          </NavLink>
+        </li>
+      ))}
+    </ul>
+  )
+}
 
 export function Footer() {
   const { t } = useTranslation('shared')
   const year = new Date().getFullYear()
+  const phone = t('company.phone')
+  const phone2 = t('company.phone2')
+  const email = t('company.email')
+  const waHref = `https://wa.me/${phone.replace(/\D/g, '')}`
+
+  const socialClass =
+    'grid h-10 w-10 place-items-center rounded-full bg-white text-(--ra-green) shadow-sm ring-1 ring-(--ra-border) transition hover:bg-(--ra-green) hover:text-white hover:ring-(--ra-green)'
 
   return (
-    <footer className="relative overflow-hidden border-t border-(--ra-border) bg-(--ra-green) text-white">
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.12]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c6a04a' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }}
-        aria-hidden="true"
-      />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-(--ra-gold)/55 to-transparent" aria-hidden="true" />
-
-      <div className="relative mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
-        <div className="grid gap-8 md:grid-cols-12">
-          <div className="md:col-span-5">
-            <div className="text-xl font-bold tracking-tight text-white">{t('brand.name')}</div>
-            <p className="mt-2 max-w-md text-sm leading-relaxed text-white/75">{t('footer.subheadline')}</p>
+    <footer className="relative overflow-hidden border-t border-(--ra-border) bg-white text-(--ra-black)">
+      <div className="relative mx-auto w-full max-w-6xl px-4 pt-16 pb-12 sm:px-6">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+          <div className="text-start lg:col-span-3">
+            <FooterHeading>{t('footer.quickLinks')}</FooterHeading>
+            <FooterLinks links={quickLinks} />
           </div>
 
-          <div className="md:col-span-4">
-            <div className="text-xs font-bold uppercase tracking-[0.16em] text-(--ra-gold)">{t('footer.quickLinks')}</div>
-            <div className="mt-3 grid gap-2">
-              {links.map((l) => (
-                <NavLink
-                  key={l.to}
-                  to={l.to}
-                  className="text-sm text-white/80 transition hover:text-white"
-                >
-                  {t(l.key)}
-                </NavLink>
-              ))}
-            </div>
+          <div className="text-start lg:col-span-3">
+            <FooterHeading>{t('footer.more')}</FooterHeading>
+            <FooterLinks links={moreLinks} />
           </div>
 
-          <div className="md:col-span-3">
-            <div className="text-xs font-bold uppercase tracking-[0.16em] text-(--ra-gold)">{t('footer.contact')}</div>
-            <div className="mt-3 grid gap-2 text-sm text-white/80">
-              <LtrText>{t('company.phone')}</LtrText>
-              <LtrText>{t('company.phone2')}</LtrText>
-              <LtrText>{t('company.email')}</LtrText>
-              <div className="text-white/60">{t('footer.headline')}</div>
-            </div>
+          <div className="text-start sm:col-span-2 lg:col-span-6">
+            <FooterHeading>{t('footer.contact')}</FooterHeading>
+            <ul className="mt-5 grid gap-x-6 gap-y-3.5 text-sm text-(--ra-black)/80 sm:grid-cols-2">
+              <li className="flex items-start gap-3">
+                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-white text-(--ra-gold) shadow-sm ring-1 ring-(--ra-border)">
+                  <Phone className="h-4 w-4" aria-hidden="true" />
+                </span>
+                <div className="flex flex-col gap-0.5 pt-1">
+                  <a href={telHref(phone)} className="transition hover:text-(--ra-green)">
+                    <LtrText>{phone}</LtrText>
+                  </a>
+                  <a href={telHref(phone2)} className="transition hover:text-(--ra-green)">
+                    <LtrText>{phone2}</LtrText>
+                  </a>
+                </div>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-white text-(--ra-gold) shadow-sm ring-1 ring-(--ra-border)">
+                  <Mail className="h-4 w-4" aria-hidden="true" />
+                </span>
+                <a href={`mailto:${email}`} className="transition hover:text-(--ra-green)">
+                  <LtrText>{email}</LtrText>
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-white text-(--ra-gold) shadow-sm ring-1 ring-(--ra-border)">
+                  <MapPin className="h-4 w-4" aria-hidden="true" />
+                </span>
+                <span>{t('company.address2')}</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-white text-(--ra-gold) shadow-sm ring-1 ring-(--ra-border)">
+                  <Clock className="h-4 w-4" aria-hidden="true" />
+                </span>
+                <span>{t('company.hours')}</span>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs text-white/55">
-          <span>
-            © {year} {t('brand.nameShort')} — {t('footer.rights')}
+        <div className="mt-10 flex flex-wrap items-center gap-2.5 border-t border-(--ra-border) pt-6">
+          <a href={telHref(phone)} className={socialClass} aria-label={`${t('topBar.phoneLabel')}: ${phone}`}>
+            <Phone className="h-4 w-4" aria-hidden="true" />
+          </a>
+          <a href={waHref} target="_blank" rel="noopener noreferrer" className={socialClass} aria-label="WhatsApp">
+            <MessageCircle className="h-4 w-4" aria-hidden="true" />
+          </a>
+          <a href={`mailto:${email}`} className={socialClass} aria-label={`${t('topBar.emailLabel')}: ${email}`}>
+            <Mail className="h-4 w-4" aria-hidden="true" />
+          </a>
+          <Link
+            to="/booking"
+            className="ms-auto inline-flex h-10 items-center gap-2 rounded-full bg-(--ra-green) px-5 text-sm font-semibold text-white shadow-[0_10px_24px_-10px_rgba(6,51,39,0.7)] transition hover:bg-(--ra-green-2)"
+          >
+            <CalendarDays className="h-4 w-4" aria-hidden="true" />
+            {t('navbar.bookNow')}
+          </Link>
+        </div>
+      </div>
+
+      <div className="relative border-t border-(--ra-border) bg-white">
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-2 px-4 py-5 text-xs sm:flex-row sm:px-6">
+          <span className="text-(--ra-muted)">
+            © {year} {t('brand.name')} — {t('footer.rights')}
+          </span>
+          <span className="inline-flex items-center gap-2 font-semibold text-(--ra-gold)">
+            <span className="h-1 w-1 rounded-full bg-(--ra-gold)" aria-hidden="true" />
+            {t('footer.headline')}
           </span>
         </div>
       </div>

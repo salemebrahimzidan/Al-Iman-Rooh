@@ -2,13 +2,18 @@ import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { getPackages, type PackageItem } from '../../../../services/packages'
+import { useInView } from '../../shared/hooks/useInView'
+import { CountUp } from '../../shared/ui/CountUp'
+import { getPackageImageUrl, isHajjPackage } from '../../shared/utils/packages'
 import {
   ArrowLeft,
   ArrowRight,
+  ArrowUpRight,
   Award,
   Bus,
   CalendarDays,
   Car,
+  Clock,
   FileText,
   Globe,
   Headphones,
@@ -16,13 +21,15 @@ import {
   MessageCircle,
   Package,
   Phone,
-  Plane,
-  Play,
   Smile,
   Sparkles,
   Tag,
+  TrendingUp,
   Users,
 } from 'lucide-react'
+
+const STATS_BG = '/images/home/stats-makkah.jpg'
+const STATS_BARS = [35, 55, 45, 70, 60, 85] as const
 
 const HERO_IMAGE = '/images/home/hero-kaaba.png'
 const HERO_FALLBACK = '/images/home/hero.jpg'
@@ -34,23 +41,25 @@ const PROGRAM_IMAGES = [
   '/images/home/tourism.png',
 ] as const
 
-const WHY_VIDEO_THUMB = '/images/home/umrah-package-1.png'
+const WHY_MAIN_IMAGE = '/images/umrah/umrah-hero.jpg'
+const WHY_SECOND_IMAGE = '/images/hajj/hajj-hero.jpg'
 
 const DESTINATION_IMAGES = [
   '/images/home/destination-1.jpg',
-  '/images/home/destination-2.jpg',
-  '/images/home/tourism.png',
-  '/images/home/offer-bag.png',
+  '/images/home/destination-madinah.jpg',
+  '/images/home/destination-jeddah.jpg',
+  '/images/home/destination-landmarks.jpg',
+] as const
+
+const DESTINATION_LAYOUT = [
+  'sm:col-span-2 lg:row-span-2',
+  'sm:col-span-2',
+  '',
+  '',
 ] as const
 
 const IMAGE_FALLBACK = PROGRAM_IMAGES[0]
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://alimanrouh-api-production.up.railway.app'
-
-function getPackageImageUrl(path?: string | null) {
-  if (!path) return IMAGE_FALLBACK
-  if (path.startsWith('http')) return path
-  return `${API_BASE_URL}${path}`
-}
+const PACKAGE_FALLBACK = { hajj: '/images/hajj/hajj-hero.jpg', umrah: '/images/umrah/umrah-hero.jpg' } as const
 
 function digitsOnly(phone: string) {
   return phone.replace(/\D/g, '')
@@ -64,6 +73,7 @@ export function HomePage() {
   const { t } = useTranslation('home')
   const { t: ts } = useTranslation('shared')
   const [heroFailed, setHeroFailed] = useState(false)
+  const { ref: statsRef, inView: statsInView } = useInView<HTMLDivElement>()
 
   const waHref = useMemo(() => {
     const d = digitsOnly(ts('company.phone'))
@@ -101,7 +111,7 @@ export function HomePage() {
     <div className="w-full space-y-16 pb-28 sm:space-y-20 sm:pb-32 lg:space-y-24">
       {/* Hero */}
       <section className="relative -mx-4 overflow-hidden sm:-mx-6 lg:-mx-8">
-        <div className="relative min-h-[min(100dvh,900px)] w-full">
+        <div className="relative min-h-[min(88dvh,760px)] w-full">
           <img
             src={heroSrc}
             alt=""
@@ -120,7 +130,7 @@ export function HomePage() {
           />
           <div className="pointer-events-none absolute -inset-40 bg-[radial-gradient(closest-side,rgba(198,160,74,0.12),transparent_70%)] opacity-90 inset-s-[55%] rtl:inset-s-auto rtl:inset-e-[45%]" aria-hidden="true" />
 
-          <div className="relative flex min-h-[min(100dvh,900px)] items-center px-4 pb-40 pt-28 sm:px-6 sm:pb-44 sm:pt-32 lg:px-10 lg:pb-48">
+          <div className="relative flex min-h-[min(88dvh,760px)] items-center px-4 pb-14 pt-36 sm:px-6 sm:pb-16 sm:pt-40 lg:px-10 lg:pb-20 lg:pt-44">
             <div className="w-full max-w-2xl text-start">
               <div className="rounded-[22px] border border-white/50 bg-(--ra-glass) p-6 shadow-[0_24px_80px_rgba(2,6,23,0.12)] ring-1 ring-black/5 backdrop-blur-xl sm:p-8">
                 <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-(--ra-gold) sm:text-sm">
@@ -167,38 +177,32 @@ export function HomePage() {
           { Icon: Package, titleKey: 'valueProps.items.1.title', subtitleKey: 'valueProps.items.1.subtitle' },
           { Icon: Users, titleKey: 'valueProps.items.2.title', subtitleKey: 'valueProps.items.2.subtitle' },
           { Icon: Headphones, titleKey: 'valueProps.items.3.title', subtitleKey: 'valueProps.items.3.subtitle' },
-        ].map(({ Icon, titleKey, subtitleKey }) => (
+        ].map(({ Icon, titleKey, subtitleKey }, i) => (
           <div
             key={titleKey}
-            className="group relative overflow-hidden rounded-2xl border border-(--ra-border) bg-white p-5 shadow-[0_14px_40px_rgba(2,6,23,0.06)] transition motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_22px_55px_rgba(2,6,23,0.1)]"
+            className="group relative flex flex-col overflow-hidden rounded-2xl border border-(--ra-border) bg-white p-6 text-start shadow-[0_1px_2px_rgba(2,6,23,0.04),0_14px_36px_-14px_rgba(6,51,39,0.16)] transition duration-300 hover:border-(--ra-gold)/40 hover:shadow-[0_1px_2px_rgba(2,6,23,0.04),0_22px_48px_-14px_rgba(6,51,39,0.22)] motion-safe:hover:-translate-y-1"
           >
-            <div
-              className="pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100"
-              style={{
-                background: 'linear-gradient(135deg, rgba(198,160,74,0.08), transparent 55%)',
-              }}
-              aria-hidden="true"
-            />
-            <div className="relative flex flex-col items-center gap-3 text-center sm:items-start sm:text-start">
-              <div className="grid h-14 w-14 place-items-center rounded-2xl border border-(--ra-gold)/35 bg-linear-to-br from-white to-(--ra-bg) text-(--ra-green) shadow-sm ring-1 ring-(--ra-gold-soft) transition group-hover:border-(--ra-gold)/55">
-                <Icon className="h-6 w-6" aria-hidden="true" />
-              </div>
-              <div>
-                <div className="text-sm font-bold text-(--ra-green)">{t(titleKey)}</div>
-                <div className="mt-1 text-xs leading-relaxed text-(--ra-muted)">{t(subtitleKey)}</div>
-              </div>
+            <div className="flex items-start justify-between gap-3">
+              <span className="grid h-12 w-12 place-items-center rounded-full bg-[#eef3ef] text-(--ra-green) ring-1 ring-(--ra-green)/10 transition duration-300 group-hover:bg-(--ra-gold)/15 group-hover:ring-(--ra-gold)/35">
+                <Icon className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <span className="text-[11px] font-semibold text-(--ra-muted)/60 tabular-nums" aria-hidden="true">
+                0{i + 1}
+              </span>
             </div>
+            <h3 className="mt-5 text-base font-bold text-(--ra-black)">{t(titleKey)}</h3>
+            <span className="mt-2.5 block h-0.5 w-8 rounded-full bg-(--ra-gold)" aria-hidden="true" />
+            <p className="mt-3 text-sm leading-relaxed text-(--ra-muted)">{t(subtitleKey)}</p>
           </div>
         ))}
       </section>
 
       {/* Featured programs */}
-      <section className="relative -mx-4 rounded-none bg-linear-to-b from-white via-(--ra-bg) to-(--ra-bg) px-4 py-14 sm:-mx-6 sm:rounded-[28px] sm:px-6 lg:mx-0 lg:px-8 lg:py-16">
+      <section className="relative">
         <div className="mx-auto max-w-6xl space-y-8">
           <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <div className="text-start">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-(--ra-gold)">{t('hero.eyebrow')}</p>
-              <h2 className="mt-2 text-3xl font-bold tracking-tight text-(--ra-green) sm:text-4xl">{t('featuredPrograms.title')}</h2>
+              <h2 className="text-3xl font-bold tracking-tight text-(--ra-green) sm:text-4xl">{t('featuredPrograms.title')}</h2>
               <p className="mt-2 max-w-xl text-sm leading-relaxed text-(--ra-muted) sm:text-base">{t('featuredPrograms.subtitle')}</p>
             </div>
             <Link
@@ -211,129 +215,218 @@ export function HomePage() {
             </Link>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {loadingPackages ? (
-              <div className="col-span-full rounded-[20px] border border-(--ra-border) bg-white p-10 text-center text-sm font-semibold text-(--ra-muted) shadow-[0_18px_50px_rgba(2,6,23,0.08)]">
-                Loading packages...
-              </div>
+              [0, 1, 2, 3].map((i) => (
+                <div key={i} className="animate-pulse rounded-2xl border border-(--ra-border) bg-white p-2.5" aria-hidden="true">
+                  <div className="aspect-4/3 rounded-xl bg-(--ra-bg)" />
+                  <div className="space-y-3 p-3 pt-4">
+                    <div className="h-4 w-2/3 rounded bg-(--ra-bg)" />
+                    <div className="h-3 w-full rounded bg-(--ra-bg)" />
+                    <div className="h-3 w-4/5 rounded bg-(--ra-bg)" />
+                    <div className="h-9 w-full rounded-xl bg-(--ra-bg)" />
+                  </div>
+                </div>
+              ))
             ) : packages.length === 0 ? (
-              <div className="col-span-full rounded-[20px] border border-(--ra-border) bg-white p-10 text-center text-sm font-semibold text-(--ra-muted) shadow-[0_18px_50px_rgba(2,6,23,0.08)]">
-                No packages available now.
+              <div className="col-span-full rounded-2xl border border-dashed border-(--ra-border) bg-white p-10 text-center text-sm font-medium text-(--ra-muted)">
+                {t('featuredPrograms.empty')}
               </div>
             ) : (
-              packages.map((pkg) => (
-                <article
-                  key={pkg.id}
-                  className="group flex flex-col overflow-hidden rounded-[20px] border border-(--ra-border) bg-white shadow-[0_18px_50px_rgba(2,6,23,0.08)] transition motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_26px_70px_rgba(2,6,23,0.12)]"
-                >
-                  <Link to="/contact" className="relative block aspect-4/3 overflow-hidden">
-                    <img
-                      src={getPackageImageUrl(pkg.imageUrl)}
-                      alt={pkg.title}
-                      loading="lazy"
-                      decoding="async"
-                      className="relative z-0 h-full w-full bg-(--ra-bg) object-cover motion-safe:transition-transform motion-safe:duration-500 group-hover:scale-[1.05]"
-                      onError={(e) => {
-                        if (e.currentTarget.src !== IMAGE_FALLBACK) e.currentTarget.src = IMAGE_FALLBACK
-                      }}
-                    />
-                    <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-black/35 via-transparent to-transparent opacity-80 transition group-hover:opacity-100" aria-hidden="true" />
-                    <div className="absolute top-3 inset-e-3 z-20 rounded-full bg-(--ra-gold) px-3 py-1 text-[11px] font-bold text-(--ra-green) shadow-md ring-1 ring-white/30">
-                      {pkg.duration ? `${pkg.duration} Days` : 'Package'}
-                    </div>
-                  </Link>
-                  <div className="flex flex-1 flex-col gap-3 p-5">
-                    <h3 className="text-start text-base font-bold text-(--ra-green)">{pkg.title}</h3>
-                    <p className="line-clamp-2 text-start text-xs leading-relaxed text-(--ra-muted)">
-                      {pkg.description}
-                    </p>
-                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-(--ra-muted)">
-                      <span className="inline-flex items-center gap-1">
-                        <span className="text-(--ra-gold)" aria-hidden="true">
-                          ★
-                        </span>
-                        {pkg.duration ? `${pkg.duration} Days` : 'Flexible duration'}
+              packages.map((pkg) => {
+                const hajj = isHajjPackage(pkg)
+                const fallback = hajj ? PACKAGE_FALLBACK.hajj : PACKAGE_FALLBACK.umrah
+                return (
+                  <article
+                    key={pkg.id}
+                    className="group flex flex-col rounded-2xl border border-(--ra-border) bg-white p-2.5 shadow-[0_1px_2px_rgba(2,6,23,0.04),0_14px_36px_-14px_rgba(6,51,39,0.16)] transition duration-300 hover:border-(--ra-gold)/40 hover:shadow-[0_1px_2px_rgba(2,6,23,0.04),0_22px_48px_-14px_rgba(6,51,39,0.24)] motion-safe:hover:-translate-y-1"
+                  >
+                    <Link to="/booking" className="relative block aspect-4/3 overflow-hidden rounded-xl bg-(--ra-bg)">
+                      <img
+                        src={getPackageImageUrl(pkg.imageUrl, fallback)}
+                        alt={pkg.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-full w-full object-cover motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-[1.06]"
+                        onError={(e) => {
+                          if (!e.currentTarget.src.endsWith(fallback)) e.currentTarget.src = fallback
+                        }}
+                      />
+                      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/55 via-black/5 to-transparent" aria-hidden="true" />
+                      <span className="absolute top-3 inset-s-3 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-bold text-(--ra-green) shadow-sm backdrop-blur-sm">
+                        <span className="h-1.5 w-1.5 rounded-full bg-(--ra-gold)" aria-hidden="true" />
+                        {hajj ? t('featuredPrograms.hajj') : t('featuredPrograms.umrah')}
                       </span>
-                      <span className="inline-flex items-center gap-1">
-                        <Plane className="h-3.5 w-3.5 text-(--ra-green)" aria-hidden="true" />
-                        Umrah Package
+                      <span className="absolute bottom-3 inset-s-3 inline-flex items-center gap-1.5 text-xs font-semibold text-white">
+                        <Clock className="h-3.5 w-3.5" aria-hidden="true" />
+                        {pkg.duration ? t('featuredPrograms.days', { count: pkg.duration }) : t('featuredPrograms.flexible')}
                       </span>
+                    </Link>
+
+                    <div className="flex flex-1 flex-col px-2.5 pt-4 pb-1.5 text-start">
+                      <h3 className="line-clamp-1 text-base font-bold text-(--ra-black)">{pkg.title}</h3>
+                      <p className="mt-1.5 line-clamp-2 min-h-10 text-sm leading-5 text-(--ra-muted)">{pkg.description}</p>
+
+                      <div className="mt-4 flex items-end justify-between gap-3 border-t border-(--ra-border)/70 pt-4">
+                        <div className="min-w-0">
+                          <div className="text-[11px] font-medium text-(--ra-muted)">{t('featuredPrograms.from')}</div>
+                          <div className="mt-0.5 flex items-baseline gap-1 text-xl font-extrabold leading-none text-(--ra-green) tabular-nums">
+                            {Number(pkg.price).toLocaleString('en-US')}
+                            <span className="text-xs font-bold text-(--ra-gold)">{t('featuredPrograms.currency')}</span>
+                          </div>
+                        </div>
+                        <Link
+                          to="/booking"
+                          className="inline-flex shrink-0 items-center gap-1.5 rounded-xl bg-(--ra-green) px-3.5 py-2.5 text-xs font-semibold text-white shadow-[0_8px_18px_-8px_rgba(6,51,39,0.6)] transition hover:bg-(--ra-green-2)"
+                        >
+                          {t('featuredPrograms.bookNow')}
+                          <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 rtl:hidden" aria-hidden="true" />
+                          <ArrowLeft className="hidden h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5 rtl:inline" aria-hidden="true" />
+                        </Link>
+                      </div>
                     </div>
-                    <div className="mt-auto flex items-end justify-between gap-3 border-t border-(--ra-border)/80 pt-4">
-                      <div className="text-lg font-bold tabular-nums text-(--ra-gold)">SAR {pkg.price}</div>
-                      <Link
-                        to="/booking"
-                        className="inline-flex shrink-0 items-center gap-1 rounded-xl border border-(--ra-green)/25 bg-(--ra-green)/5 px-3 py-2 text-xs font-semibold text-(--ra-green) transition hover:border-(--ra-green) hover:bg-(--ra-green) hover:text-white"
-                      >
-                        {t('featuredPrograms.viewDetails')}
-                        <ArrowRight className="h-3.5 w-3.5 rtl:hidden" aria-hidden="true" />
-                        <ArrowLeft className="hidden h-3.5 w-3.5 rtl:inline" aria-hidden="true" />
-                      </Link>
-                    </div>
-                  </div>
-                </article>
-              ))
+                  </article>
+                )
+              })
             )}
           </div>
         </div>
       </section>
 
       {/* Stats */}
-      <section className="relative -mx-4 overflow-hidden bg-(--ra-green) px-4 py-14 text-white sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-10 lg:py-16">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.09]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c6a04a' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
+      <section className="relative -mx-4 overflow-hidden bg-white px-4 py-16 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-10 lg:py-24">
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-[#fbf8f1] via-white to-[#f7f3ea]" aria-hidden="true" />
+        <img
+          src={STATS_BG}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="pointer-events-none absolute inset-y-0 right-0 h-full w-full object-cover object-right opacity-25 mask-[linear-gradient(to_left,black_45%,transparent)] lg:w-[32%] lg:opacity-100 xl:w-[36%]"
           aria-hidden="true"
         />
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-(--ra-gold)/50 to-transparent" aria-hidden="true" />
-        <div className="relative mx-auto grid max-w-6xl gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-          {[
-            { Icon: Globe, valueKey: 'stats.countries.value', labelKey: 'stats.countries.label' },
-            { Icon: Smile, valueKey: 'stats.satisfaction.value', labelKey: 'stats.satisfaction.label' },
-            { Icon: Award, valueKey: 'stats.experience.value', labelKey: 'stats.experience.label' },
-            { Icon: Users, valueKey: 'stats.pilgrims.value', labelKey: 'stats.pilgrims.label' },
-          ].map(({ Icon, valueKey, labelKey }) => (
-            <div key={labelKey} className="flex items-center gap-4 text-start">
-              <div className="grid h-16 w-16 shrink-0 place-items-center rounded-2xl border border-white/10 bg-white/10 text-(--ra-gold) shadow-inner backdrop-blur-sm">
-                <Icon className="h-8 w-8" aria-hidden="true" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-white to-transparent" aria-hidden="true" />
+        <div
+          className="pointer-events-none absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-(--ra-gold)/12 blur-3xl"
+          aria-hidden="true"
+        />
+
+        <div className="relative mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:gap-8 lg:pr-[26%] xl:gap-12 xl:pr-[30%] rtl:lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
+          <div className="text-start lg:order-2 rtl:lg:order-none">
+            <span className="inline-flex items-center gap-2 rounded-full border border-(--ra-gold)/30 bg-[#fbf3df] px-3.5 py-1 text-xs font-semibold text-(--ra-green) shadow-sm">
+              <span className="h-1.5 w-1.5 rounded-full bg-(--ra-gold)" aria-hidden="true" />
+              {t('stats.eyebrow')}
+            </span>
+            <h2 className="mt-5 text-balance text-3xl font-bold leading-tight tracking-tight text-(--ra-green) sm:text-4xl lg:text-3xl xl:text-[2.6rem]">
+              {t('stats.titleLead')}
+              <span className="block bg-linear-to-r from-[#b8893a] via-(--ra-gold) to-[#d9b56a] bg-clip-text text-transparent rtl:bg-linear-to-l">
+                {t('stats.titleAccent')}
+              </span>
+            </h2>
+            <p className="mt-4 max-w-md text-pretty text-sm leading-relaxed text-(--ra-muted) sm:text-base">{t('stats.subtitle')}</p>
+            <Link
+              to="/booking"
+              className="group/cta mt-8 inline-flex items-center gap-2 rounded-xl bg-(--ra-green) px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_-8px_rgba(6,51,39,0.5)] transition hover:bg-(--ra-green-2)"
+            >
+              {t('stats.cta')}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover/cta:translate-x-0.5 rtl:hidden" aria-hidden="true" />
+              <ArrowLeft className="hidden h-4 w-4 transition-transform group-hover/cta:-translate-x-0.5 rtl:inline" aria-hidden="true" />
+            </Link>
+          </div>
+
+          <div ref={statsRef} className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:order-1 rtl:lg:order-none">
+            {[
+              { Icon: Globe, key: 'countries' },
+              { Icon: Smile, key: 'satisfaction' },
+              { Icon: Award, key: 'experience' },
+              { Icon: Users, key: 'pilgrims' },
+            ].map(({ Icon, key }, i) => (
+              <div
+                key={key}
+                className={`transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+                  statsInView ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100'
+                }`}
+                style={{ transitionDelay: `${i * 100}ms` }}
+              >
+                <div className="group relative h-full overflow-hidden rounded-2xl border border-white bg-white/85 p-5 text-start shadow-[0_1px_2px_rgba(2,6,23,0.04),0_14px_36px_-14px_rgba(6,51,39,0.18)] ring-1 ring-(--ra-border)/70 backdrop-blur-md transition duration-300 hover:ring-(--ra-gold)/40 hover:shadow-[0_1px_2px_rgba(2,6,23,0.04),0_22px_48px_-14px_rgba(6,51,39,0.24)] motion-safe:hover:-translate-y-0.5 sm:p-6">
+                  <div className="pointer-events-none absolute bottom-0 flex h-20 items-end gap-1.5 opacity-[0.07] inset-e-6" aria-hidden="true">
+                    {STATS_BARS.map((h, b) => (
+                      <span key={b} className="w-2.5 rounded-t-sm bg-(--ra-green)" style={{ height: `${h}%` }} />
+                    ))}
+                  </div>
+
+                  <div className="relative flex items-start justify-between gap-3">
+                    <span className="grid h-12 w-12 place-items-center rounded-full bg-[#eef3ef] text-(--ra-green) ring-1 ring-(--ra-green)/10 transition duration-300 group-hover:bg-(--ra-gold)/15 group-hover:ring-(--ra-gold)/35">
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <div className="min-w-0 text-end">
+                      <span className="block text-[11px] font-semibold text-(--ra-muted)/70 tabular-nums" aria-hidden="true">
+                        0{i + 1}
+                      </span>
+                      <span className="mt-1 flex max-w-full items-center justify-end gap-1 text-[11px] font-medium text-(--ra-muted)" aria-hidden="true">
+                        <TrendingUp className="h-3 w-3 shrink-0 text-emerald-600 rtl:-scale-x-100" />
+                        <span className="truncate">{t(`stats.${key}.label`)}</span>
+                      </span>
+                    </div>
+                  </div>
+                  <div className="relative mt-5 text-4xl font-extrabold leading-none tracking-tight text-(--ra-green) tabular-nums sm:text-[2.6rem] lg:text-[2.1rem] xl:text-[2.6rem]">
+                    <CountUp value={t(`stats.${key}.value`)} start={statsInView} delayMs={i * 100 + 150} durationMs={2000} />
+                  </div>
+                  <span className="relative mt-3 block h-0.5 w-10 rounded-full bg-(--ra-gold)" aria-hidden="true" />
+                  <p className="relative mt-3 text-sm font-bold text-(--ra-black)">{t(`stats.${key}.label`)}</p>
+                  <p className="relative mt-1 text-xs leading-relaxed text-(--ra-muted)">{t(`stats.${key}.caption`)}</p>
+                  <span
+                    className={`absolute inset-x-0 bottom-0 h-0.5 origin-left bg-linear-to-r from-(--ra-gold) to-(--ra-gold)/0 transition-transform duration-1000 ease-out motion-reduce:transition-none rtl:origin-right rtl:bg-linear-to-l ${
+                      statsInView ? 'scale-x-100' : 'scale-x-0 motion-reduce:scale-x-100'
+                    }`}
+                    style={{ transitionDelay: `${i * 100 + 300}ms` }}
+                    aria-hidden="true"
+                  />
+                </div>
               </div>
-              <div>
-                <div className="text-2xl font-bold tabular-nums text-(--ra-gold) sm:text-3xl">{t(valueKey)}</div>
-                <div className="mt-1 text-sm font-medium leading-snug text-white/85">{t(labelKey)}</div>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Why choose us + video */}
       <section className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
-        <div className="relative order-1 overflow-hidden rounded-[22px] shadow-[0_28px_80px_rgba(2,6,23,0.14)] ring-1 ring-black/5 lg:order-2 rtl:lg:order-1">
-          <img
-            src={WHY_VIDEO_THUMB}
-            alt=""
-            loading="lazy"
-            decoding="async"
-            className="aspect-16/11 w-full bg-(--ra-bg) object-cover"
-            onError={(e) => {
-              if (e.currentTarget.src !== IMAGE_FALLBACK) e.currentTarget.src = IMAGE_FALLBACK
-            }}
+        <div className="relative order-1 pb-12 pe-6 sm:pe-12 lg:order-2 rtl:lg:order-1">
+          <div
+            className="pointer-events-none absolute -top-6 inset-e-0 h-40 w-40 bg-[radial-gradient(rgba(198,160,74,0.45)_1.5px,transparent_1.5px)] bg-size-[14px_14px]"
+            aria-hidden="true"
           />
-          <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/15 to-transparent" aria-hidden="true" />
-          <button
-            type="button"
-            className="absolute inset-s-1/2 top-1/2 flex h-[72px] w-[72px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-white/95 text-(--ra-green) shadow-[0_18px_50px_rgba(0,0,0,0.35)] backdrop-blur-md transition motion-safe:hover:scale-105"
-            aria-label={t('whyUs.videoAria')}
-          >
-            <Play className="h-8 w-8 translate-x-0.5" fill="currentColor" aria-hidden="true" />
-          </button>
-          <div className="absolute bottom-5 inset-s-5 inset-e-5 sm:inset-s-7 sm:inset-e-auto">
-            <span className="inline-flex items-center gap-2 rounded-xl bg-(--ra-green)/95 px-4 py-2.5 text-xs font-semibold text-white shadow-lg ring-1 ring-white/10 backdrop-blur sm:text-sm">
-              <Play className="h-3.5 w-3.5 opacity-90" aria-hidden="true" />
-              {t('whyUs.videoCta')}
+          <div className="relative overflow-hidden rounded-3xl shadow-[0_28px_70px_-20px_rgba(6,51,39,0.35)] ring-1 ring-black/5">
+            <img
+              src={WHY_MAIN_IMAGE}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="aspect-5/4 w-full bg-(--ra-bg) object-cover"
+              onError={(e) => {
+                if (e.currentTarget.src !== IMAGE_FALLBACK) e.currentTarget.src = IMAGE_FALLBACK
+              }}
+            />
+          </div>
+
+          <div className="absolute bottom-0 inset-e-0 w-[42%] overflow-hidden rounded-2xl border-4 border-white shadow-[0_20px_50px_-12px_rgba(6,51,39,0.4)]">
+            <img src={WHY_SECOND_IMAGE} alt="" loading="lazy" decoding="async" className="aspect-square w-full object-cover" />
+          </div>
+
+          <div className="absolute top-5 inset-s-5 flex items-center gap-3 rounded-2xl bg-white/95 p-3 pe-5 shadow-[0_16px_40px_-12px_rgba(2,6,23,0.3)] ring-1 ring-black/5 backdrop-blur-sm">
+            <span className="grid h-11 w-11 place-items-center rounded-xl bg-(--ra-gold)/15 text-(--ra-gold)">
+              <Award className="h-5 w-5" aria-hidden="true" />
             </span>
+            <div className="text-start leading-tight">
+              <div className="text-xl font-extrabold text-(--ra-green) tabular-nums">{t('stats.experience.value')}</div>
+              <div className="text-xs font-medium text-(--ra-muted)">{t('stats.experience.label')}</div>
+            </div>
+          </div>
+
+          <div className="absolute bottom-6 inset-s-5 flex items-center gap-3 rounded-2xl bg-(--ra-green) p-3 pe-5 text-white shadow-[0_16px_40px_-12px_rgba(6,51,39,0.6)] ring-1 ring-(--ra-gold)/25">
+            <span className="grid h-10 w-10 place-items-center rounded-xl bg-white/10 text-(--ra-gold)">
+              <Headphones className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <div className="text-sm font-bold">{t('valueProps.items.3.title')}</div>
           </div>
         </div>
 
@@ -350,12 +443,12 @@ export function HomePage() {
             ].map(({ Icon, titleKey, subtitleKey }) => (
               <div
                 key={titleKey}
-                className="rounded-2xl border border-(--ra-border) bg-white/90 p-4 shadow-[0_12px_34px_rgba(2,6,23,0.05)] ring-1 ring-white/60 backdrop-blur-sm transition motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-[0_18px_44px_rgba(2,6,23,0.08)]"
+                className="group rounded-2xl border border-(--ra-border) bg-white p-5 shadow-[0_1px_2px_rgba(2,6,23,0.04),0_12px_30px_-14px_rgba(6,51,39,0.14)] transition duration-300 hover:border-(--ra-gold)/40 motion-safe:hover:-translate-y-0.5"
               >
-                <div className="grid h-11 w-11 place-items-center rounded-xl bg-(--ra-green)/8 text-(--ra-green) ring-1 ring-(--ra-green)/10">
+                <div className="grid h-11 w-11 place-items-center rounded-full bg-[#eef3ef] text-(--ra-green) ring-1 ring-(--ra-green)/10 transition duration-300 group-hover:bg-(--ra-gold)/15 group-hover:ring-(--ra-gold)/35">
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </div>
-                <div className="mt-3 text-sm font-bold text-(--ra-green)">{t(titleKey)}</div>
+                <div className="mt-4 text-sm font-bold text-(--ra-black)">{t(titleKey)}</div>
                 <p className="mt-1 text-xs leading-relaxed text-(--ra-muted)">{t(subtitleKey)}</p>
               </div>
             ))}
@@ -365,51 +458,58 @@ export function HomePage() {
 
       {/* Destinations */}
       <section className="mx-auto max-w-6xl space-y-8">
-        <div className="text-start">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-(--ra-gold)">{t('destinations.eyebrow')}</p>
-          <h2 className="mt-2 text-3xl font-bold tracking-tight text-(--ra-green) sm:text-4xl">{t('destinations.title')}</h2>
-          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-(--ra-muted) sm:text-base">{t('destinations.subtitle')}</p>
-        </div>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {destinations.map((d) => (
-            <Link
-              key={d.nameKey}
-              to="/tourism"
-              className="group relative overflow-hidden rounded-[20px] border border-(--ra-border) bg-white shadow-[0_16px_44px_rgba(2,6,23,0.07)] ring-1 ring-black/5 transition motion-safe:hover:-translate-y-1 motion-safe:hover:shadow-[0_24px_60px_rgba(2,6,23,0.11)]"
-            >
-              <div className="relative aspect-4/3 overflow-hidden">
-                <img
-                  src={d.img}
-                  alt=""
-                  className="h-full w-full bg-(--ra-bg) object-cover motion-safe:transition-transform motion-safe:duration-500 group-hover:scale-[1.06]"
-                  onError={(e) => {
-                    if (e.currentTarget.src !== IMAGE_FALLBACK) e.currentTarget.src = IMAGE_FALLBACK
-                  }}
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" aria-hidden="true" />
-                <div className="absolute bottom-3 inset-s-3 inset-e-3">
-                  <div className="min-w-0 text-start text-white">
-                    <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-white/80">
-                      <MapPin className="h-3.5 w-3.5 shrink-0 text-(--ra-gold)" aria-hidden="true" />
-                      <span className="truncate">{t('destinations.eyebrow')}</span>
-                    </div>
-                    <div className="mt-1 truncate text-lg font-bold">{t(d.nameKey)}</div>
-                    <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-white/85">{t(d.descKey)}</p>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-        <div className="flex justify-center sm:justify-end">
+        <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+          <div className="text-start">
+            <span className="inline-flex items-center gap-2 rounded-full border border-(--ra-gold)/30 bg-[#fbf3df] px-3.5 py-1 text-xs font-semibold text-(--ra-green)">
+              <MapPin className="h-3.5 w-3.5 text-(--ra-gold)" aria-hidden="true" />
+              {t('destinations.eyebrow')}
+            </span>
+            <h2 className="mt-4 text-3xl font-bold tracking-tight text-(--ra-green) sm:text-4xl">{t('destinations.title')}</h2>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-(--ra-muted) sm:text-base">{t('destinations.subtitle')}</p>
+          </div>
           <Link
             to="/tourism"
-            className="inline-flex items-center gap-2 rounded-2xl bg-(--ra-green) px-6 py-3 text-sm font-semibold text-white shadow-[0_16px_40px_rgba(6,51,39,0.28)] transition motion-safe:hover:-translate-y-0.5 hover:bg-(--ra-green-2)"
+            className="inline-flex shrink-0 items-center gap-2 self-start rounded-2xl bg-(--ra-green) px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_28px_-10px_rgba(6,51,39,0.6)] transition hover:bg-(--ra-green-2) sm:self-auto"
           >
             {t('destinations.cta')}
             <ArrowRight className="h-4 w-4 rtl:hidden" aria-hidden="true" />
             <ArrowLeft className="hidden h-4 w-4 rtl:inline" aria-hidden="true" />
           </Link>
+        </div>
+
+        <div className="grid auto-rows-[220px] gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:auto-rows-[230px] lg:gap-5">
+          {destinations.map((d, i) => (
+            <Link
+              key={d.nameKey}
+              to="/tourism"
+              className={`group relative overflow-hidden rounded-3xl bg-(--ra-bg) shadow-[0_18px_44px_-18px_rgba(6,51,39,0.35)] ring-1 ring-black/5 ${DESTINATION_LAYOUT[i]}`}
+            >
+              <img
+                src={d.img}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-[1.05]"
+                onError={(e) => {
+                  if (e.currentTarget.src !== IMAGE_FALLBACK) e.currentTarget.src = IMAGE_FALLBACK
+                }}
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/30 via-45% to-transparent" aria-hidden="true" />
+
+              <span className="absolute top-4 inset-s-4 rounded-full bg-white/20 px-2.5 py-1 text-[11px] font-bold text-white ring-1 ring-white/30 backdrop-blur-md tabular-nums">
+                0{i + 1}
+              </span>
+
+              <span className="absolute top-4 inset-e-4 grid h-9 w-9 place-items-center rounded-full bg-white text-(--ra-green) shadow-lg transition duration-300 group-hover:bg-(--ra-gold) group-hover:text-white">
+                <ArrowUpRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />
+              </span>
+
+              <div className="absolute inset-x-0 bottom-0 p-5 text-start text-white sm:p-6">
+                <h3 className={`font-bold ${i === 0 ? 'text-2xl sm:text-3xl' : 'text-xl'}`}>{t(d.nameKey)}</h3>
+                <p className={`mt-1.5 text-sm leading-relaxed text-white/85 ${i === 0 ? 'max-w-sm' : 'line-clamp-2'}`}>{t(d.descKey)}</p>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 

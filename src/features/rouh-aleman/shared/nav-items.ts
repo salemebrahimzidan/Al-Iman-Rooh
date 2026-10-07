@@ -14,12 +14,11 @@ export const MAIN_NAV = [
   { to: '/', key: 'nav.home', shortKey: 'nav.home', tier: 'primary' },
   { to: '/umrah', key: 'nav.umrah', shortKey: 'nav.umrah', tier: 'primary' },
   { to: '/hajj', key: 'nav.hajj', shortKey: 'nav.hajj', tier: 'primary' },
-  { to: '/offers', key: 'nav.programs', shortKey: 'nav.offers', tier: 'primary' },
+  { to: '/tourism', key: 'nav.destinations', shortKey: 'nav.tourism', tier: 'primary' },
+  { to: '/flights', key: 'nav.flights', shortKey: 'nav.flights', tier: 'primary' },
   // —— More dropdown ——
-  { to: '/hotels', key: 'nav.services', shortKey: 'nav.hotels', tier: 'more' },
-  { to: '/tourism', key: 'nav.destinations', shortKey: 'nav.tourism', tier: 'more' },
-  { to: '/about', key: 'nav.about', shortKey: 'nav.aboutShort', tier: 'more' },
-  { to: '/contact', key: 'nav.contact', shortKey: 'nav.contactShort', tier: 'more' },
+  { to: '/about', key: 'nav.about', shortKey: 'nav.about', tier: 'more' },
+  { to: '/contact', key: 'nav.contact', shortKey: 'nav.contact', tier: 'more' },
 ] as const
 
 export const MAIN_NAV_PRIMARY = MAIN_NAV.filter((item) => item.tier === 'primary')

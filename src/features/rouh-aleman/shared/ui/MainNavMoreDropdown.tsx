@@ -1,13 +1,6 @@
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import {
-  Building2,
-  ChevronDown,
-  Compass,
-  Info,
-  Mail,
-  type LucideIcon,
-} from 'lucide-react'
+import { ChevronDown, Info, Mail, type LucideIcon } from 'lucide-react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { isMainNavMoreActive, MAIN_NAV_MORE, resolveMainNavLabelKey } from '../nav-items'
@@ -28,8 +21,6 @@ const VIEWPORT_PAD = 8
 const MENU_GAP = 8
 
 const MORE_NAV_ICONS: Record<string, LucideIcon> = {
-  '/hotels': Building2,
-  '/tourism': Compass,
   '/about': Info,
   '/contact': Mail,
 }
@@ -174,7 +165,7 @@ export function MainNavMoreDropdown({ compactLabels }: Props) {
       : null
 
   return (
-    <div className="relative shrink-0">
+    <div className="relative flex flex-auto">
       <button
         ref={buttonRef}
         type="button"
@@ -182,10 +173,7 @@ export function MainNavMoreDropdown({ compactLabels }: Props) {
         aria-haspopup="menu"
         aria-controls={menuId}
         onClick={() => setOpen((value) => !value)}
-        className={[
-          mainNavTabLinkClass(groupActive),
-          'inline-flex items-center gap-1',
-        ].join(' ')}
+        className={mainNavTabLinkClass(groupActive || open)}
       >
         {t('nav.more')}
         <ChevronDown

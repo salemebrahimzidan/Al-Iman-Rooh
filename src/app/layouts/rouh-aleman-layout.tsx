@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router-dom'
 import { useScrolled } from '../../features/rouh-aleman/shared/hooks/useScrolled'
-import { TopBar } from '../../features/rouh-aleman/shared/ui/TopBar'
 import { Navbar } from '../../features/rouh-aleman/shared/ui/Navbar'
 import { Footer } from '../../features/rouh-aleman/shared/ui/Footer'
 import { ToastProvider } from '../../features/rouh-aleman/shared/ui/Toast'
@@ -22,7 +21,6 @@ export function RouhAlemanLayout() {
             headerScrolled ? 'shadow-[0_10px_40px_rgba(11,15,20,0.08)]' : '',
           ].join(' ')}
         >
-          <TopBar />
           <Navbar scrolled={headerScrolled} />
         </header>
         <main className="relative w-full px-4 pt-0 sm:px-6 lg:px-8">
